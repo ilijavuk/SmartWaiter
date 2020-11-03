@@ -1,12 +1,11 @@
 package com.example.smartwaiter
 
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -18,7 +17,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setUpNavigation();
-
+        visibilityNavElements(navController)
     }
 
     private fun setUpNavigation() {
@@ -26,6 +25,16 @@ class MainActivity : AppCompatActivity() {
         navController = navHostFragment.findNavController()
 
         bottom_nav.setupWithNavController(navController)
+    }
+
+    private fun visibilityNavElements(navController: NavController) {
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            when (destination.id) {
+                R.id.homeFragment,
+                R.id.loginFragment -> bottom_nav?.visibility = View.GONE
+                else -> bottom_nav?.visibility = View.VISIBLE
+            }
+        }
     }
 
 }
