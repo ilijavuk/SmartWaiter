@@ -13,7 +13,12 @@ class HomeFragment : Fragment(R.layout.fragment_home){
         super.onViewCreated(view, savedInstanceState)
 
         btnLogin.setOnClickListener {
-             val action = HomeFragmentDirections.actionHomeFragmentToLoginFragment()
+             val action = HomeFragmentDirections.actionHomeFragmentToWelcomeFragment()
+            findNavController().navigate(action)
+        }
+
+        btnRegister.setOnClickListener {
+            val action = HomeFragmentDirections.actionHomeFragmentToRegisterFragment()
             findNavController().navigate(action)
         }
     }
