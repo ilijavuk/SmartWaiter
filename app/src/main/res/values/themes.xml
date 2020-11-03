@@ -16,4 +16,8 @@
         <item name="colorPrimary">@color/white</item>
         <item name="colorOnPrimary">@color/dark_red</item>
     </style>
+
+    <style name="EditText.LowOpacity" parent="ThemeOverlay.AppCompat">
+        <item name="colorOnPrimary">@color/white</item>
+    </style>
 </resources>

@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -9,5 +10,89 @@
     android:background="@drawable/ic_background_main"
     tools:context=".ui.register.RegisterFragment">
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="30dp"
+            android:text="Register now!"
+            android:textColor="@color/white"
+            android:textSize="25dp" />
 
+        <EditText
+            android:id="@+id/editText_firstName"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/ic_input_style_primary"
+            android:hint="First Name"
+            android:textColor="@color/white"
+            android:textColorHint="#A6FFFFFF" />
+
+        <EditText
+            android:id="@+id/editText_lastName"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/ic_input_style_primary"
+            android:hint="Last Name"
+            android:textColor="@color/white"
+            android:textColorHint="#A6FFFFFF"
+            android:theme="@style/EditText.LowOpacity" />
+
+        <EditText
+            android:id="@+id/editText_username"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/ic_input_style_primary"
+            android:hint="Username"
+            android:textColor="@color/white"
+            android:textColorHint="#A6FFFFFF"
+            android:theme="@style/EditText.LowOpacity" />
+
+        <EditText
+            android:id="@+id/editText_email"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/ic_input_style_primary"
+            android:hint="Email"
+            android:textColor="@color/white"
+            android:textColorHint="#A6FFFFFF"
+            android:theme="@style/EditText.LowOpacity" />
+
+        <EditText
+            android:id="@+id/editText_password"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/ic_input_style_primary"
+            android:hint="Password"
+            android:inputType="textPassword"
+            android:textColor="@color/white"
+            android:textColorHint="#A6FFFFFF"
+            android:theme="@style/EditText.LowOpacity" />
+
+        <EditText
+            android:id="@+id/editText_passwordRepeat"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_marginBottom="60dp"
+            android:background="@drawable/ic_input_style_primary"
+            android:hint="Repeat Password"
+            android:inputType="textPassword"
+            android:textColor="@color/white"
+            android:textColorHint="#A6FFFFFF"
+            android:theme="@style/EditText.LowOpacity" />
+
+
+        <Button
+            android:id="@+id/btnRegister"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="40dp"
+            android:background="@drawable/ic_button_style_primary"
+            android:text="Sign Up"
+            android:theme="@style/Button.White" />
 </LinearLayout>
