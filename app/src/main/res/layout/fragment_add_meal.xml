@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.add_meal.Add_mealFragment"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- TODO: Update blank fragment layout -->
+
+
+    <ImageView
+        android:id="@+id/imageViewMeal"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:src="@android:drawable/ic_menu_gallery"
+        android:layout_marginTop="20dp" />
+
+    <Button
+        android:id="@+id/btnChoosePhoto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/choose_a_photo"
+        android:layout_marginTop="20dp"/>
+
+    <EditText
+        android:id="@+id/textMealName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+
+        android:layout_marginTop="20dp"
+        android:hint="@string/name_of_the_item"/>
+
+    <EditText
+        android:id="@+id/textMealDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textMultiLine"
+
+        android:layout_marginTop="20dp"
+        android:hint="@string/description"/>
+
+    <EditText
+        android:id="@+id/textMealPrice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="numberDecimal"
+        android:layout_marginTop="20dp"
+        android:hint="@string/price"/>
+
+    <Button
+        android:id="@+id/btnAddItem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/add_item"
+        android:layout_marginTop="20dp"/>
+
+
+</LinearLayout>

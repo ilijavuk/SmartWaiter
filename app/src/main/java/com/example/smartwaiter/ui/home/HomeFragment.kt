@@ -17,8 +17,13 @@ class HomeFragment : Fragment(R.layout.fragment_home){
             findNavController().navigate(action)
         }
 
+
         btnRegister.setOnClickListener {
             val action = HomeFragmentDirections.actionHomeFragmentToRegisterFragment()
+            findNavController().navigate(action)
+        }
+        btnAddMeal.setOnClickListener {
+            val action = HomeFragmentDirections.actionHomeFragmentToAddMealFragment()
             findNavController().navigate(action)
         }
     }
