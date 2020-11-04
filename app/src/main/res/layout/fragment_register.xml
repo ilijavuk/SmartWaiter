@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,91 +8,118 @@
     android:padding="16dp"
     android:orientation="vertical"
     android:background="@drawable/ic_background_main"
-    tools:context=".ui.register.RegisterFragment">
+    tools:context=".ui.register.RegisterFragment"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin">
 
-        <TextView
-            android:layout_width="wrap_content"
+        <ScrollView
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="30dp"
-            android:text="Register now!"
-            android:textColor="@color/white"
-            android:textSize="25dp" />
+            android:id="@+id/scrollView"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:scrollbarThumbVertical="@null">
 
-        <EditText
-            android:id="@+id/editText_firstName"
-            android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:layout_marginBottom="20dp"
-            android:background="@drawable/ic_input_style_primary"
-            android:hint="First Name"
-            android:textColor="@color/white"
-            android:textColorHint="#A6FFFFFF" />
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
-        <EditText
-            android:id="@+id/editText_lastName"
-            android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:layout_marginBottom="20dp"
-            android:background="@drawable/ic_input_style_primary"
-            android:hint="Last Name"
-            android:textColor="@color/white"
-            android:textColorHint="#A6FFFFFF"
-            android:theme="@style/EditText.LowOpacity" />
+                        <TextView
+                            android:id="@+id/textView_registrirajSe"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentTop="true"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="30dp"
+                            android:text="Register now!"
+                            android:textColor="@color/white"
+                            android:textSize="25dp" />
 
-        <EditText
-            android:id="@+id/editText_username"
-            android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:layout_marginBottom="20dp"
-            android:background="@drawable/ic_input_style_primary"
-            android:hint="Username"
-            android:textColor="@color/white"
-            android:textColorHint="#A6FFFFFF"
-            android:theme="@style/EditText.LowOpacity" />
+                        <EditText
+                            android:id="@+id/editText_firstName"
+                            android:layout_width="match_parent"
+                            android:layout_height="55dp"
+                            android:layout_alignTop="@+id/textView_registrirajSe"
+                            android:layout_marginTop="90dp"
+                            android:background="@drawable/ic_input_style_primary"
+                            android:hint="First Name"
+                            android:textColor="@color/white"
+                            android:textColorHint="#A6FFFFFF" />
 
-        <EditText
-            android:id="@+id/editText_email"
-            android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:layout_marginBottom="20dp"
-            android:background="@drawable/ic_input_style_primary"
-            android:hint="Email"
-            android:textColor="@color/white"
-            android:textColorHint="#A6FFFFFF"
-            android:theme="@style/EditText.LowOpacity" />
+                        <EditText
+                            android:id="@+id/editText_lastName"
+                            android:layout_width="match_parent"
+                            android:layout_height="55dp"
+                            android:layout_marginTop="75dp"
+                            android:layout_alignTop="@id/editText_firstName"
+                            android:background="@drawable/ic_input_style_primary"
+                            android:hint="Last Name"
+                            android:textColor="@color/white"
+                            android:textColorHint="#A6FFFFFF"
+                            android:theme="@style/EditText.LowOpacity" />
 
-        <EditText
-            android:id="@+id/editText_password"
-            android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:layout_marginBottom="20dp"
-            android:background="@drawable/ic_input_style_primary"
-            android:hint="Password"
-            android:inputType="textPassword"
-            android:textColor="@color/white"
-            android:textColorHint="#A6FFFFFF"
-            android:theme="@style/EditText.LowOpacity" />
+                        <EditText
+                            android:id="@+id/editText_username"
+                            android:layout_width="match_parent"
+                            android:layout_height="55dp"
+                            android:layout_marginTop="75dp"
+                            android:layout_alignTop="@id/editText_lastName"
+                            android:background="@drawable/ic_input_style_primary"
+                            android:hint="Username"
+                            android:textColor="@color/white"
+                            android:textColorHint="#A6FFFFFF"
+                            android:theme="@style/EditText.LowOpacity" />
 
-        <EditText
-            android:id="@+id/editText_passwordRepeat"
-            android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:layout_marginBottom="60dp"
-            android:background="@drawable/ic_input_style_primary"
-            android:hint="Repeat Password"
-            android:inputType="textPassword"
-            android:textColor="@color/white"
-            android:textColorHint="#A6FFFFFF"
-            android:theme="@style/EditText.LowOpacity" />
+                        <EditText
+                            android:id="@+id/editText_email"
+                            android:layout_width="match_parent"
+                            android:layout_height="55dp"
+                            android:layout_marginTop="75dp"
+                            android:layout_alignTop="@id/editText_username"
+                            android:background="@drawable/ic_input_style_primary"
+                            android:hint="Email"
+                            android:textColor="@color/white"
+                            android:textColorHint="#A6FFFFFF"
+                            android:theme="@style/EditText.LowOpacity" />
 
+                        <EditText
+                            android:id="@+id/editText_password"
+                            android:layout_width="match_parent"
+                            android:layout_height="55dp"
+                            android:layout_marginTop="75dp"
+                            android:layout_alignTop="@id/editText_email"
+                            android:background="@drawable/ic_input_style_primary"
+                            android:hint="Password"
+                            android:inputType="textPassword"
+                            android:textColor="@color/white"
+                            android:textColorHint="#A6FFFFFF"
+                            android:theme="@style/EditText.LowOpacity" />
 
-        <Button
-            android:id="@+id/btnRegister"
-            android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="40dp"
-            android:background="@drawable/ic_button_style_primary"
-            android:text="Sign Up"
-            android:theme="@style/Button.White" />
-</LinearLayout>
+                        <EditText
+                            android:id="@+id/editText_passwordRepeat"
+                            android:layout_width="match_parent"
+                            android:layout_height="55dp"
+                            android:layout_marginTop="75dp"
+                            android:layout_alignTop="@id/editText_password"
+                            android:background="@drawable/ic_input_style_primary"
+                            android:hint="Repeat Password"
+                            android:inputType="textPassword"
+                            android:textColor="@color/white"
+                            android:textColorHint="#A6FFFFFF"
+                            android:theme="@style/EditText.LowOpacity" />
+
+                        <Button
+                            android:id="@+id/btnRegister"
+                            android:layout_width="match_parent"
+                            android:layout_height="55dp"
+                            android:layout_marginTop="120dp"
+                            android:layout_alignTop="@id/editText_passwordRepeat"
+                            android:background="@drawable/ic_button_style_primary"
+                            android:text="Sign Up"
+                            android:theme="@style/Button.White" />
+                </RelativeLayout>
+        </ScrollView>
+</RelativeLayout>
