@@ -41,8 +41,8 @@ public class Webservice {
         for(entry in argumeti){
             noviURL+="&"+entry.key+"="+entry.value
         }
-        //return URL(BASE_URL).readText()
-        return noviURL;
+        return URL(noviURL).readText()
+
 
     }
     

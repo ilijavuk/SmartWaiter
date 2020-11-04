@@ -21,16 +21,13 @@ class WelcomeFragment : Fragment(R.layout.fragment_welcome) {
 
             thread {
 
-
             }
-
-
 
         btnLogout.setOnClickListener {
             //val action = WelcomeFragmentDirections.actionWelcomeFragmentToHomeFragment()
             // findNavController().navigate(action)
 
-            val args= mutableMapOf<String,String>("ime" to "Dominik", "prezime" to "Tomsic")
+
 
 
             runBlocking <Unit>{//glavni thread chilla dok networking ne odradi svoje
@@ -42,6 +39,7 @@ class WelcomeFragment : Fragment(R.layout.fragment_welcome) {
                     var test=Webservice();
                     final=test.Korisnici()
                     Log.d("resp", test.Korisnici())
+                    val args= mutableMapOf<String,String>("ime" to "Dominik", "prezime" to "Tomsic")
                     Log.d("bilokoji", test.APICall("select", "Korisnik", args))
                 }
                 job.join()  //ovo će spojiti taj thread s glavnim kad odradi što treba
