@@ -35,7 +35,6 @@ class WelcomeFragment : Fragment(R.layout.fragment_welcome) {
                 var final="" //string u koji će se spremiti izvšena funkcija
                 val job= GlobalScope.launch { //ovo mora bit tako, to napravi korutinu, unutra radite sranja s webservisom
 
-
                     var test=Webservice();
                     final=test.Korisnici()
                     Log.d("resp", test.Korisnici())
