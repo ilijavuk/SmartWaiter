@@ -16,7 +16,6 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import com.example.smartwaiter.R
-import hr.foi.air.webservice.Webservice
 import kotlinx.android.synthetic.main.fragment_add_meal.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -46,26 +45,23 @@ class Add_mealFragment: Fragment(R.layout.fragment_add_meal) {
                 )
             }
             else{
-                /*
+
+
                 var path: String = imageViewMeal.getTag().toString()
-                Toast.makeText(activity, path, Toast.LENGTH_LONG).show()
-                val cR = requireContext().contentResolver
-                val mime = MimeTypeMap.getSingleton()
+
                 var myUri:Uri = parse(path)
-                path = myUri.toString()
-                Log.d("DAJ", path)
 
-                val type = mime.getExtensionFromMimeType(cR.getType(myUri))
-                var type2:String =""
-                if (type != null) {
-                    Log.d("PATH", type)
-                    type2 = type
-                }
                 path = path.substring(10)
-                Log.d("PATH", path)
+                //Log.d("PATH", path)
 
-                UploadUtility().uploadFile(path, type2)
-                */
+                var pathFromUri = URIPathHelper().getPath(requireContext(),myUri)
+                if (pathFromUri != null) {
+                    Log.d("PATH", pathFromUri)
+                }
+                if (pathFromUri != null) {
+                    UploadUtility().uploadFile(pathFromUri)
+                }
+                /*
                 var api: Webservice = Webservice()
                 var send=""
 
@@ -76,6 +72,8 @@ class Add_mealFragment: Fragment(R.layout.fragment_add_meal) {
                         add.APICall("insert","Stavka_jelovnika", args)
                     }
                 }
+
+                 */
 
 
             }
