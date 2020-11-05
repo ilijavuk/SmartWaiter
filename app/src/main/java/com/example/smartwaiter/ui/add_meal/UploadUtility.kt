@@ -14,7 +14,7 @@ class UploadUtility() {
 
 
     var serverURL: String = "https://vucko.net/sw-api/photo.php"
-    var serverUploadDirectoryPath: String = "https://vucko.net/sw-api"
+    var serverUploadDirectoryPath: String = "https://vucko.net/sw-api/uploads/"
     val client = OkHttpClient()
 
     fun uploadFile(sourceFilePath: String, uploadedFileName: String? = null) {
@@ -25,6 +25,11 @@ class UploadUtility() {
 
     fun uploadFile(sourceFile: File, uploadedFileName: String? = null) {
         Thread {
+            val fileSize=sourceFile.length()
+            val sizeInMb = fileSize / (1024.0 * 1024)
+
+            val sizeInMbStr = "%.2f".format(sizeInMb)
+            Log.d("file data", "Size=${sizeInMbStr}MB")
             val mimeType = getMimeType(sourceFile);
             if (mimeType == null) {
                 Log.e("file error", "Not able to get mime type")
@@ -41,7 +46,8 @@ class UploadUtility() {
                 val request: Request = Request.Builder().url(serverURL).post(requestBody).build()
 
                 val response: Response = client.newCall(request).execute()
-
+                var test:String = response.message
+                Log.d("File response", test)
                 if (response.isSuccessful) {
                     Log.d("File upload","success, path: $serverUploadDirectoryPath$fileName")
 

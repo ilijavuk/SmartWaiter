@@ -1,6 +1,7 @@
 package com.example.smartwaiter.ui.add_meal
 
 import android.app.Activity
+import android.content.ContentResolver
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
@@ -9,6 +10,7 @@ import android.os.Build
 import android.os.Bundle
 import android.os.VibrationEffect
 import android.os.Vibrator
+import android.provider.OpenableColumns
 import android.util.Log
 import android.view.View
 import android.webkit.MimeTypeMap
@@ -20,7 +22,7 @@ import kotlinx.android.synthetic.main.fragment_add_meal.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
-import java.io.File
+import java.io.*
 
 
 class Add_mealFragment: Fragment(R.layout.fragment_add_meal) {
@@ -51,16 +53,35 @@ class Add_mealFragment: Fragment(R.layout.fragment_add_meal) {
 
                 var myUri:Uri = parse(path)
 
-                path = path.substring(10)
-                //Log.d("PATH", path)
 
-                var pathFromUri = URIPathHelper().getPath(requireContext(),myUri)
-                if (pathFromUri != null) {
-                    Log.d("PATH", pathFromUri)
+                //Log.d("PATH", path)
+                val parcelFileDescriptor =
+                    context?.contentResolver?.openFileDescriptor(myUri, "r", null)
+
+                parcelFileDescriptor?.let {
+                    val inputStream = FileInputStream(parcelFileDescriptor.fileDescriptor)
+                    val file = File(context?.cacheDir, context?.contentResolver?.getFileName(myUri))
+                    val outputStream = FileOutputStream(file)
+                    inputStream.use { input ->
+                        outputStream.use { output ->
+                            input.copyTo(output)
+                        }
+                    }
+                    myUri = parse(file.absolutePath)
+                    var pathFromUri = URIPathHelper().getPath(requireContext(),myUri)
+                    imageViewMeal.setImageURI(myUri)
+                    Log.d("PATH", file.absolutePath)
+
+                    UploadUtility().uploadFile(file.absolutePath,"123.jpg")
+
+
+
                 }
-                if (pathFromUri != null) {
-                    UploadUtility().uploadFile(pathFromUri)
-                }
+
+
+
+
+
                 /*
                 var api: Webservice = Webservice()
                 var send=""
@@ -88,6 +109,22 @@ class Add_mealFragment: Fragment(R.layout.fragment_add_meal) {
         startActivityForResult(intent, REQUEST_CODE)
     }
 
+
+
+    fun ContentResolver.getFileName(fileUri: Uri): String {
+
+        var name = ""
+        val returnCursor = this.query(fileUri, null, null, null, null)
+        if (returnCursor != null) {
+            val nameIndex = returnCursor.getColumnIndex(OpenableColumns.DISPLAY_NAME)
+            returnCursor.moveToFirst()
+            name = returnCursor.getString(nameIndex)
+            returnCursor.close()
+        }
+
+        return name
+    }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_CODE){
@@ -96,7 +133,11 @@ class Add_mealFragment: Fragment(R.layout.fragment_add_meal) {
             var path=imageViewMeal.getTag().toString()
             Log.d("PATH", imageViewMeal.getTag().toString())
 
+
+
         }
 
+
     }
+
 }
