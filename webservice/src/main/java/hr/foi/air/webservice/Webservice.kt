@@ -8,7 +8,9 @@ import java.net.URL
 
 public class Webservice {
 
-    var BASE_URL="https://vucko.net/sw-api/api.php"
+    companion object{
+        var BASE_URL="https://vucko.net/sw-api/api.php"
+    }
 
     public fun Korisnici(): String {
         return URL("https://vucko.net/sw-api/api.php?metoda=select&tablica=Korisnik").readText();
@@ -42,7 +44,6 @@ public class Webservice {
             noviURL+="&"+entry.key+"="+entry.value
         }
         return URL(noviURL).readText()
-
 
     }
     
