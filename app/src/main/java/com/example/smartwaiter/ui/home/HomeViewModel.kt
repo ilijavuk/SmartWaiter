@@ -1,6 +1,5 @@
 package com.example.smartwaiter.ui.home
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -16,13 +15,13 @@ class HomeViewModel(
     val myResponse: MutableLiveData<Response<List<Korisnik>>> = MutableLiveData()
 
     fun getKorisnik(
-        tablica: String,
-        metoda: String,
+        table: String,
+        method: String,
         username: String,
         password: String
     ){
         viewModelScope.launch {
-            val response = repository.getKorisnik(metoda,tablica,username, password)
+            val response = repository.getKorisnik(table,method,username, password)
             myResponse.value = response
 
         }

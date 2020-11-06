@@ -9,9 +9,10 @@ interface AuthApi {
 
     @GET("sw-api/api.php")
     suspend fun getKorisnik(
-        @Query("metoda") metoda : String,
-        @Query("tablica") tablica : String,
+        @Query("tablica") table : String,
+        @Query("metoda") method : String,
         @Query("korisnicko_ime") username : String,
         @Query("lozinka_sha256") password : String
     ): Response<List<Korisnik>>
+
 }
