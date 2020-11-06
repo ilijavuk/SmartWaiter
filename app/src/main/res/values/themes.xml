@@ -17,7 +17,8 @@
         <item name="colorOnPrimary">@color/dark_red</item>
     </style>
 
-    <style name="EditText.LowOpacity" parent="ThemeOverlay.AppCompat">
+    <style name="Button.Facebook" parent="ThemeOverlay.AppCompat">
+        <item name="colorPrimary">@color/facebook_blue</item>
         <item name="colorOnPrimary">@color/white</item>
     </style>
 </resources>
