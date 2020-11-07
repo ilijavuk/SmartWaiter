@@ -13,15 +13,11 @@ import android.os.Vibrator
 import android.provider.OpenableColumns
 import android.util.Log
 import android.view.View
-import android.webkit.MimeTypeMap
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import com.example.smartwaiter.R
 import kotlinx.android.synthetic.main.fragment_add_meal.*
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 import java.io.*
 
 
@@ -72,7 +68,7 @@ class Add_mealFragment: Fragment(R.layout.fragment_add_meal) {
                     imageViewMeal.setImageURI(myUri)
                     Log.d("PATH", file.absolutePath)
 
-                    UploadUtility().uploadFile(file.absolutePath,"123.jpg")
+                    getActivity()?.let { it1 -> UploadUtility(it1).uploadFile(file.absolutePath) }
 
 
 
