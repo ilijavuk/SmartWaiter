@@ -14,4 +14,18 @@ class Repository {
     ): Response<List<Korisnik>>{
         return RetrofitInstance.api.getKorisnik(table, method, username, password)
     }
+
+    suspend fun RegisterKorisnik(
+        table: String,
+        method: String,
+        username: String,
+        firstName: String,
+        lastName: String,
+        email: String,
+        userType: String,
+        password: String
+    ){
+        return RetrofitInstance.api.RegisterKorisnik(table, method, username, firstName, lastName, email, userType, password)
+    }
+
 }
