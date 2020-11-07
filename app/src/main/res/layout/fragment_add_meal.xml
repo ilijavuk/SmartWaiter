@@ -15,7 +15,7 @@
         android:id="@+id/imageViewMeal"
         android:layout_width="match_parent"
         android:layout_height="300dp"
-        android:src="@android:drawable/ic_menu_gallery"
+        android:src="@drawable/meal_photo"
         android:layout_marginTop="20dp" />
 
     <Button

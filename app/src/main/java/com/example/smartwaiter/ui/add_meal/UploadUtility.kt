@@ -2,8 +2,6 @@ package com.example.smartwaiter.ui.add_meal
 
 
 import android.app.Activity
-import android.app.ProgressDialog
-import android.net.Uri
 import android.util.Log
 import android.webkit.MimeTypeMap
 import android.widget.Toast
@@ -20,7 +18,7 @@ import java.io.File
 class UploadUtility(activity: Activity) {
 
     var activity = activity;
-    var dialog: ProgressDialog? = null
+
     var serverURL: String = "https://vucko.net/sw-api/photo.php"
     var serverUploadDirectoryPath: String = "https://vucko.net/sw-api/uploads/"
     val client = OkHttpClient()
@@ -29,10 +27,6 @@ class UploadUtility(activity: Activity) {
         uploadFile(File(sourceFilePath), uploadedFileName)
     }
 
-    fun uploadFile(sourceFileUri: Uri, uploadedFileName: String? = null) {
-        val pathFromUri = URIPathHelper().getPath(activity, sourceFileUri)
-        uploadFile(File(pathFromUri), uploadedFileName)
-    }
 
     fun uploadFile(sourceFile: File, uploadedFileName: String? = null) {
         Thread {
@@ -43,7 +37,7 @@ class UploadUtility(activity: Activity) {
             }
 
             val fileName: String = if (uploadedFileName == null)  sourceFile.name else uploadedFileName
-            toggleProgressDialog(true)
+
             try {
                 val requestBody: RequestBody =
                     MultipartBody.Builder().setType(MultipartBody.FORM)
@@ -51,32 +45,22 @@ class UploadUtility(activity: Activity) {
                         .build()
 
                 val request: Request = Request.Builder().url(serverURL).post(requestBody).build()
-                /*val requestBody: RequestBody = MultipartBody.Builder()
-                    .setType(MultipartBody.FORM)
-                    .addFormDataPart("somParam", "someValue")
-                    .build()
-
-                val request: Request = Request.Builder()
-                    .url(serverURL)
-                    .post(requestBody)
-                    .build()
-                */
                 val response: Response = client.newCall(request).execute()
                 Log.d("File upload", response.toString())
                 if (response.isSuccessful) {
 
                     Log.d("File upload", "success, path: $serverUploadDirectoryPath$fileName")
-                    showToast("File uploaded successfully at $serverUploadDirectoryPath$fileName")
+                    //showToast("File uploaded successfully at $serverUploadDirectoryPath$fileName")
                 } else {
                     Log.e("File upload", "failed")
-                    showToast("File uploading failed")
+                    //showToast("File uploading failed")
                 }
             } catch (ex: Exception) {
                 ex.printStackTrace()
                 Log.e("File upload", "failed")
-                showToast("File uploading failed")
+                //showToast("File uploading failed")
             }
-            toggleProgressDialog(false)
+
         }.start()
 
     }
@@ -97,14 +81,5 @@ class UploadUtility(activity: Activity) {
         }
     }
 
-    fun toggleProgressDialog(show: Boolean) {
-        activity.runOnUiThread {
-            if (show) {
-                dialog = ProgressDialog.show(activity, "", "Uploading file...", true);
-            } else {
-                dialog?.dismiss();
-            }
-        }
-    }
 
 }
