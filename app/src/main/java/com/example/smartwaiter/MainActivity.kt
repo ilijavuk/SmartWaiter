@@ -2,7 +2,6 @@ package com.example.smartwaiter
 
 import android.os.Bundle
 import android.view.View
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
@@ -32,8 +31,8 @@ class MainActivity : AppCompatActivity() {
     private fun visibilityNavElements(navController: NavController) {
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
-                R.id.homeFragment,
-                R.id.registerFragment -> bottom_nav?.visibility = View.GONE
+                R.id.restaurantListFragment,
+                R.id.registerFragment -> bottom_nav?.visibility = View.VISIBLE
                 else -> bottom_nav?.visibility = View.VISIBLE
             }
         }
