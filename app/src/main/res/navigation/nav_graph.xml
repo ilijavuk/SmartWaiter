@@ -48,7 +48,35 @@
         android:id="@+id/registerFragment"
         android:name="com.example.smartwaiter.ui.register.RegisterFragment"
         android:label="fragment_register"
-        tools:layout="@layout/fragment_register" />
+        tools:layout="@layout/fragment_register" >
+        <action
+            android:id="@+id/action_registerFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/homeFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/restaurantListFragment"
+        android:name="com.example.smartwaiter.ui.restaurant_list.RestaurantList"
+        android:label="fragment_restaurant_list"
+        tools:layout="@layout/fragment_restaurant_list" >
+        <action
+            android:id="@+id/action_restaurantListFragment_to_addRestaurant"
+            app:destination="@id/addRestaurant"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/addRestaurant"
+        android:name="com.example.smartwaiter.ui.add_restaurant.AddRestaurant"
+        android:label="fragment_add_restaurant"
+        tools:layout="@layout/fragment_add_restaurant" >
+        <argument
+            android:name="id_lokal"
+            app:argType="integer" />
+    </fragment>
     <fragment
         android:id="@+id/add_mealFragment"
         android:name="com.example.smartwaiter.ui.add_meal.Add_mealFragment"
