@@ -25,10 +25,10 @@ class AddRestaurant : Fragment(R.layout.fragment_add_restaurant) {
         viewModel.myResponse.observe(viewLifecycleOwner, Observer {
             if (it != null) {
                 Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
-                true
+
             } else {
                 Toast.makeText(context, "Adding failed", Toast.LENGTH_SHORT).show()
-                false
+
             }
         })
 
