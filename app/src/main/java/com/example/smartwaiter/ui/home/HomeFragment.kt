@@ -48,6 +48,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             }
         }
 
+
         btnRegister.setOnClickListener {
             val action = HomeFragmentDirections.actionHomeFragmentToRegisterFragment()
             findNavController().navigate(action)
