@@ -27,13 +27,4 @@
         android:background="@drawable/ic_button_style_primary"
         android:theme="@style/Button.White" />
 
-    <Button
-        android:id="@+id/btnAddMeal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/ic_button_style_primary"
-        android:theme="@style/Button.White"
-        android:layout_marginTop="20dp"
-        android:text="@string/add_meal" />
-
 </LinearLayout>
