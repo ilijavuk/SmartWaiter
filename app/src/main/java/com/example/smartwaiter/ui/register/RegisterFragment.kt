@@ -30,6 +30,7 @@ import kotlinx.android.synthetic.main.fragment_welcome.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
+import okio.HashingSource
 import java.nio.charset.StandardCharsets
 import java.util.Objects.hash
 
@@ -55,9 +56,12 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
             val username = editText_username.text.toString().trim()
             val email = editText_email.text.toString().trim()
             val password = editText_password.text.toString().trim()
+
             val hashed = Hashing.sha256()
-                .hashString(password, StandardCharsets.UTF_8)
-                .toString();
+            .hashString(password, StandardCharsets.UTF_8)
+            .toString();
+
+
 
             viewModel.RegisterKorisnik(
                 table = "Korisnik", method = "insert", username,
