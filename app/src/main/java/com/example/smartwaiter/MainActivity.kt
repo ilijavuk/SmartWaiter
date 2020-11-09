@@ -31,8 +31,8 @@ class MainActivity : AppCompatActivity() {
     private fun visibilityNavElements(navController: NavController) {
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
-                R.id.restaurantListFragment,
-                R.id.registerFragment -> bottom_nav?.visibility = View.VISIBLE
+                R.id.homeFragment,
+                R.id.registerFragment -> bottom_nav?.visibility = View.GONE
                 else -> bottom_nav?.visibility = View.VISIBLE
             }
         }
