@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph_restaurant"
+    app:startDestination="@id/restaurantHomeFragment">
+
+    <fragment
+        android:id="@+id/restaurantHomeFragment"
+        android:name="com.example.smartwaiter.ui.restaurant.restaurant_home.RestaurantHomeFragment"
+        android:label="fragment_restaurant_home"
+        tools:layout="@layout/fragment_restaurant_home" />
+    <fragment
+        android:id="@+id/meniFragment"
+        android:name="com.example.smartwaiter.ui.restaurant.meni.MeniFragment"
+        android:label="fragment_meni"
+        tools:layout="@layout/fragment_meni" />
+    <fragment
+        android:id="@+id/restaurantProfilFragment"
+        android:name="com.example.smartwaiter.ui.restaurant.restaurant_profil.RestaurantProfilFragment"
+        android:label="fragment_restaurant_profil"
+        tools:layout="@layout/fragment_restaurant_profil" />
+</navigation>

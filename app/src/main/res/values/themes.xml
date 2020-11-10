@@ -12,12 +12,12 @@
         <!-- Customize your theme here. -->
     </style>
 
-    <style name="Button.White" parent="ThemeOverlay.AppCompat">
+    <style name="Button.White" parent="">
         <item name="colorPrimary">@color/white</item>
         <item name="colorOnPrimary">@color/dark_red</item>
     </style>
 
-    <style name="Button.Facebook" parent="ThemeOverlay.AppCompat">
+    <style name="Button.Facebook" parent="">
         <item name="colorPrimary">@color/facebook_blue</item>
         <item name="colorOnPrimary">@color/white</item>
     </style>

@@ -1,4 +1,4 @@
-package com.example.smartwaiter.ui.register
+package com.example.smartwaiter.ui.auth.register
 
 
 import androidx.fragment.app.Fragment

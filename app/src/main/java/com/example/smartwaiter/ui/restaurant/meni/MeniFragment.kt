@@ -1,4 +1,4 @@
-package com.example.smartwaiter.ui.meni
+package com.example.smartwaiter.ui.restaurant.meni
 
 import androidx.fragment.app.Fragment
 import com.example.smartwaiter.R
