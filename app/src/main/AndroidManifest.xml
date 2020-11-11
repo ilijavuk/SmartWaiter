@@ -27,7 +27,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ui.auth.MainActivity"></activity>
+        <activity android:name=".ui.auth.MainActivity" />
         <activity android:name=".ui.restaurant.RestaurantActivity" />
     </application>
 

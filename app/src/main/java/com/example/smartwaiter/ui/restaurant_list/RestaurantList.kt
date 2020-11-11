@@ -14,7 +14,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.smartwaiter.R
-import com.example.smartwaiter.repository.Repository
+import com.example.smartwaiter.repository.AddRestaurantRepository
 import hr.foi.air.webservice.model.Restoran
 import kotlinx.android.synthetic.main.fragment_restaurant_list.*
 
@@ -28,7 +28,7 @@ class RestaurantList : Fragment(R.layout.fragment_restaurant_list) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val repository = Repository()
+        val repository = AddRestaurantRepository()
         val viewModelFactory = RestaurantListModelFactory(repository)
         viewModel = ViewModelProvider(this, viewModelFactory).get(RestaurantListViewModel::class.java)
 

@@ -16,17 +16,12 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.smartwaiter.R
-import com.example.smartwaiter.repository.Repository
-import com.example.smartwaiter.ui.home.HomeFragmentDirections
-import com.example.smartwaiter.ui.home.HomeViewModel
-import com.example.smartwaiter.ui.home.HomeViewModelFactory
+import com.example.smartwaiter.repository.RegisterRepository
 import com.google.common.hash.Hashing
-
 import hr.foi.air.webservice.Webservice
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_register.*
 import kotlinx.android.synthetic.main.fragment_register.btnRegister
-import kotlinx.android.synthetic.main.fragment_welcome.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
@@ -42,7 +37,7 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val repository = Repository()
+        val repository = RegisterRepository()
         val viewModelFactory = RegisterViewModelFactory(repository)
 
         viewModel = ViewModelProvider(this, viewModelFactory).get(RegisterViewModel::class.java)
@@ -69,7 +64,6 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
             )
 
             Toast.makeText(context, "Register Success", Toast.LENGTH_SHORT).show()
-
             val action = RegisterFragmentDirections.actionRegisterFragmentToHomeFragment()
             findNavController().navigate(action)
         }

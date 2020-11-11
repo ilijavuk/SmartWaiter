@@ -1,15 +1,12 @@
-package com.example.smartwaiter.ui.register
+package com.example.smartwaiter.ui.auth.register
 
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.smartwaiter.repository.Repository
-import hr.foi.air.webservice.model.Korisnik
+import com.example.smartwaiter.repository.RegisterRepository
 import kotlinx.coroutines.launch
-import retrofit2.Response
 
 class RegisterViewModel(
-    private val repository: Repository
+    private val repository: RegisterRepository
 ) : ViewModel(){
 
     fun RegisterKorisnik(

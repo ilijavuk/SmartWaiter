@@ -1,24 +1,23 @@
 package com.example.smartwaiter.ui.add_restaurant
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.smartwaiter.R
-import com.example.smartwaiter.repository.Repository
+import com.example.smartwaiter.repository.AddRestaurantRepository
 import kotlinx.android.synthetic.main.fragment_add_restaurant.*
 
-class AddRestaurant : Fragment(R.layout.fragment_add_restaurant) {
+class AddRestaurantFragment : Fragment(R.layout.fragment_add_restaurant) {
 
     private lateinit var viewModel: AddRestaurantViewModel
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val repository = Repository()
+        val repository = AddRestaurantRepository()
         val viewModelFactory = AddRestaurantModelFactory(repository)
         viewModel = ViewModelProvider(this, viewModelFactory).get(AddRestaurantViewModel::class.java)
 
