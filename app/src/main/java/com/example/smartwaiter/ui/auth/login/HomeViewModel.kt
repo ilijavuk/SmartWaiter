@@ -1,5 +1,6 @@
 package com.example.smartwaiter.ui.auth.login
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -12,7 +13,11 @@ class HomeViewModel(
     private val authRepository: AuthRepository
 ) : ViewModel() {
 
-    val myResponse: MutableLiveData<Response<List<Korisnik>>> = MutableLiveData()
+
+    private val _myResponse: MutableLiveData<Response<List<Korisnik>>> = MutableLiveData()
+    val myResponse: LiveData<Response<List<Korisnik>>>
+        get() =  _myResponse
+
 
     fun getKorisnik(
         table: String,
@@ -22,7 +27,7 @@ class HomeViewModel(
     ){
         viewModelScope.launch {
             val response = authRepository.getKorisnik(table,method,username, password)
-            myResponse.value = response
+            _myResponse.value = response
         }
     }
 
