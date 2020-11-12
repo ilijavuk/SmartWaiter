@@ -1,4 +1,4 @@
-package com.example.smartwaiter.ui.add_meal
+package com.example.smartwaiter.ui.restaurant.add_meal
 
 import android.app.Activity
 import android.content.ContentResolver

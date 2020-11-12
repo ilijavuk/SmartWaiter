@@ -1,4 +1,4 @@
-package com.example.smartwaiter.ui.add_restaurant
+package com.example.smartwaiter.ui.restaurant.add_restaurant
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

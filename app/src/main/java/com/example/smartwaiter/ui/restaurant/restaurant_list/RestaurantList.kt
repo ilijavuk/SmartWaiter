@@ -1,4 +1,4 @@
-package com.example.smartwaiter.ui.restaurant_list
+package com.example.smartwaiter.ui.restaurant.restaurant_list
 
 import android.content.Intent
 import android.os.Bundle

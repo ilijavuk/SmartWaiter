@@ -1,4 +1,4 @@
-package com.example.smartwaiter.ui.restaurant_list
+package com.example.smartwaiter.ui.restaurant.restaurant_list
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
