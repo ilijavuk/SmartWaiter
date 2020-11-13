@@ -35,4 +35,8 @@ class HomeViewModel(
         authRepository.saveAuthToken(token)
     }
 
+    suspend fun saveUserType(userType: String){
+        authRepository.saveUserType(userType)
+    }
+
 }

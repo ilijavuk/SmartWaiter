@@ -25,9 +25,20 @@ class UserPreferences(
         preferences[KEY_AUTH]
     }
 
+    val userType: Flow<String?>
+        get() = dataStore.data.map { preferences ->
+            preferences[USER_TYPE]
+        }
+
     suspend fun saveAuthToken(authToken: String) {
         dataStore.edit { preferences ->
             preferences[KEY_AUTH] = authToken
+        }
+    }
+
+    suspend fun saveUserType(userType: String) {
+        dataStore.edit { preferences ->
+            preferences[USER_TYPE] = userType
         }
     }
 
@@ -39,6 +50,7 @@ class UserPreferences(
 
     companion object {
         private val KEY_AUTH = preferencesKey<String>("key_auth")
+        private val USER_TYPE = preferencesKey<String>("type_user")
     }
 
 

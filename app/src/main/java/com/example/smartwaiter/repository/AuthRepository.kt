@@ -22,6 +22,10 @@ class AuthRepository(
         preferences.saveAuthToken(token)
     }
 
+    suspend fun saveUserType(userType: String){
+        preferences.saveUserType(userType)
+    }
+
 }
 
 

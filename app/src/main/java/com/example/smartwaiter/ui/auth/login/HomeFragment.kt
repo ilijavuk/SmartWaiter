@@ -48,6 +48,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                 Log.d("Response", it.body().toString())
                 lifecycleScope.launch {
                     viewModel.saveAuthToken(it.body()!![0].korisnicko_ime)
+                    viewModel.saveUserType(it.body()!![0].tip_korisnika_id)
                     requireActivity().startNewActivity(RestaurantActivity::class.java)
                 }
             }
