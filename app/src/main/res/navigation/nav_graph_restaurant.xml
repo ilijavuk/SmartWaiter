@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph_restaurant"
+    app:startDestination="@id/restaurantHomeFragment">
+
+    <fragment
+        android:id="@+id/add_mealFragment"
+        android:name="com.example.smartwaiter.ui.restaurant.add_meal.Add_mealFragment"
+        android:label="fragment_add_meal"
+        tools:layout="@layout/fragment_add_meal" />
+    <fragment
+        android:id="@+id/restaurantListFragment"
+        android:name="com.example.smartwaiter.ui.restaurant.restaurant_list.RestaurantList"
+        android:label="fragment_restaurant_list"
+        tools:layout="@layout/fragment_restaurant_list">
+        <action
+            android:id="@+id/action_restaurantListFragment_to_addRestaurant"
+            app:destination="@id/addRestaurant"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/addRestaurant"
+        android:name="com.example.smartwaiter.ui.restaurant.add_restaurant.AddRestaurantFragment"
+        android:label="fragment_add_restaurant"
+        tools:layout="@layout/fragment_add_restaurant">
+        <argument
+            android:name="id_lokal"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/restaurantHomeFragment"
+        android:name="com.example.smartwaiter.ui.restaurant.restaurant_home.RestaurantHomeFragment"
+        android:label="fragment_restaurant_home"
+        tools:layout="@layout/fragment_restaurant_home" />
+    <fragment
+        android:id="@+id/meniFragment"
+        android:name="com.example.smartwaiter.ui.restaurant.meni.MeniFragment"
+        android:label="fragment_meni"
+        tools:layout="@layout/fragment_meni" />
+    <fragment
+        android:id="@+id/restaurantProfilFragment"
+        android:name="com.example.smartwaiter.ui.restaurant.restaurant_profil.RestaurantProfilFragment"
+        android:label="fragment_restaurant_profil"
+        tools:layout="@layout/fragment_restaurant_profil" />
+</navigation>

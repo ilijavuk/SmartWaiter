@@ -17,7 +17,7 @@ interface AuthApi {
         @Query("lozinka_sha256") password : String
     ): Response<List<Korisnik>>
 
-    @GET("sw-api/api.php")
+   @GET("sw-api/api.php")
     suspend fun getRestorani(
         @Query("tablica") table : String,
         @Query("metoda") method : String,

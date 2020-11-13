@@ -8,5 +8,6 @@ data class Korisnik (
         val prezime: String,
         val korisnicko_ime: String,
         val email: String,
-        val lozinka_sha256: String
+        val lozinka_sha256: String,
+        val token: String
 )
