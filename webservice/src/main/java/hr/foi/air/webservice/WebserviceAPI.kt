@@ -7,7 +7,7 @@ import retrofit2.http.GET
 import retrofit2.http.PUT
 import retrofit2.http.Query
 
-interface AuthApi {
+interface WebserviceAPI {
 
     @GET("sw-api/api.php")
     suspend fun getKorisnik(
@@ -50,5 +50,14 @@ interface AuthApi {
         @Query("tablica") table : String,
         @Query("metoda") method : String,
         @Query("korisnicko_ime") username : String,
+        @Query("operator") operator : String,
+        @Query("email") email : String
     ): Response<List<Korisnik>>
+
+    /*@GET("sw-api/api.php")
+    suspend fun getEmail(
+        @Query("tablica") table : String,
+        @Query("metoda") method : String,
+        @Query("email") email : String
+    ): Response<List<Korisnik>>*/
 }

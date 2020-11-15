@@ -23,7 +23,7 @@ object RetrofitInstance {
             .build()
     }
 
-    val api: AuthApi by lazy {
-        retrofit.create(AuthApi::class.java)
+    val api: WebserviceAPI by lazy {
+        retrofit.create(WebserviceAPI::class.java)
     }
 }
