@@ -1,7 +1,6 @@
 package com.example.smartwaiter.repository
 
 import com.example.database.UserPreferences
-import hr.foi.air.webservice.AuthApi
 import hr.foi.air.webservice.RetrofitInstance
 
 

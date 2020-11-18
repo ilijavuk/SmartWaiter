@@ -17,7 +17,8 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.SmartWaiter">
+        android:theme="@style/Theme.SmartWaiter"
+        android:windowSoftInputMode="adjustResize|stateHidden">
         
         <activity android:name=".ui.splash.SplashScreenActivity" android:label="@string/app_name">
             <intent-filter>
@@ -26,7 +27,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity android:name=".ui.auth.MainActivity" />
         <activity android:name=".ui.restaurant.RestaurantActivity" />
     </application>

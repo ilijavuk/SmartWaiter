@@ -1,16 +1,11 @@
 package com.example.smartwaiter.ui.auth.register
 
 
-import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.View
-import android.widget.Button
 import android.widget.Toast
-import androidx.core.util.ObjectsCompat.hash
-import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -18,16 +13,9 @@ import androidx.navigation.fragment.findNavController
 import com.example.smartwaiter.R
 import com.example.smartwaiter.repository.RegisterRepository
 import com.google.common.hash.Hashing
-import hr.foi.air.webservice.Webservice
-import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_register.*
 import kotlinx.android.synthetic.main.fragment_register.btnRegister
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
-import okio.HashingSource
 import java.nio.charset.StandardCharsets
-import java.util.Objects.hash
 
 
 class RegisterFragment : Fragment(R.layout.fragment_register) {
@@ -45,27 +33,41 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
         addTextWatcherFun()
         validationCheck()
 
+        val usernameField = editText_username
+        val emailField = editText_email
+
+        viewModel.myResponseUsername.observe(viewLifecycleOwner, Observer {
+            if (it.isSuccessful && it.body() != null) {
+                it.body()!!.forEach {
+                    if (it.korisnicko_ime == usernameField.text.toString()
+                            .trim() && it.email != emailField.text.toString().trim()
+                    ) {
+                        usernameField.error = "Username exists"
+                    } else if (it.email == emailField.text.toString()
+                            .trim() && it.korisnicko_ime != usernameField.toString().trim()
+                    ) {
+                        emailField.error = "Email exists"
+                    } else {
+                        usernameField.error = "Username exists"
+                        emailField.error = "Email exists"
+                    }
+                }
+            } else {
+                RegisterSuccess()
+            }
+
+        })
+
         btnRegister.setOnClickListener {
-            val firstName = editText_firstName.text.toString().trim()
-            val lastName = editText_lastName.text.toString().trim()
             val username = editText_username.text.toString().trim()
             val email = editText_email.text.toString().trim()
-            val password = editText_password.text.toString().trim()
-
-            val hashed = Hashing.sha256()
-            .hashString(password, StandardCharsets.UTF_8)
-            .toString();
-
-
-
-            viewModel.RegisterKorisnik(
-                table = "Korisnik", method = "insert", username,
-                firstName, lastName, email, "1", hashed
+            viewModel.getUsername(
+                table = "Korisnik",
+                method = "select",
+                username = username,
+                operator = "or",
+                email = email
             )
-
-            Toast.makeText(context, "Register Success", Toast.LENGTH_SHORT).show()
-            val action = RegisterFragmentDirections.actionRegisterFragmentToHomeFragment()
-            findNavController().navigate(action)
         }
     }
 
@@ -113,5 +115,27 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
             btnRegister.isEnabled = false
         else
             btnRegister.isEnabled = true
+    }
+
+    private fun RegisterSuccess() {
+        val firstName = editText_firstName.text.toString().trim()
+        val lastName = editText_lastName.text.toString().trim()
+        val username = editText_username.text.toString().trim()
+        val email = editText_email.text.toString().trim()
+        val password = editText_password.text.toString().trim()
+        val hashed = Hashing.sha256().hashString(password, StandardCharsets.UTF_8).toString();
+        viewModel.RegisterKorisnik(
+            table = "Korisnik",
+            method = "insert",
+            username,
+            firstName,
+            lastName,
+            email,
+            "1",
+            hashed
+        )
+        Toast.makeText(context, "Register Success", Toast.LENGTH_SHORT).show()
+        val action = RegisterFragmentDirections.actionRegisterFragmentToHomeFragment()
+        findNavController().navigate(action)
     }
 }
