@@ -11,8 +11,16 @@ interface WebserviceAPI {
 
     @GET("sw-api/api.php")
     suspend fun getKorisnik(
-        @Query("tablica") table : String,
-        @Query("metoda") method : String,
+        @Query("tablica") table: String,
+        @Query("metoda") method: String,
+        @Query("korisnicko_ime") username: String,
+        @Query("lozinka_sha256") password: String
+    ): List<Korisnik>
+
+    @GET("sw-api/api.php")
+    suspend fun getRestorani(
+        @Query("tablica") table: String,
+        @Query("metoda") method: String,
         @Query("korisnicko_ime") username : String,
         @Query("lozinka_sha256") password : String
     ): Response<List<Korisnik>>
