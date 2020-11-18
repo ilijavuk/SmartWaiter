@@ -51,4 +51,16 @@ interface AuthApi {
         @Query("metoda") method : String,
         @Query("korisnicko_ime") username : String,
     ): Response<List<Korisnik>>
+
+    @GET("sw-api/api.php")
+    suspend fun insertMeal(
+        @Query("tablica") table : String,
+        @Query("metoda") method : String,
+        @Query("naziv") mealName: String,
+        @Query("cijena") mealPrice: String,
+        @Query("opis") mealDescription: String,
+        @Query("slika_path") mealPhotoPath: String,
+        @Query("lokal_id") lokalId: String
+
+    ): Response<String>
 }

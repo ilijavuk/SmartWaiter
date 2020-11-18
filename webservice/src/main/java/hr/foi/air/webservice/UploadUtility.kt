@@ -1,21 +1,23 @@
-package com.example.smartwaiter.ui.restaurant.add_meal
+package hr.foi.air.webservice
 
 
 import android.app.Activity
 import android.util.Log
 import android.webkit.MimeTypeMap
 import android.widget.Toast
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.Response
 import java.io.File
 
 
 class UploadUtility(activity: Activity) {
 
-    /*var activity = activity;
+    var activity = activity;
 
     var serverURL: String = "https://vucko.net/sw-api/photo.php"
     var serverUploadDirectoryPath: String = "https://vucko.net/sw-api/uploads/"
@@ -78,6 +80,6 @@ class UploadUtility(activity: Activity) {
             Toast.makeText(activity, message, Toast.LENGTH_LONG).show()
         }
     }
-*/
+
 
 }

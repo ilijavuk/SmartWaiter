@@ -23,7 +23,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/choose_a_photo"
-        android:layout_marginTop="20dp"/>
+        android:layout_marginTop="20dp"
+        android:background="@drawable/ic_button_style_primary"/>
 
     <EditText
         android:id="@+id/textMealName"
@@ -31,9 +32,9 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName"
-
         android:layout_marginTop="20dp"
-        android:hint="@string/name_of_the_item"/>
+        android:hint="@string/name_of_the_item"
+        android:background="@drawable/rounded_edit_text"/>
 
     <EditText
         android:id="@+id/textMealDescription"
@@ -43,7 +44,8 @@
         android:inputType="textMultiLine"
 
         android:layout_marginTop="20dp"
-        android:hint="@string/description"/>
+        android:hint="@string/description"
+        android:background="@drawable/rounded_edit_text"/>
 
     <EditText
         android:id="@+id/textMealPrice"
@@ -52,14 +54,16 @@
         android:ems="10"
         android:inputType="numberDecimal"
         android:layout_marginTop="20dp"
-        android:hint="@string/price"/>
+        android:hint="@string/price"
+        android:background="@drawable/rounded_edit_text"/>
 
     <Button
         android:id="@+id/btnAddItem"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/add_item"
-        android:layout_marginTop="20dp"/>
+        android:layout_marginTop="20dp"
+        android:background="@drawable/ic_button_style_primary"/>
 
 
 </LinearLayout>
