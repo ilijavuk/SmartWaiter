@@ -24,7 +24,9 @@ class RegisterRepository {
         table: String,
         method: String,
         username: String,
+        operator: String,
+        email: String
     ): Response<List<Korisnik>> {
-        return RetrofitInstance.api.getUsername(table, method, username)
+        return RetrofitInstance.api.getUsername(table, method, username, operator, email)
     }
 }

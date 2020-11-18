@@ -2,10 +2,14 @@ package com.example.smartwaiter.ui.restaurant
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
+import androidx.lifecycle.Observer
+import androidx.lifecycle.asLiveData
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
+import com.example.database.UserPreferences
 import com.example.smartwaiter.R
 import kotlinx.android.synthetic.main.activity_restoran.*
 
