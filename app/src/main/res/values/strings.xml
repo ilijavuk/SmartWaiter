@@ -7,9 +7,9 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="add_meal">Add Meal</string>
     <string name="choose_a_photo">Choose a photo</string>
-    <string name="name_of_the_item">Name of the item</string>
-    <string name="price">Price</string>
-    <string name="description">Description</string>
+    <string name="name_of_the_item"> Name of the item</string>
+    <string name="price"> Price</string>
+    <string name="description"> Description</string>
     <string name="add_item">Add item</string>
     <string name="Toast_please_fill">Please fill in all the fields!</string>
     <string name="itemadded">The item has been added to the menu</string>
