@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:gravity="center"
-    tools:context=".ui.restaurant.meni.MeniFragment">
+    tools:context=".ui.restaurant.menu.MenuFragment">
 
     <TextView
         android:layout_width="wrap_content"

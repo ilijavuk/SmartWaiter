@@ -1,6 +1,7 @@
 package hr.foi.air.webservice
 
 import hr.foi.air.webservice.model.Korisnik
+import hr.foi.air.webservice.model.Meal
 import hr.foi.air.webservice.model.Restoran
 import retrofit2.Response
 import retrofit2.http.GET
@@ -72,7 +73,15 @@ interface WebserviceAPI {
         @Query("slika_path") mealPhotoPath: String,
         @Query("lokal_id") lokalId: String
 
+
     ): Response<String>
+
+    @GET("sw-api/api.php")
+    suspend fun getMeal(
+        @Query("tablica") table : String,
+        @Query("metoda") method : String,
+        @Query("lokal_id") lokal_id: String
+    ): Response<List<Meal>>
     /*@GET("sw-api/api.php")
     suspend fun getEmail(
         @Query("tablica") table : String,
