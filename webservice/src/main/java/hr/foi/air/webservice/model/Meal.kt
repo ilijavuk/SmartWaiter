@@ -6,5 +6,6 @@ package hr.foi.air.webservice.model
      val cijena: String,
      val opis: String,
      val slika_path: String,
-     val lokal_id: String
+     val lokal_id: String,
+     val aktivno: Int
  )

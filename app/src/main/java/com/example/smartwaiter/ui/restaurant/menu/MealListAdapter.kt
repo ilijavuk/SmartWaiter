@@ -16,6 +16,7 @@ class MealListAdapter (private val list: List<Meal>)
     override fun onBindViewHolder(holder: MealViewHolder, position: Int) {
         val movie: Meal = list[position]
         holder.bind(movie)
+
     }
 
     override fun getItemCount(): Int = list.size

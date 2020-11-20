@@ -26,4 +26,12 @@ class Add_mealRepository {
     ): Response<List<Meal>> {
         return RetrofitInstance.api.getMeal(table, method, lokal_id)
     }
+    suspend fun setMealAvailability(
+        table: String,
+        method: String,
+        mealId: String,
+        available: String,
+    ): Response<String> {
+        return RetrofitInstance.api.setMealAvailability(table, method, mealId, available)
+    }
 }

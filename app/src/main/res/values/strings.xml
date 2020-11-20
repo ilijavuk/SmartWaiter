@@ -13,4 +13,7 @@
     <string name="add_item">Add item</string>
     <string name="Toast_please_fill">Please fill in all the fields!</string>
     <string name="itemadded">The item has been added to the menu</string>
+    <string name="dostupno">Dostupno:</string>
+    <string name="uredi">Uredi</string>
+    <string name="naru_i">Naruči</string>
 </resources>

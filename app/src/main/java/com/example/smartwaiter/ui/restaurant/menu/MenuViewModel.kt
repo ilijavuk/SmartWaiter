@@ -12,6 +12,7 @@ import retrofit2.Response
 class MenuViewModel(private val repository: Add_mealRepository) : ViewModel()
 {
     val myResponse: MutableLiveData<Response<List<Meal>>> = MutableLiveData()
+    val myResponse2: MutableLiveData<Response<String>> = MutableLiveData()
 
     fun getMeal(
         table: String,
@@ -21,6 +22,17 @@ class MenuViewModel(private val repository: Add_mealRepository) : ViewModel()
         viewModelScope.launch {
             val response = repository.getMeal(table,method, lokal_id)
             myResponse.value = response
+        }
+    }
+    fun setMealAvailability(
+        table: String,
+        method: String,
+        mealId: String,
+        available: String,
+    ){
+        viewModelScope.launch {
+            val response = repository.setMealAvailability(table,method, mealId, available)
+            myResponse2.value = response
         }
     }
 }

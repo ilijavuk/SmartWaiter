@@ -82,6 +82,14 @@ interface WebserviceAPI {
         @Query("metoda") method : String,
         @Query("lokal_id") lokal_id: String
     ): Response<List<Meal>>
+
+    @GET("sw-api/api.php")
+    suspend fun setMealAvailability(
+        @Query("tablica") table : String,
+        @Query("metoda") method : String,
+        @Query("id_stavka") id_stavka: String,
+        @Query("aktivno") aktivno: String,
+    ): Response<String>
     /*@GET("sw-api/api.php")
     suspend fun getEmail(
         @Query("tablica") table : String,
