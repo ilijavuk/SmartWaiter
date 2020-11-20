@@ -23,6 +23,7 @@ import kotlinx.android.synthetic.main.fragment_meni.*
 import kotlinx.android.synthetic.main.menu_list_item.*
 
 class MenuFragment : Fragment(R.layout.fragment_meni) {
+    private var lokal: String = "1";
 
     private lateinit var viewModel: MenuViewModel
 
@@ -37,7 +38,7 @@ class MenuFragment : Fragment(R.layout.fragment_meni) {
 
         viewModel = ViewModelProvider(this, viewModelFactory).get(MenuViewModel::class.java)
 
-        viewModel.getMeal(table="Stavka_jelovnika", method = "select", "1")
+        viewModel.getMeal(table="Stavka_jelovnika", method = "select", lokal)
 
         viewModel.myResponse.observe(viewLifecycleOwner, Observer {
             val response = it.body()
