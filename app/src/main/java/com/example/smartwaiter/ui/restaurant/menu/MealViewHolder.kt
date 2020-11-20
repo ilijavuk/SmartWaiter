@@ -6,6 +6,8 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.smartwaiter.R
 import com.squareup.picasso.Picasso
 import hr.foi.air.webservice.model.Meal
@@ -31,7 +33,12 @@ class MealViewHolder (inflater: LayoutInflater, parent: ViewGroup) :
         Name?.text = meal.naziv
         Price?.text = meal.cijena
         Description?.text = meal.opis
-        //Picasso.with(context).load(meal.slika_path).into(Image)
+        Image?.let {
+            Glide.with(context)
+                .load(meal.slika_path)
+                .diskCacheStrategy(DiskCacheStrategy.DATA)
+                .into(it)
+        };
     }
 
 }
