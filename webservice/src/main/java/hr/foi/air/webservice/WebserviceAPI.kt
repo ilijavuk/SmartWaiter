@@ -42,6 +42,7 @@ interface WebserviceAPI {
         @Query("GPS_Latitude") GPS_Latitude: Double,
     ): Response<String>
 
+
     @GET("sw-api/api.php")
     suspend fun RegisterKorisnik(
         @Query("tablica") table : String,
@@ -96,6 +97,17 @@ interface WebserviceAPI {
         @Query("metoda") method : String,
         @Query("key") key: String,
         @Query("aktivno") aktivno: String,
+    )
+
+    @GET("sw-api/api.php")
+    suspend fun updateMeal(
+        @Query("tablica") table : String,
+        @Query("metoda") method : String,
+        @Query("key") key: String,
+        @Query("naziv") mealName: String,
+        @Query("cijena") mealPrice: String,
+        @Query("opis") mealDescription: String,
+        @Query("slika_path") mealPhotoPath: String,
     )
     /*@GET("sw-api/api.php")
     suspend fun getEmail(

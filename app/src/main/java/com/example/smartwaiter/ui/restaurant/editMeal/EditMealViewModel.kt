@@ -22,4 +22,26 @@ class EditMealViewModel(private val repository: Add_mealRepository): ViewModel()
             myResponse.value = response
         }
     }
+
+    fun updateMeal(
+        table: String,
+        method: String,
+        mealId: String,
+        mealName: String,
+        mealPrice: String,
+        mealDescription: String,
+        mealPhotoPath: String,
+    ){
+        viewModelScope.launch {
+            val response = repository.updateMeal(
+                table = table,
+                method = method,
+                mealId = mealId,
+                mealName = mealName,
+                mealPrice = mealPrice,
+                mealDescription = mealDescription,
+                mealPhotoPath = mealPhotoPath,
+            )
+        }
+    }
 }

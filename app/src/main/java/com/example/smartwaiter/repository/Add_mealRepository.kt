@@ -19,6 +19,18 @@ class Add_mealRepository {
         return RetrofitInstance.api.insertMeal(table, method, mealName, mealPrice, mealDescription, mealPhotoPath, lokalId)
     }
 
+    suspend fun updateMeal(
+        table: String,
+        method: String,
+        mealId: String,
+        mealName: String,
+        mealPrice: String,
+        mealDescription: String,
+        mealPhotoPath: String,
+    ){
+        return RetrofitInstance.api.updateMeal(table, method, mealId, mealName, mealPrice, mealDescription, mealPhotoPath)
+    }
+
     suspend fun getMeal(
         table: String,
         method: String,
