@@ -67,6 +67,7 @@ class RestaurantActivity : AppCompatActivity() {
             if (ndefRecord.toUri() != null) {
                 // Use Android functionality to convert payload to URI
                 Log.d("URI detected", ndefRecord.toUri().toString())
+                //TODO: napravit nešto s NFC-om lol
             } else {
                 // Other NFC Tags
                 Log.d("Payload", ndefRecord.payload.contentToString())
