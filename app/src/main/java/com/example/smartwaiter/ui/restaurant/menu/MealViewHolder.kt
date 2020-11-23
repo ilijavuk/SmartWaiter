@@ -4,15 +4,19 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.*
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelStore
+import androidx.lifecycle.ViewModelStoreOwner
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.smartwaiter.R
+import com.example.smartwaiter.repository.Add_mealRepository
 import com.example.smartwaiter.util.visible
 import hr.foi.air.webservice.model.Meal
 
 class MealViewHolder (inflater: LayoutInflater, parent: ViewGroup) :
-    RecyclerView.ViewHolder(inflater.inflate(R.layout.menu_list_item, parent, false)) {
+    RecyclerView.ViewHolder(inflater.inflate(R.layout.menu_list_item, parent, false)), ViewModelStoreOwner {
     private var Name: TextView? = null
     private var Description: TextView? = null
     private var Price: TextView? = null
@@ -23,6 +27,7 @@ class MealViewHolder (inflater: LayoutInflater, parent: ViewGroup) :
     private var Manager: LinearLayout? = null
     private var Customer: LinearLayout? = null
     private var context: Context
+    private var viewModel: MenuViewModel
 
 
     init {
@@ -39,12 +44,18 @@ class MealViewHolder (inflater: LayoutInflater, parent: ViewGroup) :
         Customer = itemView.findViewById(R.id.customerOptions)
 
         context = Image?.getContext()!!
+
+        val repository = Add_mealRepository()
+        val viewModelFactory = MenuModelFactory(repository)
+
+        viewModel = ViewModelProvider(this, viewModelFactory).get(MenuViewModel::class.java)
     }
 
     fun bind(meal: Meal) {
         //NAREDBE ZA SKRIVANJE TIPA OPCIJA
         //Manager?.visible(false)
         //Customer?.visible(false)
+
         Name?.tag = meal.id_stavka
         Name?.text = meal.naziv
         Price?.text = meal.cijena
@@ -67,12 +78,12 @@ class MealViewHolder (inflater: LayoutInflater, parent: ViewGroup) :
             var test: String = ""
             if (isChecked) {
                 OrderBtn?.isEnabled = true
-                test =Name?.text.toString() +" ON"
-                Toast.makeText(context, test, Toast.LENGTH_SHORT).show()
+                viewModel.setMealAvailability(table="Stavka_jelovnika", method="update",mealId=Name?.tag.toString(), available="1")
+                OrderBtn?.isEnabled = true
             } else {
                 test =Name?.text.toString() +" OFF"
+                viewModel.setMealAvailability(table="Stavka_jelovnika", method="update",mealId=Name?.tag.toString(), available="0")
                 OrderBtn?.isEnabled = false
-                Toast.makeText(context, test, Toast.LENGTH_SHORT).show()
             }
         }
 
@@ -84,6 +95,10 @@ class MealViewHolder (inflater: LayoutInflater, parent: ViewGroup) :
             //Ovdje se poziva naručivanje nekog jela
             Toast.makeText(context, Name?.text, Toast.LENGTH_SHORT).show()
         }
+    }
+
+    override fun getViewModelStore(): ViewModelStore {
+        return ViewModelStore();
     }
 
 }

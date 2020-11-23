@@ -31,7 +31,8 @@ class Add_mealRepository {
         method: String,
         mealId: String,
         available: String,
-    ): Response<String> {
+    ){
         return RetrofitInstance.api.setMealAvailability(table, method, mealId, available)
     }
+
 }

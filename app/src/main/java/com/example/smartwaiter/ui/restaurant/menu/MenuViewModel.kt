@@ -31,8 +31,13 @@ class MenuViewModel(private val repository: Add_mealRepository) : ViewModel()
         available: String,
     ){
         viewModelScope.launch {
-            val response = repository.setMealAvailability(table,method, mealId, available)
-            myResponse2.value = response
+            val response = repository.setMealAvailability(
+                table = table,
+                method = method,
+                mealId = mealId,
+                available = available)
+            //myResponse2.value = response
         }
     }
+
 }
