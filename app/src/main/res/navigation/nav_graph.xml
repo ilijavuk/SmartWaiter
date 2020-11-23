@@ -38,4 +38,8 @@
         android:name="com.example.smartwaiter.ui.restaurant.menu.MenuFragment"
         android:label="fragment_meni"
         tools:layout="@layout/fragment_meni" />
+    <fragment
+        android:id="@+id/editMealFragment"
+        android:name="com.example.smartwaiter.ui.restaurant.editMeal.EditMealFragment"
+        android:label="EditMealFragment" />
 </navigation>
