@@ -17,6 +17,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.smartwaiter.R
 import com.example.smartwaiter.repository.Add_mealRepository
+import com.example.smartwaiter.ui.auth.MainActivity
 import hr.foi.air.webservice.UploadUtility
 import kotlinx.android.synthetic.main.fragment_add_meal.*
 import kotlinx.android.synthetic.main.fragment_edit_meal.*
@@ -29,11 +30,12 @@ import java.io.FileOutputStream
 class EditMealFragment: Fragment(R.layout.fragment_edit_meal) {
 
     private lateinit var viewModel: EditMealViewModel
-    private var mealId : String = "4"
+    private var mealId : String = "3"
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
+        mealId= (activity as MainActivity?)?.getMealtoEdit().toString()
 
         val repository = Add_mealRepository()
         val viewModelFactory = EditMealModelFactory(repository)
@@ -60,7 +62,7 @@ class EditMealFragment: Fragment(R.layout.fragment_edit_meal) {
                 }
 
             }
-            imageViewMealEdit.setTag("0")
+            imageTagHolder.setTag("0")
         })
 
         btnEditItem.setOnClickListener{
@@ -76,11 +78,11 @@ class EditMealFragment: Fragment(R.layout.fragment_edit_meal) {
             var photoPathOfMeal:String = textMealDescriptionEdit.getTag().toString()
 
 
-            if(imageViewMealEdit.getTag() == "0"){
+            if(imageTagHolder.getTag() == "0"){
 
             }
             else{
-                var path: String = imageViewMealEdit.getTag().toString()
+                var path: String = imageTagHolder.getTag().toString()
 
                 var myUri: Uri = Uri.parse(path)
 
@@ -149,9 +151,9 @@ class EditMealFragment: Fragment(R.layout.fragment_edit_meal) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_CODE){
             imageViewMealEdit.setImageURI(data?.data) // handle chosen image
-            imageViewMealEdit.setTag(data?.data)
-            var path=imageViewMealEdit.getTag().toString()
-            Log.d("PATH2", imageViewMealEdit.getTag().toString())
+            imageTagHolder.setTag(data?.data)
+            var path=imageTagHolder.getTag().toString()
+            Log.d("PATH2", imageTagHolder.getTag().toString())
 
 
 

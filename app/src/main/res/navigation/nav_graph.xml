@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/editMealFragment">
+    app:startDestination="@id/menuFragment">
 
     <fragment
         android:id="@+id/homeFragment"
@@ -37,9 +37,17 @@
         android:id="@+id/menuFragment"
         android:name="com.example.smartwaiter.ui.restaurant.menu.MenuFragment"
         android:label="fragment_meni"
-        tools:layout="@layout/fragment_meni" />
+        tools:layout="@layout/fragment_meni" >
+        <action
+            android:id="@+id/action_menuFragment_to_editMealFragment"
+            app:destination="@id/editMealFragment" />
+    </fragment>
     <fragment
         android:id="@+id/editMealFragment"
         android:name="com.example.smartwaiter.ui.restaurant.editMeal.EditMealFragment"
-        android:label="EditMealFragment" />
+        android:label="EditMealFragment" >
+        <action
+            android:id="@+id/action_editMealFragment_to_menuFragment"
+            app:destination="@id/menuFragment" />
+    </fragment>
 </navigation>

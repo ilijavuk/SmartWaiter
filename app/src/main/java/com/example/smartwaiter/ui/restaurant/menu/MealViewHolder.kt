@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.*
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStore
 import androidx.lifecycle.ViewModelStoreOwner
@@ -12,17 +13,18 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.smartwaiter.R
 import com.example.smartwaiter.repository.Add_mealRepository
-import com.example.smartwaiter.util.visible
+import com.example.smartwaiter.ui.restaurant.editMeal.EditMealFragment
 import hr.foi.air.webservice.model.Meal
 
-class MealViewHolder (inflater: LayoutInflater, parent: ViewGroup) :
+
+class MealViewHolder(inflater: LayoutInflater, parent: ViewGroup) :
     RecyclerView.ViewHolder(inflater.inflate(R.layout.menu_list_item, parent, false)), ViewModelStoreOwner {
-    private var Name: TextView? = null
+    var Name: TextView? = null
     private var Description: TextView? = null
     private var Price: TextView? = null
     private var Image: ImageView? = null
     private var Available: Switch? = null
-    private var EditMealBtn: Button? = null
+    var EditMealBtn: Button? = null
     private var OrderBtn: Button? = null
     private var Manager: LinearLayout? = null
     private var Customer: LinearLayout? = null
@@ -56,6 +58,9 @@ class MealViewHolder (inflater: LayoutInflater, parent: ViewGroup) :
         //Manager?.visible(false)
         //Customer?.visible(false)
 
+
+
+
         Name?.tag = meal.id_stavka
         Name?.text = meal.naziv
         Price?.text = meal.cijena
@@ -78,18 +83,31 @@ class MealViewHolder (inflater: LayoutInflater, parent: ViewGroup) :
             var test: String = ""
             if (isChecked) {
                 OrderBtn?.isEnabled = true
-                viewModel.setMealAvailability(table="Stavka_jelovnika", method="update",mealId=Name?.tag.toString(), available="1")
+                viewModel.setMealAvailability(
+                    table = "Stavka_jelovnika",
+                    method = "update",
+                    mealId = Name?.tag.toString(),
+                    available = "1"
+                )
                 OrderBtn?.isEnabled = true
             } else {
                 test =Name?.text.toString() +" OFF"
-                viewModel.setMealAvailability(table="Stavka_jelovnika", method="update",mealId=Name?.tag.toString(), available="0")
+                viewModel.setMealAvailability(
+                    table = "Stavka_jelovnika",
+                    method = "update",
+                    mealId = Name?.tag.toString(),
+                    available = "0"
+                )
                 OrderBtn?.isEnabled = false
             }
         }
 
         EditMealBtn?.setOnClickListener{
             //Ovdje se poziva uređivanje nekog jela
+            //val action = MenuFragmentDirections.actionMenuFragmentToEditMealFragment()
+            //findNavController().navigate(action)
             Toast.makeText(context, Name?.text, Toast.LENGTH_SHORT).show()
+
         }
         OrderBtn?.setOnClickListener{
             //Ovdje se poziva naručivanje nekog jela

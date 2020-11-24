@@ -10,6 +10,7 @@ import com.example.smartwaiter.R
 
 class MainActivity : AppCompatActivity() {
 
+
     private lateinit var navController : NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,6 +23,13 @@ class MainActivity : AppCompatActivity() {
     private fun setUpNavigation() {
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         navController = navHostFragment.findNavController()
+    }
+    lateinit var mealToEdit : String
+    fun setMealtoEdit(mealId: String){
+        mealToEdit=mealId
+    }
+    fun getMealtoEdit(): String {
+        return mealToEdit
     }
 
 }
