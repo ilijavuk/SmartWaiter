@@ -49,5 +49,8 @@
         <action
             android:id="@+id/action_editMealFragment_to_menuFragment"
             app:destination="@id/menuFragment" />
+        <argument
+            android:name="mealToEdit"
+            app:argType="string" />
     </fragment>
 </navigation>

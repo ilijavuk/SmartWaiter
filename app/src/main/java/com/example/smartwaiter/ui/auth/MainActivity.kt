@@ -24,12 +24,6 @@ class MainActivity : AppCompatActivity() {
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         navController = navHostFragment.findNavController()
     }
-    lateinit var mealToEdit : String
-    fun setMealtoEdit(mealId: String){
-        mealToEdit=mealId
-    }
-    fun getMealtoEdit(): String {
-        return mealToEdit
-    }
+
 
 }

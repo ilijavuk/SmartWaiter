@@ -52,9 +52,9 @@ class MenuFragment : Fragment(R.layout.fragment_meni) {
     }
     fun callEditMeal(mealId: String){
 
-        (activity as MainActivity?)?.setMealtoEdit(mealId)
+        val meal = mealId
 
-        val action = MenuFragmentDirections.actionMenuFragmentToEditMealFragment()
+        val action = MenuFragmentDirections.actionMenuFragmentToEditMealFragment(meal)
         findNavController().navigate(action)
     }
 

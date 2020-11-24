@@ -13,11 +13,14 @@ import androidx.databinding.adapters.TextViewBindingAdapter.setText
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.smartwaiter.R
 import com.example.smartwaiter.repository.Add_mealRepository
 import com.example.smartwaiter.ui.auth.MainActivity
+import com.example.smartwaiter.ui.restaurant.menu.MenuFragmentDirections
 import hr.foi.air.webservice.UploadUtility
 import kotlinx.android.synthetic.main.fragment_add_meal.*
 import kotlinx.android.synthetic.main.fragment_edit_meal.*
@@ -30,12 +33,13 @@ import java.io.FileOutputStream
 class EditMealFragment: Fragment(R.layout.fragment_edit_meal) {
 
     private lateinit var viewModel: EditMealViewModel
-    private var mealId : String = "3"
+    private val args: EditMealFragmentArgs by navArgs()
+
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        mealId= (activity as MainActivity?)?.getMealtoEdit().toString()
+        val mealId : String= args.mealToEdit
 
         val repository = Add_mealRepository()
         val viewModelFactory = EditMealModelFactory(repository)
@@ -115,6 +119,8 @@ class EditMealFragment: Fragment(R.layout.fragment_edit_meal) {
             }
 
             viewModel.updateMeal(table = "Stavka_jelovnika", method = "update", mealId = primaryKey, mealName = nameOfMeal, mealPrice = priceOfMeal, mealDescription = descritptionOfMeal, mealPhotoPath = photoPathOfMeal)
+            val action = EditMealFragmentDirections.actionEditMealFragmentToMenuFragment()
+            findNavController().navigate(action)
 
         }
         btnChoosePhotoEdit.setOnClickListener{
