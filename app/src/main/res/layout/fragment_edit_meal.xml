@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        tools:context=".ui.restaurant.add_meal.Add_mealFragment"
+        tools:layout_editor_absoluteX="0dp">
+
+
+        <ImageView
+            android:id="@+id/imageViewMealEdit"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/meal_photo" />
+
+        <Button
+            android:id="@+id/btnChoosePhotoEdit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/ic_button_style_primary"
+            android:text="Change photo" />
+
+        <EditText
+            android:id="@+id/textMealNameEdit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/rounded_edit_text"
+            android:ems="10"
+            android:hint="@string/name_of_the_item"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/textMealDescriptionEdit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/rounded_edit_text"
+
+            android:ems="10"
+            android:hint="@string/description"
+            android:inputType="textMultiLine" />
+
+        <EditText
+            android:id="@+id/textMealPriceEdit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/rounded_edit_text"
+            android:ems="10"
+            android:hint="@string/price"
+            android:inputType="numberDecimal" />
+
+
+        <Button
+            android:id="@+id/btnEditItem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/ic_button_style_primary"
+            android:text="@string/save_changes" />
+
+        <EditText
+            android:id="@+id/imageTagHolder"
+            android:layout_width="1dp"
+            android:layout_height="1dp"
+            android:background="@drawable/rounded_edit_text"
+            android:visibility="invisible" />
+
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
