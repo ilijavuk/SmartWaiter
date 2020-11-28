@@ -1,6 +1,7 @@
 package hr.foi.air.webservice
 
 import hr.foi.air.webservice.model.Korisnik
+import hr.foi.air.webservice.model.Meal
 import hr.foi.air.webservice.model.Restoran
 import retrofit2.Response
 import retrofit2.http.GET
@@ -41,6 +42,7 @@ interface WebserviceAPI {
         @Query("GPS_Latitude") GPS_Latitude: Double,
     ): Response<String>
 
+
     @GET("sw-api/api.php")
     suspend fun RegisterKorisnik(
         @Query("tablica") table : String,
@@ -72,7 +74,41 @@ interface WebserviceAPI {
         @Query("slika_path") mealPhotoPath: String,
         @Query("lokal_id") lokalId: String
 
+
     ): Response<String>
+
+    @GET("sw-api/api.php")
+    suspend fun getMeal(
+        @Query("tablica") table : String,
+        @Query("metoda") method : String,
+        @Query("lokal_id") lokal_id: String
+    ): Response<List<Meal>>
+
+    @GET("sw-api/api.php")
+    suspend fun getMealById(
+        @Query("tablica") table : String,
+        @Query("metoda") method : String,
+        @Query("id_stavka") stavka_id: String
+    ): Response<List<Meal>>
+
+    @GET("sw-api/api.php")
+    suspend fun setMealAvailability(
+        @Query("tablica") table : String,
+        @Query("metoda") method : String,
+        @Query("key") key: String,
+        @Query("aktivno") aktivno: String,
+    )
+
+    @GET("sw-api/api.php")
+    suspend fun updateMeal(
+        @Query("tablica") table : String,
+        @Query("metoda") method : String,
+        @Query("key") key: String,
+        @Query("naziv") mealName: String,
+        @Query("cijena") mealPrice: String,
+        @Query("opis") mealDescription: String,
+        @Query("slika_path") mealPhotoPath: String,
+    )
     /*@GET("sw-api/api.php")
     suspend fun getEmail(
         @Query("tablica") table : String,
