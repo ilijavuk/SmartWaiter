@@ -20,7 +20,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.smartwaiter.R
 import com.example.smartwaiter.repository.Add_mealRepository
 import com.example.smartwaiter.ui.auth.MainActivity
-import com.example.smartwaiter.ui.restaurant.menu.MenuFragmentDirections
+//import com.example.smartwaiter.ui.restaurant.menu.MenuFragmentDirections
 import hr.foi.air.webservice.UploadUtility
 import kotlinx.android.synthetic.main.fragment_add_meal.*
 import kotlinx.android.synthetic.main.fragment_edit_meal.*
@@ -33,13 +33,15 @@ import java.io.FileOutputStream
 class EditMealFragment: Fragment(R.layout.fragment_edit_meal) {
 
     private lateinit var viewModel: EditMealViewModel
-    private val args: EditMealFragmentArgs by navArgs()
+    //private val args: EditMealFragmentArgs by navArgs()
 
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        val mealId : String= args.mealToEdit
+
+        val mealId : String = "1"
+        //val mealId : String= args.mealToEdit
 
         val repository = Add_mealRepository()
         val viewModelFactory = EditMealModelFactory(repository)
@@ -119,8 +121,8 @@ class EditMealFragment: Fragment(R.layout.fragment_edit_meal) {
             }
 
             viewModel.updateMeal(table = "Stavka_jelovnika", method = "update", mealId = primaryKey, mealName = nameOfMeal, mealPrice = priceOfMeal, mealDescription = descritptionOfMeal, mealPhotoPath = photoPathOfMeal)
-            val action = EditMealFragmentDirections.actionEditMealFragmentToMenuFragment()
-            findNavController().navigate(action)
+            //val action = EditMealFragmentDirections.actionEditMealFragmentToMenuFragment()
+            //findNavController().navigate(action)
 
         }
         btnChoosePhotoEdit.setOnClickListener{
