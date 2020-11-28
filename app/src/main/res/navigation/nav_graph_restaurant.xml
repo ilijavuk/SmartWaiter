@@ -41,10 +41,26 @@
         android:id="@+id/meniFragment"
         android:name="com.example.smartwaiter.ui.restaurant.menu.MenuFragment"
         android:label="fragment_meni"
-        tools:layout="@layout/fragment_meni" />
+        tools:layout="@layout/fragment_meni" >
+        <action
+            android:id="@+id/action_meniFragment_to_editMealFragment2"
+            app:destination="@id/editMealFragment" />
+    </fragment>
     <fragment
         android:id="@+id/restaurantProfilFragment"
         android:name="com.example.smartwaiter.ui.restaurant.restaurant_profil.RestaurantProfilFragment"
         android:label="fragment_restaurant_profil"
         tools:layout="@layout/fragment_restaurant_profil" />
+    <fragment
+        android:id="@+id/editMealFragment"
+        android:name="com.example.smartwaiter.ui.restaurant.editMeal.EditMealFragment"
+        android:label="fragment_edit_meal"
+        tools:layout="@layout/fragment_edit_meal" >
+        <argument
+            android:name="mealId"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_editMealFragment2_to_meniFragment"
+            app:destination="@id/meniFragment" />
+    </fragment>
 </navigation>

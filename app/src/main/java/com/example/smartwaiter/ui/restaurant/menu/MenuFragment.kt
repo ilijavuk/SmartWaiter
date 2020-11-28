@@ -54,8 +54,8 @@ class MenuFragment : Fragment(R.layout.fragment_meni) {
 
         val meal = mealId
 
-        //val action = MenuFragmentDirections.actionMenuFragmentToEditMealFragment(meal)
-        //findNavController().navigate(action)
+        val action = MenuFragmentDirections.actionMeniFragmentToEditMealFragment2(meal)
+        findNavController().navigate(action)
     }
 
 

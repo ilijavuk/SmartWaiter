@@ -15,7 +15,7 @@ import com.budiyev.android.codescanner.DecodeCallback
 import com.budiyev.android.codescanner.ScanMode
 import com.example.smartwaiter.R
 import com.example.smartwaiter.ui.auth.login.HomeFragmentDirections
-import com.example.smartwaiter.ui.restaurant.meni.MeniFragment
+import com.example.smartwaiter.ui.restaurant.menu.MenuFragment
 
 class QrFragment : Fragment(R.layout.fragment_qrscanner) {
 

@@ -33,15 +33,15 @@ import java.io.FileOutputStream
 class EditMealFragment: Fragment(R.layout.fragment_edit_meal) {
 
     private lateinit var viewModel: EditMealViewModel
-    //private val args: EditMealFragmentArgs by navArgs()
+    private val args: EditMealFragmentArgs by navArgs()
 
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
 
-        val mealId : String = "1"
-        //val mealId : String= args.mealToEdit
+
+        val mealId : String= args.mealId
 
         val repository = Add_mealRepository()
         val viewModelFactory = EditMealModelFactory(repository)
@@ -121,8 +121,8 @@ class EditMealFragment: Fragment(R.layout.fragment_edit_meal) {
             }
 
             viewModel.updateMeal(table = "Stavka_jelovnika", method = "update", mealId = primaryKey, mealName = nameOfMeal, mealPrice = priceOfMeal, mealDescription = descritptionOfMeal, mealPhotoPath = photoPathOfMeal)
-            //val action = EditMealFragmentDirections.actionEditMealFragmentToMenuFragment()
-            //findNavController().navigate(action)
+            val action = EditMealFragmentDirections.actionEditMealFragment2ToMeniFragment()
+            findNavController().navigate(action)
 
         }
         btnChoosePhotoEdit.setOnClickListener{
