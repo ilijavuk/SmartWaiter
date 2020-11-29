@@ -21,7 +21,7 @@ import kotlinx.android.synthetic.main.fragment_restaurant_list.*
 class RestaurantList : Fragment(R.layout.fragment_restaurant_list) {
     lateinit var lv: ListView
     lateinit var restaurants: Array<Restoran>
-    lateinit var adapter: ArrayAdapter<String>
+    lateinit var adapter: ArrayAdapter<Restoran>
 
     private lateinit var viewModel: RestaurantListViewModel
 
@@ -39,22 +39,23 @@ class RestaurantList : Fragment(R.layout.fragment_restaurant_list) {
             findNavController().navigate(action)
         }
 
-        adapter = ArrayAdapter<String>(requireActivity(), R.layout.centered_list_layout)
+        adapter = ArrayAdapter<Restoran>(requireActivity(), R.layout.centered_list_layout)
         viewModel.getRestorani(table="Lokal", method = "select")
         lv.adapter=adapter
 
-        viewModel.myResponse.observe(viewLifecycleOwner, Observer {
+        viewModel.myResponse.observe(viewLifecycleOwner, {
             val response = it.body()
             if (response != null) {
                 for(restaurant in response){
-                    adapter.add(restaurant.toString())
+                    adapter.add(restaurant)
                 }
             }
         })
-        //lv.setOnItemClickListener { parent, view, position, id ->
-        //    val element = adapter.getItem(position) // The item that was clicked
-        //    Toast.makeText(context, ""+ element!!.id_lokal, Toast.LENGTH_SHORT).show()
-        //}
+        lv.setOnItemClickListener { parent, view, position, id ->
+            val element = adapter.getItem(position)
+            val action = RestaurantListDirections.actionRestaurantListFragmentToMeniFragment(element!!.id_lokal)
+            findNavController().navigate(action)
+        }
     }
 
 }

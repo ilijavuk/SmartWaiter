@@ -15,7 +15,7 @@ import com.example.smartwaiter.ui.auth.MainActivity
 import kotlinx.android.synthetic.main.fragment_meni.*
 
 class MenuFragment : Fragment(R.layout.fragment_meni) {
-    private var lokal: String = "1";
+    private lateinit var lokal: String
 
     private lateinit var viewModel: MenuViewModel
 
@@ -30,34 +30,22 @@ class MenuFragment : Fragment(R.layout.fragment_meni) {
         val repository = Add_mealRepository()
         val viewModelFactory = MenuModelFactory(repository)
 
+        lokal = requireArguments().getInt("restaurant_id").toString()
 
         viewModel = ViewModelProvider(this, viewModelFactory).get(MenuViewModel::class.java)
-
-
-
-
         viewModel.getMeal(table = "Stavka_jelovnika", method = "select", lokal)
-
-        viewModel.myResponse.observe(viewLifecycleOwner, Observer {
+        viewModel.myResponse.observe(viewLifecycleOwner, {
             val response = it.body()
             if (response != null) {
                 recycleViewMenu.layoutManager = LinearLayoutManager(activity)
                 recycleViewMenu.adapter = MealListAdapter(response, this)
-
             }
         })
-
-
-
     }
+
     fun callEditMeal(mealId: String){
-
         val meal = mealId
-
         val action = MenuFragmentDirections.actionMeniFragmentToEditMealFragment2(meal)
         findNavController().navigate(action)
     }
-
-
-
 }

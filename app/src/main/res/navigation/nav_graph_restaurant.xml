@@ -22,6 +22,9 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_restaurantListFragment_to_meniFragment"
+            app:destination="@id/meniFragment" />
     </fragment>
     <fragment
         android:id="@+id/addRestaurant"
@@ -45,6 +48,8 @@
         <action
             android:id="@+id/action_meniFragment_to_editMealFragment2"
             app:destination="@id/editMealFragment" />
+        <argument android:name="restaurant_id"
+            app:argType="integer" />
     </fragment>
     <fragment
         android:id="@+id/restaurantProfilFragment"
