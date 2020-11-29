@@ -49,7 +49,7 @@ class EditMealFragment: Fragment(R.layout.fragment_edit_meal) {
 
         viewModel.getMealById("Stavka_jelovnika","select", mealId)
 
-        viewModel.myResponse.observe(viewLifecycleOwner, Observer {
+        viewModel.myResponse.observe(viewLifecycleOwner, {
             val response = it.body()
             if (response != null) {
                 for(m in response){
@@ -63,7 +63,7 @@ class EditMealFragment: Fragment(R.layout.fragment_edit_meal) {
                             .load(m.slika_path)
                             .diskCacheStrategy(DiskCacheStrategy.DATA)
                             .into(it)
-                    };
+                    }
                     textMealDescriptionEdit.setTag(m.slika_path)
                 }
 
@@ -77,10 +77,10 @@ class EditMealFragment: Fragment(R.layout.fragment_edit_meal) {
             var pathNaServeru ="https://vucko.net/sw-api/uploads/"
             viewModel = ViewModelProvider(this, viewModelFactory).get(EditMealViewModel::class.java)
 
-            var primaryKey:String = textMealNameEdit.getTag().toString()
-            var nameOfMeal:String = textMealNameEdit.text.toString()
-            var priceOfMeal:String = textMealPriceEdit.text.toString()
-            var descritptionOfMeal:String = textMealDescriptionEdit.text.toString()
+            val primaryKey:String = textMealNameEdit.getTag().toString()
+            val nameOfMeal:String = textMealNameEdit.text.toString()
+            val priceOfMeal:String = textMealPriceEdit.text.toString()
+            val descritptionOfMeal:String = textMealDescriptionEdit.text.toString()
             var photoPathOfMeal:String = textMealDescriptionEdit.getTag().toString()
 
 
@@ -88,7 +88,7 @@ class EditMealFragment: Fragment(R.layout.fragment_edit_meal) {
 
             }
             else{
-                var path: String = imageTagHolder.getTag().toString()
+                val path: String = imageTagHolder.getTag().toString()
 
                 var myUri: Uri = Uri.parse(path)
 
@@ -107,13 +107,13 @@ class EditMealFragment: Fragment(R.layout.fragment_edit_meal) {
                             input.copyTo(output)
                         }
                     }
-                    var timestampforname = System.currentTimeMillis() / 1000
+                    val timestampforname = System.currentTimeMillis() / 1000
                     myUri = Uri.parse(file.absolutePath)
                     imageViewMealEdit.setImageURI(myUri)
 
-                    var nastavak = file.absolutePath.substringAfterLast(".")
-                    var lokal_id = textMealPriceEdit.getTag().toString()
-                    var imageName =  lokal_id + nameOfMeal +timestampforname + "." + nastavak
+                    val nastavak = file.absolutePath.substringAfterLast(".")
+                    val lokal_id = textMealPriceEdit.getTag().toString()
+                    val imageName =  lokal_id + nameOfMeal +timestampforname + "." + nastavak
                     pathNaServeru = pathNaServeru + imageName
                     photoPathOfMeal = pathNaServeru
                     UploadUtility(Activity()).uploadFile(file.absolutePath, imageName)
@@ -121,7 +121,7 @@ class EditMealFragment: Fragment(R.layout.fragment_edit_meal) {
             }
 
             viewModel.updateMeal(table = "Stavka_jelovnika", method = "update", mealId = primaryKey, mealName = nameOfMeal, mealPrice = priceOfMeal, mealDescription = descritptionOfMeal, mealPhotoPath = photoPathOfMeal)
-            val action = EditMealFragmentDirections.actionEditMealFragment2ToMeniFragment()
+            val action = EditMealFragmentDirections.actionEditMealFragment2ToMeniFragment(1)
             findNavController().navigate(action)
 
         }
@@ -162,11 +162,6 @@ class EditMealFragment: Fragment(R.layout.fragment_edit_meal) {
             imageTagHolder.setTag(data?.data)
             var path=imageTagHolder.getTag().toString()
             Log.d("PATH2", imageTagHolder.getTag().toString())
-
-
-
         }
-
-
     }
 }
