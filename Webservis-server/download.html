@@ -1,0 +1,17 @@
+<script src="platform.js"></script>
+<script>
+
+
+    const userAgent = platform.toString();
+    if(/android/i.test(userAgent)){
+        console.log('android');
+		window.location.href = "https://play.google.com/store/apps";
+    }
+    if(/iPad|iPhone|iPod/i.test(userAgent)){
+        console.log( 'ios');
+		window.location.href = "https://www.apple.com/";
+    }
+
+	
+
+</script>
