@@ -71,37 +71,21 @@
     </LinearLayout>
 
     </LinearLayout>
+
         <LinearLayout
-            android:id="@+id/managerOptions"
+            android:id="@+id/customerOptions"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
-        <Button
-            android:id="@+id/btnEditMeal"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.70"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:text="@string/uredi" />
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.70"
-            android:text="@string/dostupno"
-            android:textAlignment="viewEnd"/>
-
-        <Switch
-            android:id="@+id/switchAvailable"
-            android:layout_width="0dp"
-            android:layout_height="30dp"
-            android:layout_weight="0.30"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:textAlignment="viewStart"
-            android:checked="false"/>
+            <Button
+                android:id="@+id/btnOrderMeal"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.70"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:text="@string/naru_i" />
     </LinearLayout>
-
 
 
     </LinearLayout>

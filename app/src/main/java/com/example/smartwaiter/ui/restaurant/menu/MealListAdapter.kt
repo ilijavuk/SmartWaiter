@@ -1,11 +1,10 @@
 package com.example.smartwaiter.ui.restaurant.menu
 
-import android.R.attr.fragment
+
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.smartwaiter.ui.auth.login.HomeFragment
 import hr.foi.air.webservice.model.Meal
 
 
@@ -27,22 +26,9 @@ class MealListAdapter(private val list: List<Meal>, fragment: MenuFragment)
             var mealId = holder.Name?.getTag().toString()
             override fun onClick(v: View?) {
                 myFragment.callEditMeal(mealId)
-                /*val activity=v!!.context as AppCompatActivity
-                val newFragment = EditMealFragment()
-                activity.supportFragmentManager.beginTransaction().replace(R.id.nav_host_fragment, newFragment).addToBackStack(null).commit()*/
-
             }
 
         })
-
-        /*holder.itemView.setOnClickListener(object: View.OnClickListener{
-            override fun onClick(v: View?) {
-                val activity=v!!.context as AppCompatActivity
-                val newFragment = EditMealFragment()
-                activity.supportFragmentManager.beginTransaction().replace(R.id.nav_host_fragment, newFragment).addToBackStack(null).commit()
-            }
-
-        })*/
 
     }
 
