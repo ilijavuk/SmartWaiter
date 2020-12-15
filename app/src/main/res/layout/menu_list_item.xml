@@ -101,20 +101,7 @@
             android:textAlignment="viewStart"
             android:checked="false"/>
     </LinearLayout>
-        <LinearLayout
-            android:id="@+id/customerOptions"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <Button
-                android:id="@+id/btnOrderMeal"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.70"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:text="@string/naru_i" />
-    </LinearLayout>
+
 
 
     </LinearLayout>
