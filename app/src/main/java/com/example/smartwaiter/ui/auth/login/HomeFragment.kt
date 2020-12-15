@@ -3,6 +3,7 @@ package com.example.smartwaiter.ui.auth.login
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -11,7 +12,9 @@ import androidx.navigation.fragment.findNavController
 import com.example.database.UserPreferences
 import com.example.smartwaiter.R
 import com.example.smartwaiter.repository.AuthRepository
+import com.example.smartwaiter.ui.guest.GuestActivity
 import com.example.smartwaiter.ui.restaurant.RestaurantActivity
+import com.example.smartwaiter.ui.waiter.WaiterActivity
 import com.example.smartwaiter.util.enable
 import com.example.smartwaiter.util.handleApiError
 import com.example.smartwaiter.util.startNewActivity
@@ -44,9 +47,18 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                 is Resource.Success -> {
                     progressBarLogin.visible(false)
                     lifecycleScope.launch {
-                        viewModel.saveAuthToken(response.value[0].korisnicko_ime)
+                        when (response.value[0].tip_korisnika_id) {
+                            "1" -> {
+                                requireActivity().startNewActivity(GuestActivity::class.java)
+                            }
+                            "2" -> {
+                                requireActivity().startNewActivity(WaiterActivity::class.java)
+                            }
+                            "3" -> {
+                                requireActivity().startNewActivity(RestaurantActivity::class.java)
+                            }
+                        }
                         viewModel.saveUserType(response.value[0].tip_korisnika_id)
-                        requireActivity().startNewActivity(RestaurantActivity::class.java)
                     }
                 }
 
