@@ -62,7 +62,7 @@ class Add_mealFragment: Fragment(R.layout.fragment_add_meal) {
             var description:String = textMealDescription.text.toString()
             var price:String =textMealPrice.text.toString()
             var lokal_id = "1"
-            var pathNaServeru ="https://vucko.net/sw-api/uploads/"
+            var pathNaServeru ="https://smartwaiter.app/sw-api/uploads/"
             var imageNotExists = true
             if(imageViewMeal.getTag() == null){
 

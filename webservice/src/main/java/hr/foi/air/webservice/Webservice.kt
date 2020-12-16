@@ -9,24 +9,24 @@ import java.net.URL
 public class Webservice {
 
     companion object{
-        var BASE_URL="https://vucko.net/sw-api/api.php"
+        var BASE_URL="https://smartwaiter.app/sw-api/api.php"
     }
 
     public fun Korisnici(): String {
-        return URL("https://vucko.net/sw-api/api.php?metoda=select&tablica=Korisnik").readText();
+        return URL("https://smartwaiter.app/sw-api/api.php?metoda=select&tablica=Korisnik").readText();
         //return
     }
     public fun Korisnici(id:String): String { //Dohvati info o korisniku prema ID-ju
-        return URL("https://vucko.net/sw-api/api.php?metoda=select&tablica=Korisnik&id_korisnik="+id).readText();
+        return URL("https://smartwaiter.app/sw-api/api.php?metoda=select&tablica=Korisnik&id_korisnik="+id).readText();
         //return
     }
     public fun Korisnici(username:String, password: String): String { //Dohvati info o korisniku prema username-password
-        return URL("https://vucko.net/sw-api/api.php?metoda=select&tablica=Korisnik&korisnicko_ime="+username+"&lozinka_sha256="+password).readText();
+        return URL("https://smartwaiter.app/sw-api/api.php?metoda=select&tablica=Korisnik&korisnicko_ime="+username+"&lozinka_sha256="+password).readText();
         //return
     }
 
     public fun RegistrirajKorisnika(username: String, password: String, ime:String, prezime:String, email:String): String {
-        return URL("https://vucko.net/sw-api/api.php?metoda=insert&tablica=Korisnik" +
+        return URL("https://smartwaiter.app/sw-api/api.php?metoda=insert&tablica=Korisnik" +
                 "&korisnicko_ime="+username+
                 "&ime="+ime+
                 "&prezime="+prezime+

@@ -19,8 +19,8 @@ class UploadUtility(activity: Activity) {
 
     var activity = activity;
 
-    var serverURL: String = "https://vucko.net/sw-api/photo.php"
-    var serverUploadDirectoryPath: String = "https://vucko.net/sw-api/uploads/"
+    var serverURL: String = "https://smartwaiter.app/sw-api/photo.php"
+    var serverUploadDirectoryPath: String = "https://smartwaiter.app/sw-api/uploads/"
     val client = OkHttpClient()
 
     fun uploadFile(sourceFilePath: String, uploadedFileName: String? = null) {

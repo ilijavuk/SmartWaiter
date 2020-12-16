@@ -42,7 +42,7 @@
                 <category android:name="android.intent.category.BROWSABLE" />
                 <!-- Intent filters without data will never be triggered on NFC devices.
                 Always define the specific data you expect to be present. -->
-                <data android:scheme="https" android:host="vucko.net" />
+                <data android:scheme="https" android:host="smartwaiter.app" />
                 <!-- Additionally support http scheme. See:
                 https://developer.android.com/training/app-links/verify-site-associations.html -->
                 <data android:scheme="http" />
