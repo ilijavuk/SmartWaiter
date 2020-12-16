@@ -12,12 +12,15 @@ include 'conn.php';
 				$rez=$conn->query($sql);
 				$vrati = [];
 				if($rez -> num_rows > 0){
-				while ($red = $rez->fetch_assoc())
-				{
-					$vrati[] = $red;
-				}
-				
+					while ($red = $rez->fetch_assoc())
+					{
+						$vrati[] = $red;
+					}
+					
 				echo json_encode($vrati);
+				}
+				if(strcmp($_GET['metoda'],'insert')==0){
+					echo $conn->insert_id;
 				}
 			}			
 		}
