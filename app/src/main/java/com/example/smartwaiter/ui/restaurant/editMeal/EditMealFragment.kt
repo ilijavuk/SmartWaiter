@@ -74,7 +74,7 @@ class EditMealFragment: Fragment(R.layout.fragment_edit_meal) {
         btnEditItem.setOnClickListener{
             val repository = Add_mealRepository()
             val viewModelFactory = EditMealModelFactory(repository)
-            var pathNaServeru ="https://vucko.net/sw-api/uploads/"
+            var pathNaServeru ="https://smartwaiter.app/sw-api/uploads/"
             viewModel = ViewModelProvider(this, viewModelFactory).get(EditMealViewModel::class.java)
 
             val primaryKey:String = textMealNameEdit.getTag().toString()
