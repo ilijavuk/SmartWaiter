@@ -32,17 +32,16 @@ class MenuGuestFragment : Fragment(R.layout.fragment_meni_guest) {
         inflater.inflate(R.layout.fragment_meni_guest, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val repository = Add_mealRepository()
-        val viewModelFactory = MenuGuestModelFactory(repository)
+
 
         lokal = "1"
             //requireArguments().getInt("restaurant_id").toString()
 
-        viewModel = ViewModelProvider(this, viewModelFactory).get(MenuGuestViewModel::class.java)
-        viewModel.getMeal(table = "Stavka_jelovnika", method = "select", lokal)
+        load()
         viewModel.myResponse.observe(viewLifecycleOwner, { response ->
             when (response) {
                 is Resource.Success -> {
+                    progressBarMenuGuest.visible(false)
                     if (response != null) {
                         val listMeals = response.value
                         recycleViewMenuGuest.layoutManager = LinearLayoutManager(activity)
@@ -50,9 +49,11 @@ class MenuGuestFragment : Fragment(R.layout.fragment_meni_guest) {
                     }
                 }
                 is Resource.Loading -> {
+                    progressBarMenuGuest.visible(true)
                 }
                 is Resource.Failure -> {
-
+                    handleApiError(response) { load() }
+                    progressBarMenuGuest.visible(true)
                     Log.d("Response", response.toString())
                 }
             }
@@ -64,5 +65,11 @@ class MenuGuestFragment : Fragment(R.layout.fragment_meni_guest) {
 
         //val action = MenuFragmentDirections.actionMeniFragmentToEditMealFragment2(meal)
         //findNavController().navigate(action)
+    }
+    fun load(){
+        val repository = Add_mealRepository()
+        val viewModelFactory = MenuGuestModelFactory(repository)
+        viewModel = ViewModelProvider(this, viewModelFactory).get(MenuGuestViewModel::class.java)
+        viewModel.getMeal(table = "Stavka_jelovnika", method = "select", lokal)
     }
 }

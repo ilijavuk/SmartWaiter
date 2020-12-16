@@ -22,6 +22,8 @@ import com.example.smartwaiter.R
 import com.example.smartwaiter.repository.Add_mealRepository
 import com.example.smartwaiter.ui.auth.MainActivity
 import com.example.smartwaiter.ui.guest.menu_guest.MealGuestListAdapter
+import com.example.smartwaiter.util.handleApiError
+import com.example.smartwaiter.util.visible
 //import com.example.smartwaiter.ui.restaurant.menu.MenuFragmentDirections
 import hr.foi.air.webservice.UploadUtility
 import hr.foi.air.webservice.util.Resource
@@ -38,24 +40,21 @@ class EditMealFragment: Fragment(R.layout.fragment_edit_meal) {
 
     private lateinit var viewModel: EditMealViewModel
     private val args: EditMealFragmentArgs by navArgs()
-
+    private lateinit var mealId : String
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
 
 
-        val mealId : String= args.mealId
+        mealId = args.mealId
 
-        val repository = Add_mealRepository()
-        val viewModelFactory = EditMealModelFactory(repository)
-        viewModel = ViewModelProvider(this, viewModelFactory).get(EditMealViewModel::class.java)
-
-        viewModel.getMealById("Stavka_jelovnika","select", mealId)
-
+        load()
         viewModel.myResponse.observe(viewLifecycleOwner, { response ->
             when (response) {
                 is Resource.Success -> {
+                    progressBarEditMeal.visible(false)
+                    EditMealLinearLayout.visible(true)
                     if (response != null) {
                         val odgovor = response.value
                         if (odgovor != null) {
@@ -79,9 +78,13 @@ class EditMealFragment: Fragment(R.layout.fragment_edit_meal) {
                     }
                 }
                 is Resource.Loading -> {
+                    progressBarEditMeal.visible(true)
+                    EditMealLinearLayout.visible(false)
                 }
                 is Resource.Failure -> {
-
+                    handleApiError(response) { load() }
+                    EditMealLinearLayout.visible(false)
+                    progressBarEditMeal.visible(true)
                     Log.d("Response", response.toString())
                 }
             }
@@ -180,5 +183,11 @@ class EditMealFragment: Fragment(R.layout.fragment_edit_meal) {
             var path=imageTagHolder.getTag().toString()
             Log.d("PATH2", imageTagHolder.getTag().toString())
         }
+    }
+    fun load(){
+        val repository = Add_mealRepository()
+        val viewModelFactory = EditMealModelFactory(repository)
+        viewModel = ViewModelProvider(this, viewModelFactory).get(EditMealViewModel::class.java)
+        viewModel.getMealById("Stavka_jelovnika","select", mealId)
     }
 }
