@@ -15,15 +15,19 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.smartwaiter.R
 import com.example.smartwaiter.repository.Add_mealRepository
 import com.example.smartwaiter.ui.auth.MainActivity
+import com.example.smartwaiter.ui.guest.menu_guest.MealGuestListAdapter
 //import com.example.smartwaiter.ui.restaurant.menu.MenuFragmentDirections
 import hr.foi.air.webservice.UploadUtility
+import hr.foi.air.webservice.util.Resource
 import kotlinx.android.synthetic.main.fragment_add_meal.*
 import kotlinx.android.synthetic.main.fragment_edit_meal.*
+import kotlinx.android.synthetic.main.fragment_meni_guest.*
 import kotlinx.android.synthetic.main.menu_list_item.*
 import java.io.File
 import java.io.FileInputStream
@@ -49,27 +53,40 @@ class EditMealFragment: Fragment(R.layout.fragment_edit_meal) {
 
         viewModel.getMealById("Stavka_jelovnika","select", mealId)
 
-        viewModel.myResponse.observe(viewLifecycleOwner, {
-            val response = it.body()
-            if (response != null) {
-                for(m in response){
-                    textMealNameEdit.setText(m.naziv)
-                    textMealNameEdit.setTag(m.id_stavka)
-                    textMealDescriptionEdit.setText(m.opis)
-                    textMealPriceEdit.setText(m.cijena)
-                    textMealPriceEdit.setTag(m.lokal_id)
-                    imageViewMealEdit.let {
-                        Glide.with(this)
-                            .load(m.slika_path)
-                            .diskCacheStrategy(DiskCacheStrategy.DATA)
-                            .into(it)
-                    }
-                    textMealDescriptionEdit.setTag(m.slika_path)
-                }
+        viewModel.myResponse.observe(viewLifecycleOwner, { response ->
+            when (response) {
+                is Resource.Success -> {
+                    if (response != null) {
+                        val odgovor = response.value
+                        if (odgovor != null) {
+                            for(m in odgovor){
+                                textMealNameEdit.setText(m.naziv)
+                                textMealNameEdit.setTag(m.id_stavka)
+                                textMealDescriptionEdit.setText(m.opis)
+                                textMealPriceEdit.setText(m.cijena)
+                                textMealPriceEdit.setTag(m.lokal_id)
+                                imageViewMealEdit.let {
+                                    Glide.with(this)
+                                        .load(m.slika_path)
+                                        .diskCacheStrategy(DiskCacheStrategy.DATA)
+                                        .into(it)
+                                }
+                                textMealDescriptionEdit.setTag(m.slika_path)
+                            }
 
+                        }
+                        imageTagHolder.setTag("0")
+                    }
+                }
+                is Resource.Loading -> {
+                }
+                is Resource.Failure -> {
+
+                    Log.d("Response", response.toString())
+                }
             }
-            imageTagHolder.setTag("0")
         })
+
 
         btnEditItem.setOnClickListener{
             val repository = Add_mealRepository()

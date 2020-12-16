@@ -11,6 +11,10 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.smartwaiter.R
 import com.example.smartwaiter.repository.Add_mealRepository
+import com.example.smartwaiter.util.handleApiError
+import com.example.smartwaiter.util.visible
+import hr.foi.air.webservice.util.Resource
+import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_meni.*
 import kotlinx.android.synthetic.main.fragment_meni.recycleViewMenu
 import kotlinx.android.synthetic.main.fragment_meni_guest.*
@@ -36,11 +40,21 @@ class MenuGuestFragment : Fragment(R.layout.fragment_meni_guest) {
 
         viewModel = ViewModelProvider(this, viewModelFactory).get(MenuGuestViewModel::class.java)
         viewModel.getMeal(table = "Stavka_jelovnika", method = "select", lokal)
-        viewModel.myResponse.observe(viewLifecycleOwner, {
-            val response = it.body()
-            if (response != null) {
-                recycleViewMenuGuest.layoutManager = LinearLayoutManager(activity)
-                recycleViewMenuGuest.adapter = MealGuestListAdapter(response, this)
+        viewModel.myResponse.observe(viewLifecycleOwner, { response ->
+            when (response) {
+                is Resource.Success -> {
+                    if (response != null) {
+                        val listMeals = response.value
+                        recycleViewMenuGuest.layoutManager = LinearLayoutManager(activity)
+                        recycleViewMenuGuest.adapter = MealGuestListAdapter(listMeals, this)
+                    }
+                }
+                is Resource.Loading -> {
+                }
+                is Resource.Failure -> {
+
+                    Log.d("Response", response.toString())
+                }
             }
         })
     }
