@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -9,61 +10,90 @@
     android:padding="16dp">
 
 
-
-
     <ImageView
         android:id="@+id/imageViewMeal"
         android:layout_width="match_parent"
         android:layout_height="300dp"
+        android:layout_marginTop="4dp"
         android:src="@drawable/meal_photo"
-        android:layout_marginTop="20dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+ />
 
     <Button
         android:id="@+id/btnChoosePhoto"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@drawable/ic_button_style_primary"
         android:text="@string/choose_a_photo"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/ic_button_style_primary"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewMeal"
+        android:layout_marginTop="5dp"/>
 
     <EditText
         android:id="@+id/textMealName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/rounded_edit_text"
         android:ems="10"
-        android:inputType="textPersonName"
-        android:layout_marginTop="20dp"
         android:hint="@string/name_of_the_item"
-        android:background="@drawable/rounded_edit_text"/>
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnChoosePhoto"
+        android:drawablePadding="10dp"
+        android:paddingStart="15dp"
+        android:paddingEnd="15dp"
+        android:padding="10dp"
+        android:layout_marginTop="15dp"
+        />
 
     <EditText
         android:id="@+id/textMealDescription"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/rounded_edit_text"
         android:ems="10"
-        android:inputType="textMultiLine"
-
-        android:layout_marginTop="20dp"
         android:hint="@string/description"
-        android:background="@drawable/rounded_edit_text"/>
+        android:inputType="textMultiLine"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textMealName"
+        android:drawablePadding="10dp"
+        android:paddingStart="15dp"
+        android:paddingEnd="15dp"
+        android:padding="10dp"
+        android:layout_marginTop="5dp"/>
 
     <EditText
         android:id="@+id/textMealPrice"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/rounded_edit_text"
         android:ems="10"
-        android:inputType="numberDecimal"
-        android:layout_marginTop="20dp"
         android:hint="@string/price"
-        android:background="@drawable/rounded_edit_text"/>
+        android:inputType="numberDecimal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textMealDescription"
+        android:drawablePadding="10dp"
+        android:paddingStart="15dp"
+        android:paddingEnd="15dp"
+        android:padding="10dp"
+        android:layout_marginTop="5dp"/>
 
     <Button
         android:id="@+id/btnAddItem"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/ic_button_style_primary"
         android:text="@string/add_item"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/ic_button_style_primary"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textMealPrice" />
 
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
