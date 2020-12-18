@@ -7,7 +7,24 @@
 
     <fragment
         android:id="@+id/menuGuestFragment"
-        android:name="com.example.smartwaiter.ui.guest.menu_guest.MenuGuestFragment"
-        android:label="fragment_meni_guest"
-        tools:layout="@layout/fragment_meni_guest" />
+        android:name="com.example.smartwaiter.ui.guest.menuguest.MenuGuestFragment"
+        android:label="Menu"
+        tools:layout="@layout/fragment_meni_guest" >
+        <action
+            android:id="@+id/action_menuGuestFragment_to_menuDetailsFragment"
+            app:destination="@id/menuDetailsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/menuDetailsFragment"
+        android:name="com.example.smartwaiter.ui.guest.menudetails.MenuDetailsFragment"
+        android:label="Details"
+        tools:layout="@layout/fragment_menu_details" >
+        <argument
+            android:name="meal"
+            app:argType="hr.foi.air.webservice.model.Meal" />
+    </fragment>
 </navigation>
