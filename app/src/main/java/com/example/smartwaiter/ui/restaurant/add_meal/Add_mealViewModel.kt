@@ -6,12 +6,13 @@ import androidx.lifecycle.viewModelScope
 import com.example.smartwaiter.repository.Add_mealRepository
 
 import com.example.smartwaiter.repository.AddRestaurantRepository
+import hr.foi.air.webservice.util.Resource
 import kotlinx.coroutines.launch
 import retrofit2.Response
 
 class Add_mealViewModel(private val repository: Add_mealRepository): ViewModel()  {
 
-    val myResponse: MutableLiveData<Response<String>> = MutableLiveData()
+    val myResponse: MutableLiveData<Resource<String>> = MutableLiveData()
 
     fun insertMeal(
         table: String,

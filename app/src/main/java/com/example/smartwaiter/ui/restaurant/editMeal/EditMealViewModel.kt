@@ -5,11 +5,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.smartwaiter.repository.Add_mealRepository
 import hr.foi.air.webservice.model.Meal
+import hr.foi.air.webservice.util.Resource
 import kotlinx.coroutines.launch
 import retrofit2.Response
 
 class EditMealViewModel(private val repository: Add_mealRepository): ViewModel() {
-    val myResponse: MutableLiveData<Response<List<Meal>>> = MutableLiveData()
+    val myResponse: MutableLiveData<Resource<List<Meal>>> = MutableLiveData()
 
 
     fun getMealById(
