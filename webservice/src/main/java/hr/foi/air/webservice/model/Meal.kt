@@ -1,5 +1,9 @@
 package hr.foi.air.webservice.model
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
+@Parcelize
  data class Meal (
      val id_stavka: String,
      val naziv: String,
@@ -8,4 +12,4 @@ package hr.foi.air.webservice.model
      val slika_path: String,
      val lokal_id: String,
      val aktivno: Int
- )
+ ) : Parcelable
