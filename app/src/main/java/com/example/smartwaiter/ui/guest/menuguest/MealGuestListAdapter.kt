@@ -1,4 +1,4 @@
-package com.example.smartwaiter.ui.guest.menu_guest
+package com.example.smartwaiter.ui.guest.menuguest
 
 import android.view.LayoutInflater
 import android.view.View
@@ -17,14 +17,13 @@ class MealGuestListAdapter(private val list: List<Meal>, fragment: MenuGuestFrag
     }
 
     override fun onBindViewHolder(holder: MealGuestViewHolder, position: Int) {
-        val movie: Meal = list[position]
+        val meal: Meal = list[position]
 
-        holder.bind(movie)
+        holder.bind(meal)
 
         holder.OrderBtn?.setOnClickListener(object : View.OnClickListener {
-            var mealId = holder.Name?.getTag().toString()
             override fun onClick(v: View?) {
-                myFragment.callOrderMeal(mealId)
+                myFragment.callOrderMeal(meal)
             }
 
         })

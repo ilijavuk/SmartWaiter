@@ -1,10 +1,9 @@
-package com.example.smartwaiter.ui.guest.menu_guest
+package com.example.smartwaiter.ui.guest.menuguest
 
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.*
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStore
 import androidx.lifecycle.ViewModelStoreOwner

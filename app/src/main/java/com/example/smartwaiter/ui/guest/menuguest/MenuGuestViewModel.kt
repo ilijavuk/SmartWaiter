@@ -1,4 +1,4 @@
-package com.example.smartwaiter.ui.guest.menu_guest
+package com.example.smartwaiter.ui.guest.menuguest
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -8,7 +8,6 @@ import hr.foi.air.webservice.model.Meal
 import hr.foi.air.webservice.util.Resource
 
 import kotlinx.coroutines.launch
-import retrofit2.Response
 
 class MenuGuestViewModel(private val repository: Add_mealRepository) : ViewModel()
 {

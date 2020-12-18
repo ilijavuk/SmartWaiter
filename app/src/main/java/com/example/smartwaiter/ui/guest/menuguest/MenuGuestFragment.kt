@@ -1,4 +1,4 @@
-package com.example.smartwaiter.ui.guest.menu_guest
+package com.example.smartwaiter.ui.guest.menuguest
 
 import android.os.Bundle
 import android.util.Log
@@ -13,10 +13,8 @@ import com.example.smartwaiter.R
 import com.example.smartwaiter.repository.Add_mealRepository
 import com.example.smartwaiter.util.handleApiError
 import com.example.smartwaiter.util.visible
+import hr.foi.air.webservice.model.Meal
 import hr.foi.air.webservice.util.Resource
-import kotlinx.android.synthetic.main.fragment_home.*
-import kotlinx.android.synthetic.main.fragment_meni.*
-import kotlinx.android.synthetic.main.fragment_meni.recycleViewMenu
 import kotlinx.android.synthetic.main.fragment_meni_guest.*
 
 class MenuGuestFragment : Fragment(R.layout.fragment_meni_guest) {
@@ -42,11 +40,10 @@ class MenuGuestFragment : Fragment(R.layout.fragment_meni_guest) {
             when (response) {
                 is Resource.Success -> {
                     progressBarMenuGuest.visible(false)
-                    if (response != null) {
                         val listMeals = response.value
                         recycleViewMenuGuest.layoutManager = LinearLayoutManager(activity)
                         recycleViewMenuGuest.adapter = MealGuestListAdapter(listMeals, this)
-                    }
+
                 }
                 is Resource.Loading -> {
                     progressBarMenuGuest.visible(true)
@@ -60,11 +57,10 @@ class MenuGuestFragment : Fragment(R.layout.fragment_meni_guest) {
         })
     }
 
-    fun callOrderMeal(mealId: String){
-        val meal = mealId
+    fun callOrderMeal(meal: Meal){
+        val action = MenuGuestFragmentDirections.actionMenuGuestFragmentToMenuDetailsFragment(meal)
+        findNavController().navigate(action)
 
-        //val action = MenuFragmentDirections.actionMeniFragmentToEditMealFragment2(meal)
-        //findNavController().navigate(action)
     }
     fun load(){
         val repository = Add_mealRepository()
