@@ -64,6 +64,8 @@ class Add_mealFragment: Fragment(R.layout.fragment_add_meal) {
             var lokal_id = "1"
             var pathNaServeru ="https://smartwaiter.app/sw-api/uploads/"
             var imageNotExists = true
+            var nekaj:String = tagsEditText.tags.toString()
+            Log.d("tagovi", nekaj)
             if(imageViewMeal.getTag() == null){
 
             }else{
