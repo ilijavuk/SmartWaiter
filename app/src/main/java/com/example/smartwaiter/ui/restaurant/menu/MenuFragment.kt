@@ -14,6 +14,9 @@ import com.example.smartwaiter.R
 import com.example.smartwaiter.repository.Add_mealRepository
 import com.example.smartwaiter.ui.auth.MainActivity
 import com.example.smartwaiter.ui.guest.menu_guest.MealGuestListAdapter
+import com.example.smartwaiter.ui.guest.menu_guest.MenuGuestModelFactory
+import com.example.smartwaiter.ui.guest.menu_guest.MenuGuestViewModel
+import com.example.smartwaiter.ui.guest.menu_guest.TagGuestListAdapter
 import com.example.smartwaiter.util.handleApiError
 import com.example.smartwaiter.util.visible
 import hr.foi.air.webservice.util.Resource
@@ -24,6 +27,8 @@ class MenuFragment : Fragment(R.layout.fragment_meni) {
     private lateinit var lokal: String
 
     private lateinit var viewModel: MenuViewModel
+    private lateinit var repository: Add_mealRepository
+    private lateinit var viewModelFactory: MenuModelFactory
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -33,7 +38,15 @@ class MenuFragment : Fragment(R.layout.fragment_meni) {
         inflater.inflate(R.layout.fragment_meni, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        lokal = requireArguments().getInt("restaurant_id").toString()
+        repository = Add_mealRepository()
+        viewModelFactory = MenuModelFactory(repository)
+        viewModel = ViewModelProvider(this, viewModelFactory).get(MenuViewModel::class.java)
         load()
+        loadTags()
+        btnCallAddMeal.setOnClickListener{
+            findNavController().navigate(MenuFragmentDirections.actionMeniFragmentToAddMealFragment(lokal.toInt()))
+        }
         viewModel.myResponse.observe(viewLifecycleOwner, { response ->
             when (response) {
                 is Resource.Success -> {
@@ -55,6 +68,25 @@ class MenuFragment : Fragment(R.layout.fragment_meni) {
             }
         })
 
+        viewModel.myResponse2.observe(viewLifecycleOwner, { response ->
+            when (response) {
+                is Resource.Success -> {
+                    if (response != null) {
+                        val listTags = response.value
+                        val layoutManager: LinearLayoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
+                        recyclerViewMenuTags.layoutManager = layoutManager
+                        recyclerViewMenuTags.adapter = TagListAdapter(listTags, this)
+                    }
+                }
+                is Resource.Loading -> {
+                }
+                is Resource.Failure -> {
+                    handleApiError(response) { load() }
+                    Log.d("Response", response.toString())
+                }
+            }
+        })
+
     }
 
     fun callEditMeal(mealId: String){
@@ -63,10 +95,9 @@ class MenuFragment : Fragment(R.layout.fragment_meni) {
         findNavController().navigate(action)
     }
     fun load(){
-        val repository = Add_mealRepository()
-        val viewModelFactory = MenuModelFactory(repository)
-        lokal = requireArguments().getInt("restaurant_id").toString()
-        viewModel = ViewModelProvider(this, viewModelFactory).get(MenuViewModel::class.java)
         viewModel.getMeal(table = "Stavka_jelovnika", method = "select", lokal)
+    }
+    fun loadTags(){
+        viewModel.getAllTags(table = "Tag_stavke", "select")
     }
 }

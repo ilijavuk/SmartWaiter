@@ -3,7 +3,11 @@ package hr.foi.air.webservice
 import hr.foi.air.webservice.model.Korisnik
 import hr.foi.air.webservice.model.Meal
 import hr.foi.air.webservice.model.Restoran
+
 import hr.foi.air.webservice.model.Stol
+
+import hr.foi.air.webservice.model.Tag
+
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.PUT
@@ -112,11 +116,33 @@ interface WebserviceAPI {
     )
 
     @GET("sw-api/api.php")
+
     suspend fun getTableFromHash(
         @Query("tablica") table : String,
         @Query("metoda") method : String,
         @Query("hash") hash: String
     ): List<Stol>
+
+    suspend fun getAllTags(
+        @Query("tablica") table : String,
+        @Query("metoda") method : String,
+    ): List<Tag>
+
+    @GET("sw-api/api.php")
+    suspend fun insertTag(
+        @Query("tablica") table : String,
+        @Query("metoda") method : String,
+        @Query("tag") mealName: String,
+    ): String
+
+    @GET("sw-api/api.php")
+    suspend fun bindTag(
+        @Query("tablica") table : String,
+        @Query("metoda") method : String,
+        @Query("stavka_id") stavkaId: String,
+        @Query("tag_id") tagId: String,
+    ): String
+
 
     /*@GET("sw-api/api.php")
     suspend fun getEmail(
