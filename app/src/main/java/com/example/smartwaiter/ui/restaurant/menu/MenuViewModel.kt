@@ -16,6 +16,7 @@ class MenuViewModel(private val repository: Add_mealRepository) : ViewModel()
 {
     val myResponse: MutableLiveData<Resource<List<Meal>>> = MutableLiveData()
     val myResponse2: MutableLiveData<Resource<List<Tag>>> = MutableLiveData()
+    val myResponse3: MutableLiveData<Resource<List<Meal>>> = MutableLiveData()
 
 
     fun getMeal(
@@ -63,6 +64,16 @@ class MenuViewModel(private val repository: Add_mealRepository) : ViewModel()
                 mealId = mealId,
                 available = available)
 
+        }
+    }
+    fun menuByTag(
+        method : String,
+        id_tag: String,
+        lokal_id : String
+    ){
+        viewModelScope.launch {
+            val response = repository.menuByTag(method,id_tag, lokal_id)
+            myResponse3.value = response
         }
     }
 

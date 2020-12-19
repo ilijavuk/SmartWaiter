@@ -103,4 +103,33 @@ class MenuFragment : Fragment(R.layout.fragment_meni) {
         viewModel.tagsByRestaurant(method= "tagoviPoRestoranu", lokal)
         Log.d("tagovi", "pozove se")
     }
+
+    fun callMenuByTag(id_tag: String){
+        viewModel.menuByTag(method = "meniPoTagu", id_tag=id_tag, lokal_id = lokal)
+    }
+
+    fun loadMenuByTag(id_tag: String){
+        callMenuByTag(id_tag)
+        viewModel.myResponse3.observe(viewLifecycleOwner, { response ->
+            when (response) {
+                is Resource.Success -> {
+                    progressBarMenu.visible(false)
+                    if (response != null) {
+                        val odgovor = response.value
+
+                        recycleViewMenu.layoutManager = LinearLayoutManager(activity)
+                        recycleViewMenu.adapter = MealListAdapter(odgovor, this)
+                    }
+                }
+                is Resource.Loading -> {
+                    progressBarMenu.visible(true)
+                }
+                is Resource.Failure -> {
+                    progressBarMenu.visible(true)
+                    handleApiError(response) { callMenuByTag(id_tag) }
+                    Log.d("Response", response.toString())
+                }
+            }
+        })
+    }
 }

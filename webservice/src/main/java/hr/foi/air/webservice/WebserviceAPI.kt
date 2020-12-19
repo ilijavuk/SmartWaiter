@@ -151,6 +151,12 @@ interface WebserviceAPI {
         @Query("tag_id") tagId: String,
     ): String
 
+    @GET("sw-api/api.php")
+    suspend fun menuByTag(
+        @Query("metoda") method : String,
+        @Query("id_tag") id_tag : String,
+        @Query("lokal_id") lokal_id : String,
+    ): List<Meal>
 
     /*@GET("sw-api/api.php")
     suspend fun getEmail(
