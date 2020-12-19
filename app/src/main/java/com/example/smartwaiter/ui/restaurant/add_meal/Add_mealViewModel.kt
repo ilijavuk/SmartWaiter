@@ -15,6 +15,8 @@ class Add_mealViewModel(private val repository: Add_mealRepository): ViewModel()
 
     val myResponse: MutableLiveData<Resource<String>> = MutableLiveData()
     val myResponse2: MutableLiveData<Resource<List<Tag>>> = MutableLiveData()
+    val myResponse3: MutableLiveData<Resource<String>> = MutableLiveData()
+    val myResponse4: MutableLiveData<Resource<String>> = MutableLiveData()
     fun insertMeal(
         table: String,
         method: String,
@@ -37,6 +39,38 @@ class Add_mealViewModel(private val repository: Add_mealRepository): ViewModel()
             myResponse.value = response
         }
     }
+    fun insertTag(
+        table: String,
+        method: String,
+        tag: String,
+    ){
+        viewModelScope.launch {
+            val response = repository.insertTag(
+                table = table,
+                method = method,
+                tag = tag
+            )
+            myResponse3.value = response
+        }
+    }
+
+    fun bindTag(
+        table: String,
+        method: String,
+        stavka_id: String,
+        tag_id: String
+    ){
+        viewModelScope.launch {
+            val response = repository.bindTag(
+                table = table,
+                method = method,
+                stavka_id = stavka_id,
+                tag_id = tag_id
+            )
+            myResponse4.value = response
+        }
+    }
+
     fun getAllTags(
         table: String,
         method: String

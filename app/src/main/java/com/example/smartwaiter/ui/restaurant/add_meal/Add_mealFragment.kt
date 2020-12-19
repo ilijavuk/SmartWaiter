@@ -157,7 +157,6 @@ class Add_mealFragment: Fragment(R.layout.fragment_add_meal) {
                 textMealDescription.text=null
                 textMealName.text=null
                 textMealPrice.text=null
-                Toast.makeText(activity, getString(R.string.itemadded), Toast.LENGTH_LONG).show()
                 imageViewMeal.setTag(null)
                 imageViewMeal.setImageResource(R.drawable.meal_photo)
             }
@@ -199,6 +198,9 @@ class Add_mealFragment: Fragment(R.layout.fragment_add_meal) {
 
     }
 
+
+
+
     private fun callExistingTags(){
         viewModel.getAllTags("Tag_stavke","select")
     }
@@ -222,6 +224,11 @@ class Add_mealFragment: Fragment(R.layout.fragment_add_meal) {
         })
     }
 
+
+
+    private fun callInsertTag(newTag: String){
+        viewModel.insertTag(table = "Tag_stavke", method = "insert", newTag)
+    }
     private fun processNewTags(){
         var newTags:List<String> = tagsEditText.tags
         var allNewItemTags: MutableList<String> = mutableListOf<String>()
@@ -234,12 +241,56 @@ class Add_mealFragment: Fragment(R.layout.fragment_add_meal) {
                 }
             }
             if(!found){
-                
+
+                callInsertTag(newTag)
+
+                viewModel.myResponse3.observe(viewLifecycleOwner, { response ->
+                    when (response) {
+                        is Resource.Success -> {
+                            if (response != null) {
+                                if(!allNewItemTags.contains(response.value) ){
+                                    allNewItemTags.add(response.value)
+                                }
+                                if(allNewItemTags.size == newTags.size){
+                                    Log.d("tagovi",allNewItemTags.toString())
+                                    bindTagsToItem(allNewItemTags)
+                                }
+                            }
+                        }
+                        is Resource.Loading -> {
+                        }
+                        is Resource.Failure -> {
+                            handleApiError(response) { callInsertTag(newTag) }
+                        }
+                    }
+                })
             }
+
         }
-        Log.d("tagovi",allNewItemTags.toString())
+
+
+    }
+    private fun callBindTag(stavka_id: String, tag_id: String){
+        viewModel.bindTag(table = "Stavka_tag", method = "insert", stavka_id=stavka_id,tag_id=tag_id)
     }
 
+    private fun bindTagsToItem(tagsToBind:List<String>){
+        for (tag in tagsToBind){
+            callBindTag(newItemId, tag)
+            viewModel.myResponse3.observe(viewLifecycleOwner, { response ->
+                when (response) {
+                    is Resource.Success -> {
+
+                    }
+                    is Resource.Loading -> {
+                    }
+                    is Resource.Failure -> {
+                        handleApiError(response) { callBindTag(newItemId, tag) }
+                    }
+                }
+            })
+        }
+    }
 }
 
 

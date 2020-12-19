@@ -4,6 +4,7 @@ import hr.foi.air.webservice.RetrofitInstance
 import hr.foi.air.webservice.model.Meal
 import hr.foi.air.webservice.model.Restoran
 import retrofit2.Response
+import retrofit2.http.Query
 
 
 class Add_mealRepository : BaseRepository() {
@@ -61,6 +62,24 @@ class Add_mealRepository : BaseRepository() {
         method: String
     )= safeApiCall{
         RetrofitInstance.api.getAllTags(table, method)
+    }
+
+    suspend fun insertTag(
+        table: String,
+        method: String,
+        tag: String
+
+    ) = safeApiCall {
+        RetrofitInstance.api.insertTag(table, method, tag)
+    }
+    suspend fun bindTag(
+        table: String,
+        method: String,
+        stavka_id: String,
+        tag_id: String
+
+    ) = safeApiCall {
+        RetrofitInstance.api.bindTag(table, method, stavka_id,tag_id)
     }
 
 }
