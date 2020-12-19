@@ -56,4 +56,11 @@ class Add_mealRepository : BaseRepository() {
         RetrofitInstance.api.setMealAvailability(table, method, mealId, available)
     }
 
+    suspend fun getAllTags(
+        table: String,
+        method: String
+    )= safeApiCall{
+        RetrofitInstance.api.getAllTags(table, method)
+    }
+
 }

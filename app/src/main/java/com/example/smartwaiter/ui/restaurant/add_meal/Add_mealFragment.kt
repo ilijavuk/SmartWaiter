@@ -20,14 +20,22 @@ import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.smartwaiter.R
 import com.example.smartwaiter.repository.AddRestaurantRepository
 import com.example.smartwaiter.repository.Add_mealRepository
 import com.example.smartwaiter.ui.restaurant.add_restaurant.AddRestaurantModelFactory
 import com.example.smartwaiter.ui.restaurant.add_restaurant.AddRestaurantViewModel
+import com.example.smartwaiter.util.handleApiError
+import com.example.smartwaiter.util.visible
 import hr.foi.air.webservice.UploadUtility
 import hr.foi.air.webservice.Webservice
+import hr.foi.air.webservice.model.Tag
+import hr.foi.air.webservice.util.Resource
 import kotlinx.android.synthetic.main.fragment_add_meal.*
+import kotlinx.android.synthetic.main.fragment_edit_meal.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
@@ -37,20 +45,44 @@ import java.sql.Timestamp
 
 class Add_mealFragment: Fragment(R.layout.fragment_add_meal) {
     private lateinit var viewModel: Add_mealViewModel
+    private lateinit var ExistingTags: List<Tag>
+    private lateinit var repository: Add_mealRepository
+    private lateinit var viewModelFactory: Add_mealModelFactory
+    private lateinit var newItemId: String
+
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val repository = Add_mealRepository()
-        val viewModelFactory = Add_mealModelFactory(repository)
+
+        repository = Add_mealRepository()
+        viewModelFactory = Add_mealModelFactory(repository)
         viewModel = ViewModelProvider(this, viewModelFactory).get(Add_mealViewModel::class.java)
-        viewModel.myResponse.observe(viewLifecycleOwner, Observer {
-            if (it != null) {
-                Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
 
-            } else {
-                Toast.makeText(context, "Adding failed", Toast.LENGTH_SHORT).show()
 
+
+
+
+        viewModel.myResponse.observe(viewLifecycleOwner, { response ->
+            when (response) {
+                is Resource.Success -> {
+                    if (response != null) {
+                        newItemId = response.value
+                        Log.d("novi id", newItemId)
+                        Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
+                        loadExistingTags()
+
+                    }
+                }
+                is Resource.Loading -> {
+                }
+                is Resource.Failure -> {
+                    handleApiError(response) {  }
+                    Toast.makeText(context, "Adding failed", Toast.LENGTH_SHORT).show()
+                }
             }
         })
+
+
+
 
 
 
@@ -64,8 +96,10 @@ class Add_mealFragment: Fragment(R.layout.fragment_add_meal) {
             var lokal_id = "1"
             var pathNaServeru ="https://smartwaiter.app/sw-api/uploads/"
             var imageNotExists = true
-            var nekaj:String = tagsEditText.tags.toString()
-            Log.d("tagovi", nekaj)
+
+
+
+
             if(imageViewMeal.getTag() == null){
 
             }else{
@@ -93,7 +127,7 @@ class Add_mealFragment: Fragment(R.layout.fragment_add_meal) {
                     var myUri: Uri = parse(path)
 
 
-                    Log.d("PATH1", path)
+
                     val parcelFileDescriptor =
                         context?.contentResolver?.openFileDescriptor(myUri, "r", null)
 
@@ -110,9 +144,7 @@ class Add_mealFragment: Fragment(R.layout.fragment_add_meal) {
                         var timestampforname = System.currentTimeMillis() / 1000
                         myUri = parse(file.absolutePath)
                         imageViewMeal.setImageURI(myUri)
-                        Log.d("PATH3", file.absolutePath)
                         var nastavak = file.absolutePath.substringAfterLast(".")
-                        Log.d("PATH4", nastavak)
                         var imageName = lokal_id + name + timestampforname + "." + nastavak
                         pathNaServeru = pathNaServeru + imageName
 
@@ -120,16 +152,6 @@ class Add_mealFragment: Fragment(R.layout.fragment_add_meal) {
                     }
                 }
 
-
-
-
-                /*runBlocking {
-                    val job = GlobalScope.launch {
-                        var add= Webservice()
-                        val args= mutableMapOf<String,String>("naziv" to name, "cijena" to price, "opis" to description, "slika_path" to pathNaServeru, "lokal_id" to "1")
-                        add.APICall("insert","Stavka_jelovnika", args)
-                    }
-                }*/
                 viewModel.insertMeal(table = "Stavka_jelovnika", method = "insert", name, price, description, pathNaServeru, "1")
 
                 textMealDescription.text=null
@@ -171,14 +193,51 @@ class Add_mealFragment: Fragment(R.layout.fragment_add_meal) {
         if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_CODE){
             imageViewMeal.setImageURI(data?.data) // handle chosen image
             imageViewMeal.setTag(data?.data)
-            var path=imageViewMeal.getTag().toString()
-            Log.d("PATH2", imageViewMeal.getTag().toString())
-
-
 
         }
 
 
+    }
+
+    private fun callExistingTags(){
+        viewModel.getAllTags("Tag_stavke","select")
+    }
+    private fun loadExistingTags(){
+        callExistingTags()
+        viewModel.myResponse2.observe(viewLifecycleOwner, { response ->
+            when (response) {
+                is Resource.Success -> {
+                    if (response != null) {
+                        ExistingTags = response.value
+                        Log.d("tagovi", ExistingTags.toString())
+                        processNewTags()
+                    }
+                }
+                is Resource.Loading -> {
+                }
+                is Resource.Failure -> {
+                    handleApiError(response) { callExistingTags() }
+                }
+            }
+        })
+    }
+
+    private fun processNewTags(){
+        var newTags:List<String> = tagsEditText.tags
+        var allNewItemTags: MutableList<String> = mutableListOf<String>()
+        for (newTag in newTags){
+            var found = false
+            for (existingTag in ExistingTags){
+                if (existingTag.tag==newTag){
+                    allNewItemTags.add(existingTag.id_tag)
+                    found = true
+                }
+            }
+            if(!found){
+                
+            }
+        }
+        Log.d("tagovi",allNewItemTags.toString())
     }
 
 }

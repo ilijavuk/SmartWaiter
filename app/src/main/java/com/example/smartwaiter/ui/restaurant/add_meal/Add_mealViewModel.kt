@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.smartwaiter.repository.Add_mealRepository
 
 import com.example.smartwaiter.repository.AddRestaurantRepository
+import hr.foi.air.webservice.model.Tag
 import hr.foi.air.webservice.util.Resource
 import kotlinx.coroutines.launch
 import retrofit2.Response
@@ -13,7 +14,7 @@ import retrofit2.Response
 class Add_mealViewModel(private val repository: Add_mealRepository): ViewModel()  {
 
     val myResponse: MutableLiveData<Resource<String>> = MutableLiveData()
-
+    val myResponse2: MutableLiveData<Resource<List<Tag>>> = MutableLiveData()
     fun insertMeal(
         table: String,
         method: String,
@@ -36,4 +37,14 @@ class Add_mealViewModel(private val repository: Add_mealRepository): ViewModel()
             myResponse.value = response
         }
     }
+    fun getAllTags(
+        table: String,
+        method: String
+    ){
+        viewModelScope.launch {
+            val response = repository.getAllTags(table,method)
+            myResponse2.value = response
+        }
+    }
+
 }
