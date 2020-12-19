@@ -27,12 +27,24 @@ class MenuGuestViewModel(private val repository: Add_mealRepository) : ViewModel
             myResponse.value = response
         }
     }
+    /*
     fun getAllTags(
         table: String,
         method: String
     ){
         viewModelScope.launch {
             val response = repository.getAllTags(table,method)
+            myResponse2.value = response
+        }
+    }
+     */
+
+    fun tagsByRestaurant(
+        method : String,
+        lokal_id : String
+    ){
+        viewModelScope.launch {
+            val response = repository.tagsByRestaurant(method, lokal_id)
             myResponse2.value = response
         }
     }

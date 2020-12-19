@@ -45,6 +45,7 @@ class MenuGuestFragment : Fragment(R.layout.fragment_meni_guest) {
                 is Resource.Success -> {
                     progressBarMenuGuest.visible(false)
                     if (response != null) {
+                        Log.d("tagovi",response.value.toString())
                         val listMeals = response.value
                         recycleViewMenuGuest.layoutManager = LinearLayoutManager(activity)
                         recycleViewMenuGuest.adapter = MealGuestListAdapter(listMeals, this)
@@ -95,6 +96,6 @@ class MenuGuestFragment : Fragment(R.layout.fragment_meni_guest) {
         viewModel.getMeal(table = "Stavka_jelovnika", method = "select", lokal)
     }
     fun loadTags(){
-        viewModel.getAllTags(table = "Tag_stavke", "select")
+        viewModel.tagsByRestaurant(method= "tagoviPoRestoranu", lokal)
     }
 }

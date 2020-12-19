@@ -53,6 +53,7 @@ class MenuFragment : Fragment(R.layout.fragment_meni) {
                     progressBarMenu.visible(false)
                     if (response != null) {
                         val odgovor = response.value
+
                         recycleViewMenu.layoutManager = LinearLayoutManager(activity)
                         recycleViewMenu.adapter = MealListAdapter(odgovor, this)
                     }
@@ -76,12 +77,13 @@ class MenuFragment : Fragment(R.layout.fragment_meni) {
                         val layoutManager: LinearLayoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
                         recyclerViewMenuTags.layoutManager = layoutManager
                         recyclerViewMenuTags.adapter = TagListAdapter(listTags, this)
+                        Log.d("tagovi" , response.value.toString())
                     }
                 }
                 is Resource.Loading -> {
                 }
                 is Resource.Failure -> {
-                    handleApiError(response) { load() }
+                    handleApiError(response) { loadTags() }
                     Log.d("Response", response.toString())
                 }
             }
@@ -98,6 +100,7 @@ class MenuFragment : Fragment(R.layout.fragment_meni) {
         viewModel.getMeal(table = "Stavka_jelovnika", method = "select", lokal)
     }
     fun loadTags(){
-        viewModel.getAllTags(table = "Tag_stavke", "select")
+        viewModel.tagsByRestaurant(method= "tagoviPoRestoranu", lokal)
+        Log.d("tagovi", "pozove se")
     }
 }

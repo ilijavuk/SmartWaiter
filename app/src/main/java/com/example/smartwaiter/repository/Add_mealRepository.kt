@@ -64,6 +64,13 @@ class Add_mealRepository : BaseRepository() {
         RetrofitInstance.api.getAllTags(table, method)
     }
 
+    suspend fun tagsByRestaurant(
+        method : String,
+        lokal_id : String
+    )= safeApiCall{
+        RetrofitInstance.api.tagsByRestaurant(method, lokal_id)
+    }
+
     suspend fun insertTag(
         table: String,
         method: String,

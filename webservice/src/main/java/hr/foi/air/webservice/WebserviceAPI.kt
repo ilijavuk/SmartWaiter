@@ -115,17 +115,25 @@ interface WebserviceAPI {
         @Query("slika_path") mealPhotoPath: String,
     )
 
-    @GET("sw-api/api.php")
 
+    @GET("sw-api/api.php")
     suspend fun getTableFromHash(
         @Query("tablica") table : String,
         @Query("metoda") method : String,
         @Query("hash") hash: String
     ): List<Stol>
 
+
+    @GET("sw-api/api.php")
     suspend fun getAllTags(
         @Query("tablica") table : String,
         @Query("metoda") method : String,
+    ): List<Tag>
+
+    @GET("sw-api/api.php")
+    suspend fun tagsByRestaurant(
+        @Query("metoda") method : String,
+        @Query("lokal_id") lokal_id : String,
     ): List<Tag>
 
     @GET("sw-api/api.php")
