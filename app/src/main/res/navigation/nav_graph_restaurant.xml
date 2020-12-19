@@ -9,7 +9,11 @@
         android:id="@+id/add_mealFragment"
         android:name="com.example.smartwaiter.ui.restaurant.add_meal.Add_mealFragment"
         android:label="fragment_add_meal"
-        tools:layout="@layout/fragment_add_meal" />
+        tools:layout="@layout/fragment_add_meal" >
+        <argument
+            android:name="restaurant_id"
+            app:argType="integer" />
+    </fragment>
     <fragment
         android:id="@+id/restaurantListFragment"
         android:name="com.example.smartwaiter.ui.restaurant.restaurant_list.RestaurantList"

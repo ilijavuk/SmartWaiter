@@ -152,7 +152,7 @@ class Add_mealFragment: Fragment(R.layout.fragment_add_meal) {
                     }
                 }
 
-                viewModel.insertMeal(table = "Stavka_jelovnika", method = "insert", name, price, description, pathNaServeru, "1")
+                viewModel.insertMeal(table = "Stavka_jelovnika", method = "insert", name, price, description, pathNaServeru, requireArguments().getInt("restaurant_id").toString())
 
                 textMealDescription.text=null
                 textMealName.text=null

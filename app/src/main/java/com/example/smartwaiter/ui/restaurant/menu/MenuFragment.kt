@@ -35,7 +35,7 @@ class MenuFragment : Fragment(R.layout.fragment_meni) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         load()
         btnCallAddMeal.setOnClickListener{
-            findNavController().navigate(MenuFragmentDirections.actionMeniFragmentToAddMealFragment())
+            findNavController().navigate(MenuFragmentDirections.actionMeniFragmentToAddMealFragment(lokal.toInt()))
         }
         viewModel.myResponse.observe(viewLifecycleOwner, { response ->
             when (response) {
