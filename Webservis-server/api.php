@@ -13,6 +13,11 @@ include 'conn.php';
 			if(strcmp($_GET['metoda'],'meniPoTagu')==0){
 				$sql='SELECT id_stavka, naziv, cijena, opis, slika_path, lokal_id, aktivno FROM Stavka_jelovnika join Stavka_tag on id_stavka = stavka_id join Tag_stavke on tag_id = id_tag WHERE id_tag = "'.$_GET['id_tag'].'" AND lokal_id = "'.$_GET['lokal_id'].'";';
 			}
+			else 
+			if(strcmp($_GET['metoda'],'tagoviPoRestoranu')==0){
+				$sql='SELECT distinct id_tag, tag FROM Stavka_jelovnika left join Stavka_tag on id_stavka = stavka_id right join Tag_stavke on tag_id = id_tag WHERE lokal_id = "'.$_GET['lokal_id'].'";';
+				
+			}
 			else $sql=QueryBuilder();
 			if($sql!=null){
 				
