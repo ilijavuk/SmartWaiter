@@ -7,7 +7,7 @@ include 'conn.php';
 		if(isset($_GET['metoda'])){
 			
 			if(strcmp($_GET['metoda'],'narudzba')==0){
-					$sql="SELECT Stol.id_stol, Narudzba.korisnik_id, Narudzba.stol_id, Stol.broj_stola, Narudzba.stavka_id FROM Stol LEFT OUTER JOIN Narudzba ON Stol.id_stol = Narudzba.stol_id";
+					$sql="SELECT t.id_stol, COUNT(*) FROM(SELECT Stol.id_stol, Narudzba.stol_id, Stol.broj_stola, COUNT(Narudzba.korisnik_id) as parc_broj FROM Stol LEFT OUTER JOIN Narudzba ON Stol.id_stol = Narudzba.stol_id GROUP BY Stol.id_stol, Narudzba.korisnik_id) t WHERE t.parc_broj != 0 GROUP BY t.id_stol UNION SELECT s.id_stol, s.parc_broj2 FROM(SELECT Stol.id_stol, COUNT(Narudzba.korisnik_id) as parc_broj2 FROM Stol LEFT OUTER JOIN Narudzba ON Stol.id_stol = Narudzba.stol_id GROUP BY Stol.id_stol, Narudzba.korisnik_id) s WHERE parc_broj2 = 0";
 			}
 			else 
 			if(strcmp($_GET['metoda'],'meniPoTagu')==0){
