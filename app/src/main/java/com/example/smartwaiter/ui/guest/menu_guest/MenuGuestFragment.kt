@@ -21,6 +21,7 @@ import kotlinx.android.synthetic.main.fragment_meni_guest.*
 
 class MenuGuestFragment : Fragment(R.layout.fragment_meni_guest) {
     private lateinit var lokal: String
+    private lateinit var stol: String
 
     private lateinit var viewModel: MenuGuestViewModel
 
@@ -34,8 +35,9 @@ class MenuGuestFragment : Fragment(R.layout.fragment_meni_guest) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
 
-        lokal = "1"
-            //requireArguments().getInt("restaurant_id").toString()
+        lokal = requireArguments().getInt("restaurant_id").toString()
+
+        Log.d("qr", lokal)
 
         load()
         viewModel.myResponse.observe(viewLifecycleOwner, { response ->
