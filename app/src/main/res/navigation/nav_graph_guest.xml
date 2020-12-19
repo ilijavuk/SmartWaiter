@@ -3,11 +3,23 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph_guest"
-    app:startDestination="@id/menuGuestFragment">
+    app:startDestination="@id/qrFragment">
 
     <fragment
         android:id="@+id/menuGuestFragment"
         android:name="com.example.smartwaiter.ui.guest.menu_guest.MenuGuestFragment"
         android:label="fragment_meni_guest"
-        tools:layout="@layout/fragment_meni_guest" />
+        tools:layout="@layout/fragment_meni_guest" >
+        <argument
+            android:name="restaurant_id"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/qrFragment"
+        android:name="com.example.smartwaiter.ui.restaurant.qr.QrFragment"
+        android:label="QrFragment" >
+        <action
+            android:id="@+id/action_qrFragment_to_menuGuestFragment2"
+            app:destination="@id/menuGuestFragment" />
+    </fragment>
 </navigation>

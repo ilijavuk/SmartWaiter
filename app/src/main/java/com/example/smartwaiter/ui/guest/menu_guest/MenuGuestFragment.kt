@@ -16,6 +16,7 @@ import hr.foi.air.webservice.util.Resource
 import kotlinx.android.synthetic.main.fragment_meni_guest.*
 class MenuGuestFragment : Fragment(R.layout.fragment_meni_guest) {
     private lateinit var lokal: String
+    private lateinit var stol: String
 
     private lateinit var viewModel: MenuGuestViewModel
     private lateinit var repository: Add_mealRepository
@@ -33,8 +34,9 @@ class MenuGuestFragment : Fragment(R.layout.fragment_meni_guest) {
         viewModelFactory = MenuGuestModelFactory(repository)
         viewModel = ViewModelProvider(this, viewModelFactory).get(MenuGuestViewModel::class.java)
 
-        lokal = "1"
-            //requireArguments().getInt("restaurant_id").toString()
+        lokal = requireArguments().getInt("restaurant_id").toString()
+
+        Log.d("qr", lokal)
 
         load()
         loadTags()
