@@ -9,7 +9,8 @@ import java.net.URL
 public class Webservice {
 
     companion object{
-        var BASE_URL="https://smartwaiter.app/sw-api/api.php"
+        var
+                BASE_URL="https://smartwaiter.app/sw-api/api.php"
     }
 
     public fun Korisnici(): String {

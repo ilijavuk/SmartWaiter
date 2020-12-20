@@ -3,9 +3,9 @@ package hr.foi.air.webservice
 import hr.foi.air.webservice.model.Korisnik
 import hr.foi.air.webservice.model.Meal
 import hr.foi.air.webservice.model.Restoran
+import hr.foi.air.webservice.model.TableOrder
 import retrofit2.Response
 import retrofit2.http.GET
-import retrofit2.http.PUT
 import retrofit2.http.Query
 
 interface WebserviceAPI {
@@ -109,6 +109,14 @@ interface WebserviceAPI {
         @Query("opis") mealDescription: String,
         @Query("slika_path") mealPhotoPath: String,
     )
+
+    @GET("sw-api/api.php")
+    suspend fun getTables(
+        @Query("tablica") table : String,
+        @Query("metoda") method : String,
+        ): Response<List<TableOrder>>
+
+
     /*@GET("sw-api/api.php")
     suspend fun getEmail(
         @Query("tablica") table : String,
