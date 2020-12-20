@@ -5,6 +5,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
+import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModelProvider
@@ -19,6 +21,8 @@ import hr.foi.air.webservice.model.Tag
 import hr.foi.air.webservice.util.Resource
 import kotlinx.android.synthetic.main.fragment_meni.*
 import kotlinx.android.synthetic.main.fragment_meni_guest.*
+import kotlinx.android.synthetic.main.menu_tag_item.view.*
+
 class MenuGuestFragment : Fragment(R.layout.fragment_meni_guest) {
     private lateinit var lokal: String
     private lateinit var stol: String

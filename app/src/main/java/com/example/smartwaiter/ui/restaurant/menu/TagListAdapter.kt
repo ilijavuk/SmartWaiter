@@ -5,11 +5,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.core.view.iterator
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.smartwaiter.R
 import com.example.smartwaiter.R.*
 import hr.foi.air.webservice.model.Tag
+import kotlinx.android.synthetic.main.fragment_meni.*
+import kotlinx.android.synthetic.main.menu_tag_item.view.*
 
 
 class TagListAdapter(private val list: List<Tag>, fragment: MenuFragment)
@@ -26,6 +29,14 @@ class TagListAdapter(private val list: List<Tag>, fragment: MenuFragment)
         val movie: Tag = list[position]
 
         holder.bind(movie)
+        var context: FragmentActivity? = myFragment.getActivityContext()
+        if(holder.Name?.getTag().toString() == "-1"){
+            holder.Name?.setBackgroundResource(drawable.dot_white)
+            if(context != null){
+                holder.Name?.setTextColor(ContextCompat.getColor(context, color.dark_red))
+            }
+        }
+
 
         holder.Name?.setOnClickListener(object : View.OnClickListener {
             var id_tag = holder.Name?.getTag().toString()
@@ -38,8 +49,16 @@ class TagListAdapter(private val list: List<Tag>, fragment: MenuFragment)
                 else {
                     myFragment.loadMenuByTag(id_tag)
                 }
+
+                //var context: FragmentActivity? = myFragment.getActivityContext()
+
+                for(tag in myFragment.recyclerViewMenuTags){
+                    tag.tagRecyclerTextMeni.setBackgroundResource(drawable.dot)
+                    if(context != null){
+                        tag.tagRecyclerTextMeni.setTextColor(ContextCompat.getColor(context, color.white))
+                    }
+                }
                 holder.Name?.setBackgroundResource(drawable.dot_white)
-                var context: FragmentActivity? = myFragment.getActivityContext()
                 if(context != null){
                     holder.Name?.setTextColor(ContextCompat.getColor(context, color.dark_red))
                 }
