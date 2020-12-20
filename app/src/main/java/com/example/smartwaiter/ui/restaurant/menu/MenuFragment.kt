@@ -138,4 +138,5 @@ class MenuFragment : Fragment(R.layout.fragment_meni) {
     fun getActivityContext(): FragmentActivity? {
         return activity
     }
+
 }

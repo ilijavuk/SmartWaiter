@@ -16,6 +16,7 @@ import kotlinx.android.synthetic.main.menu_guest_tag_item.view.*
 class TagGuestListAdapter(private val list: List<Tag>, fragment: MenuGuestFragment)
 : RecyclerView.Adapter<TagGuestViewHolder>() {
     val myFragment=fragment
+    var row_index = 0
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TagGuestViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -26,43 +27,35 @@ class TagGuestListAdapter(private val list: List<Tag>, fragment: MenuGuestFragme
         val movie: Tag = list[position]
 
         holder.bind(movie)
-                var context: FragmentActivity? = myFragment.getActivityContext()
-        if(holder.Name?.getTag().toString() == "-1"){
-            holder.Name?.setBackgroundResource(R.drawable.dot_white)
-            if(context != null){
-                holder.Name?.setTextColor(ContextCompat.getColor(context, R.color.dark_red))
-            }
-        }
-
-
+        var context: FragmentActivity? = myFragment.getActivityContext()
         holder.Name?.setOnClickListener(object : View.OnClickListener {
             var id_tag = holder.Name?.getTag().toString()
 
             @SuppressLint("ResourceAsColor")
             override fun onClick(v: View?) {
-                if(id_tag == "-1"){
+                row_index = position
+                if (id_tag == "-1") {
                     myFragment.load()
-                }
-                else {
+                } else {
                     myFragment.loadMenuByTag(id_tag)
                 }
+                notifyDataSetChanged()
 
-                //var context: FragmentActivity? = myFragment.getActivityContext()
-
-                for(tag in myFragment.recyclerViewMenuGuestTags){
-                    tag.tagRecyclerText.setBackgroundResource(R.drawable.dot)
-                    if(context != null){
-                        tag.tagRecyclerText.setTextColor(ContextCompat.getColor(context, R.color.white))
-                    }
-                }
-                holder.Name?.setBackgroundResource(R.drawable.dot_white)
-                if(context != null){
-                    holder.Name?.setTextColor(ContextCompat.getColor(context, R.color.dark_red))
-                }
             }
 
-
         })
+        if(row_index==position){
+            holder.Name?.setBackgroundResource(R.drawable.dot_white)
+            if (context != null) {
+                holder.Name?.setTextColor(ContextCompat.getColor(context, R.color.dark_red))
+            }
+        }
+        else{
+            holder.Name?.setBackgroundResource(R.drawable.dot)
+            if (context != null) {
+                holder.Name?.setTextColor(ContextCompat.getColor(context, R.color.white))
+            }
+        }
 
     }
 
