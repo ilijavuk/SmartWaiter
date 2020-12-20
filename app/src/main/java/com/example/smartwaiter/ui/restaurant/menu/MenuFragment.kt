@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -19,6 +20,7 @@ import com.example.smartwaiter.ui.guest.menu_guest.MenuGuestViewModel
 import com.example.smartwaiter.ui.guest.menu_guest.TagGuestListAdapter
 import com.example.smartwaiter.util.handleApiError
 import com.example.smartwaiter.util.visible
+import hr.foi.air.webservice.model.Tag
 import hr.foi.air.webservice.util.Resource
 import kotlinx.android.synthetic.main.fragment_meni.*
 import kotlinx.android.synthetic.main.fragment_meni_guest.*
@@ -73,7 +75,8 @@ class MenuFragment : Fragment(R.layout.fragment_meni) {
             when (response) {
                 is Resource.Success -> {
                     if (response != null) {
-                        val listTags = response.value
+                        val listTags: MutableList<Tag> = response.value as MutableList<Tag>
+                        listTags.add(0, Tag("-1", resources.getString(R.string.all_items)))
                         val layoutManager: LinearLayoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
                         recyclerViewMenuTags.layoutManager = layoutManager
                         recyclerViewMenuTags.adapter = TagListAdapter(listTags, this)
@@ -131,5 +134,8 @@ class MenuFragment : Fragment(R.layout.fragment_meni) {
                 }
             }
         })
+    }
+    fun getActivityContext(): FragmentActivity? {
+        return activity
     }
 }

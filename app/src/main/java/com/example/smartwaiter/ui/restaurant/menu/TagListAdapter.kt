@@ -4,8 +4,11 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.smartwaiter.R
+import com.example.smartwaiter.R.*
 import hr.foi.air.webservice.model.Tag
 
 
@@ -29,10 +32,17 @@ class TagListAdapter(private val list: List<Tag>, fragment: MenuFragment)
 
             @SuppressLint("ResourceAsColor")
             override fun onClick(v: View?) {
-
-                myFragment.loadMenuByTag(id_tag)
-                holder.Name?.setBackgroundResource(R.drawable.dot_white)
-                holder.Name?.setTextColor(R.color.dark_red)
+                if(id_tag == "-1"){
+                    myFragment.load()
+                }
+                else {
+                    myFragment.loadMenuByTag(id_tag)
+                }
+                holder.Name?.setBackgroundResource(drawable.dot_white)
+                var context: FragmentActivity? = myFragment.getActivityContext()
+                if(context != null){
+                    holder.Name?.setTextColor(ContextCompat.getColor(context, color.dark_red))
+                }
             }
 
 
