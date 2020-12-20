@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -19,6 +20,7 @@ import com.example.smartwaiter.ui.guest.menu_guest.MenuGuestViewModel
 import com.example.smartwaiter.ui.guest.menu_guest.TagGuestListAdapter
 import com.example.smartwaiter.util.handleApiError
 import com.example.smartwaiter.util.visible
+import hr.foi.air.webservice.model.Tag
 import hr.foi.air.webservice.util.Resource
 import kotlinx.android.synthetic.main.fragment_meni.*
 import kotlinx.android.synthetic.main.fragment_meni_guest.*
@@ -53,6 +55,7 @@ class MenuFragment : Fragment(R.layout.fragment_meni) {
                     progressBarMenu.visible(false)
                     if (response != null) {
                         val odgovor = response.value
+
                         recycleViewMenu.layoutManager = LinearLayoutManager(activity)
                         recycleViewMenu.adapter = MealListAdapter(odgovor, this)
                     }
@@ -72,16 +75,18 @@ class MenuFragment : Fragment(R.layout.fragment_meni) {
             when (response) {
                 is Resource.Success -> {
                     if (response != null) {
-                        val listTags = response.value
+                        val listTags: MutableList<Tag> = response.value as MutableList<Tag>
+                        listTags.add(0, Tag("-1", resources.getString(R.string.all_items)))
                         val layoutManager: LinearLayoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
                         recyclerViewMenuTags.layoutManager = layoutManager
                         recyclerViewMenuTags.adapter = TagListAdapter(listTags, this)
+                        Log.d("tagovi" , response.value.toString())
                     }
                 }
                 is Resource.Loading -> {
                 }
                 is Resource.Failure -> {
-                    handleApiError(response) { load() }
+                    handleApiError(response) { loadTags() }
                     Log.d("Response", response.toString())
                 }
             }
@@ -98,6 +103,39 @@ class MenuFragment : Fragment(R.layout.fragment_meni) {
         viewModel.getMeal(table = "Stavka_jelovnika", method = "select", lokal)
     }
     fun loadTags(){
-        viewModel.getAllTags(table = "Tag_stavke", "select")
+        viewModel.tagsByRestaurant(method= "tagoviPoRestoranu", lokal)
+        Log.d("tagovi", "pozove se")
+    }
+
+    fun callMenuByTag(id_tag: String){
+        viewModel.menuByTag(method = "meniPoTagu", id_tag=id_tag, lokal_id = lokal)
+    }
+
+    fun loadMenuByTag(id_tag: String){
+        callMenuByTag(id_tag)
+        viewModel.myResponse3.observe(viewLifecycleOwner, { response ->
+            when (response) {
+                is Resource.Success -> {
+                    progressBarMenu.visible(false)
+                    if (response != null) {
+                        val odgovor = response.value
+
+                        recycleViewMenu.layoutManager = LinearLayoutManager(activity)
+                        recycleViewMenu.adapter = MealListAdapter(odgovor, this)
+                    }
+                }
+                is Resource.Loading -> {
+                    progressBarMenu.visible(true)
+                }
+                is Resource.Failure -> {
+                    progressBarMenu.visible(true)
+                    handleApiError(response) { callMenuByTag(id_tag) }
+                    Log.d("Response", response.toString())
+                }
+            }
+        })
+    }
+    fun getActivityContext(): FragmentActivity? {
+        return activity
     }
 }
