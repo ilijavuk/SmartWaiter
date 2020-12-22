@@ -109,10 +109,15 @@ interface WebserviceAPI {
         @Query("opis") mealDescription: String,
         @Query("slika_path") mealPhotoPath: String,
     )
-    /*@GET("sw-api/api.php")
-    suspend fun getEmail(
+
+    @GET("sw-api/api.php")
+    suspend fun makeOrder(
         @Query("tablica") table : String,
         @Query("metoda") method : String,
-        @Query("email") email : String
-    ): Response<List<Korisnik>>*/
+        @Query("korisnik_id") user_id : String,
+        @Query("stol_id") restaurantTable_id : String,
+        @Query("stavka_id") meal_id : String,
+        @Query("kolicina") amount : String,
+        @Query("vrijeme") time : String,
+    ) : String
 }
