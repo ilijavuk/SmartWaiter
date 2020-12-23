@@ -1,69 +1,132 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:TagsEditText="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
     tools:context=".ui.restaurant.add_meal.Add_mealFragment"
     android:gravity="center"
     android:orientation="vertical"
     android:padding="16dp">
-
-
-
-
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
     <ImageView
         android:id="@+id/imageViewMeal"
         android:layout_width="match_parent"
         android:layout_height="300dp"
+        android:layout_marginTop="4dp"
         android:src="@drawable/meal_photo"
-        android:layout_marginTop="20dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+ />
 
     <Button
         android:id="@+id/btnChoosePhoto"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@drawable/ic_button_style_primary"
         android:text="@string/choose_a_photo"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/ic_button_style_primary"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewMeal"
+        android:layout_marginTop="5dp"/>
 
     <EditText
         android:id="@+id/textMealName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/rounded_edit_text"
         android:ems="10"
-        android:inputType="textPersonName"
-        android:layout_marginTop="20dp"
         android:hint="@string/name_of_the_item"
-        android:background="@drawable/rounded_edit_text"/>
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnChoosePhoto"
+        android:drawablePadding="10dp"
+        android:paddingStart="15dp"
+        android:paddingEnd="15dp"
+        android:padding="10dp"
+        android:layout_marginTop="15dp"
+        />
 
     <EditText
         android:id="@+id/textMealDescription"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/rounded_edit_text"
         android:ems="10"
-        android:inputType="textMultiLine"
-
-        android:layout_marginTop="20dp"
         android:hint="@string/description"
-        android:background="@drawable/rounded_edit_text"/>
+        android:inputType="textMultiLine"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textMealName"
+        android:drawablePadding="10dp"
+        android:paddingStart="15dp"
+        android:paddingEnd="15dp"
+        android:padding="10dp"
+        android:layout_marginTop="5dp"/>
 
-    <EditText
-        android:id="@+id/textMealPrice"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="numberDecimal"
-        android:layout_marginTop="20dp"
-        android:hint="@string/price"
-        android:background="@drawable/rounded_edit_text"/>
+        <EditText
+            android:id="@+id/textMealPrice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/rounded_edit_text"
+            android:drawablePadding="10dp"
+            android:ems="10"
+            android:hint="@string/price"
+            android:inputType="numberDecimal"
+            android:padding="10dp"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textMealDescription" />
 
-    <Button
-        android:id="@+id/btnAddItem"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/add_item"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/ic_button_style_primary"/>
+        <mabbas007.tagsedittext.TagsEditText
+            android:id="@+id/tagsEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/textMealPrice"
+            android:background="@drawable/rounded_edit_text"
+            android:drawablePadding="10dp"
+            android:padding="10dp"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            android:ems="10"
+            android:layout_marginTop="5dp"
+            android:hint="@string/add_tags"
+            TagsEditText:allowSpaceInTag="true"
+            TagsEditText:tagsCloseImageRight="@drawable/tag_close"
+            TagsEditText:tagsBackground="@drawable/dot"
+            TagsEditText:tagsTextColor="@color/white"
+            TagsEditText:tagsTextSize="@dimen/defaultTagsTextSize"
+            TagsEditText:tagsCloseImagePadding="@dimen/defaultTagsCloseImagePadding"
+            app:tagsPaddingLeft="10dp"
+            app:tagsPaddingRight="10dp"
+            app:tagsPaddingBottom="5dp"
+            app:tagsPaddingTop="5dp"
+             />
 
 
-</LinearLayout>
+        <Button
+            android:id="@+id/btnAddItem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_button_style_primary"
+            android:text="@string/add_item"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tagsEditText"
+            android:layout_marginTop="5dp"
+            />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

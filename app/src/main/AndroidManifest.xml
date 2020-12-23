@@ -34,7 +34,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.auth.MainActivity" />
-        <activity android:name=".ui.restaurant.RestaurantActivity">
+        <activity android:name=".ui.restaurant.RestaurantActivity"
+            android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.nfc.action.NDEF_DISCOVERED"/>
                 <!-- Default category is required for the intent filter to work -->
@@ -48,9 +49,12 @@
                 https://developer.android.com/training/app-links/verify-site-associations.html -->
                 <data android:scheme="http" />
             </intent-filter>
+
         </activity>
         <activity android:name=".ui.guest.GuestActivity"/>
         <activity android:name=".ui.waiter.WaiterActivity"/>
+
+
     </application>
 
 </manifest>
