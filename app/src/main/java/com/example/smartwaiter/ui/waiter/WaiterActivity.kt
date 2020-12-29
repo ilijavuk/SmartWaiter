@@ -38,8 +38,8 @@ class WaiterActivity : AppCompatActivity() {
     private fun visibilityNavElements(navController: NavController) {
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
-                R.id.tableOrderFragment -> bottom_nav?.visibility = View.GONE
-                else -> bottom_nav?.visibility = View.VISIBLE
+                R.id.tableOrderFragment -> bottom_nav_waiter?.visibility = View.GONE
+                else -> bottom_nav_waiter?.visibility = View.VISIBLE
             }
         }
     }
