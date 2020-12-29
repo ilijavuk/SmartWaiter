@@ -1,8 +1,94 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:background="#e0e0e0"
     tools:context=".ui.waiter.tableorder.TableOrderFragment">
+
+
+    <ImageView
+        android:id="@+id/back_button"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@drawable/ic_arrow"
+        android:rotation="180"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/id_text_tables"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+
+        />
+
+    <TextView
+        android:id="@+id/id_text_tables"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="ORDERS"
+        app:layout_constraintTop_toBottomOf="@id/back_button"
+        android:textSize="18dp"
+        android:gravity="center"
+        android:layout_marginTop="10dp"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+
+        android:id="@+id/table_grid_view_order"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/id_text_tables"
+        >
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+    <!--<androidx.core.widget.ContentLoadingProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/button_confirm"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/table_grid_view_order"
+        app:layout_constraintVertical_bias="0.978"
+        android:progressTint="@color/dark_red"
+        android:indeterminate="false"
+        />-->
+
+    <androidx.appcompat.widget.AppCompatSeekBar
+        android:id="@+id/seekBar"
+        android:layout_width="260dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        app:layout_constraintBottom_toTopOf="@+id/button_confirm"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/table_grid_view_order"
+        app:layout_constraintVertical_bias="0.978"
+        android:thumbTint="@color/dark_red"
+        android:progressTint="@color/dark_red"
+        />
+
+    <Button
+        android:id="@+id/button_confirm"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/rounded_border_pendding"
+        android:gravity="center"
+        android:text="Confirm: 5 min"
+        android:textColor="#ededed"
+        android:textSize="12dp"
+        app:backgroundTint="@null"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
