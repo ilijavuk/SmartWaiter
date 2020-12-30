@@ -13,6 +13,11 @@ class MenuGuestViewModel(private val repository: Add_mealRepository) : ViewModel
 {
     val myResponse: MutableLiveData<Resource<List<Meal>>> = MutableLiveData()
 
+    var dbMeal: MutableLiveData<List<Meal>> = MutableLiveData()
+
+    init {
+        getMeal(table = "Stavka_jelovnika", method = "select", "1")
+    }
 
     fun getMeal(
         table: String,
