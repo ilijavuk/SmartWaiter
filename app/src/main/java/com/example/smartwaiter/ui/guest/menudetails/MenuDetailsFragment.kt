@@ -49,7 +49,7 @@ class MenuDetailsFragment : Fragment(R.layout.fragment_menu_details) {
         buttonAddMealToOrder.setOnClickListener {
             viewModel.saveMeal(args.meal)
             Snackbar.make(view,"Meal added to Bucket", Snackbar.LENGTH_SHORT).show()
-            val action = MenuDetailsFragmentDirections.actionMenuDetailsFragmentToMenuGuestFragment(true)
+            val action = MenuDetailsFragmentDirections.actionMenuDetailsFragmentToMenuGuestFragment(5, true)
             findNavController().navigate(action)
         }
     }

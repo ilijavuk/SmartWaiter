@@ -7,17 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.smartwaiter.R
 import com.example.smartwaiter.repository.Add_mealRepository
-import com.example.smartwaiter.ui.auth.MainActivity
-import com.example.smartwaiter.ui.guest.menu_guest.MealGuestListAdapter
-import com.example.smartwaiter.ui.guest.menu_guest.MenuGuestModelFactory
-import com.example.smartwaiter.ui.guest.menu_guest.MenuGuestViewModel
-import com.example.smartwaiter.ui.guest.menu_guest.TagGuestListAdapter
 import com.example.smartwaiter.util.handleApiError
 import com.example.smartwaiter.util.visible
 import hr.foi.air.webservice.model.Tag
@@ -52,12 +46,10 @@ class MenuFragment : Fragment(R.layout.fragment_meni) {
             when (response) {
                 is Resource.Success -> {
                     progressBarMenu.visible(false)
-                    if (response != null) {
-                        val odgovor = response.value
+                    val odgovor = response.value
 
-                        recycleViewMenu.layoutManager = LinearLayoutManager(activity)
-                        recycleViewMenu.adapter = MealListAdapter(odgovor, this)
-                    }
+                    recycleViewMenu.layoutManager = LinearLayoutManager(activity)
+                    recycleViewMenu.adapter = MealListAdapter(odgovor, this)
                 }
                 is Resource.Loading -> {
                     progressBarMenu.visible(true)
@@ -73,14 +65,12 @@ class MenuFragment : Fragment(R.layout.fragment_meni) {
         viewModel.myResponse2.observe(viewLifecycleOwner, { response ->
             when (response) {
                 is Resource.Success -> {
-                    if (response != null) {
-                        val listTags: MutableList<Tag> = response.value as MutableList<Tag>
-                        listTags.add(0, Tag("-1", resources.getString(R.string.all_items)))
-                        val layoutManager: LinearLayoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
-                        recyclerViewMenuTags.layoutManager = layoutManager
-                        recyclerViewMenuTags.adapter = TagListAdapter(listTags, this)
-                        Log.d("tagovi" , response.value.toString())
-                    }
+                    val listTags: MutableList<Tag> = response.value as MutableList<Tag>
+                    listTags.add(0, Tag("-1", resources.getString(R.string.all_items)))
+                    val layoutManager: LinearLayoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
+                    recyclerViewMenuTags.layoutManager = layoutManager
+                    recyclerViewMenuTags.adapter = TagListAdapter(listTags, this)
+                    Log.d("tagovi" , response.value.toString())
                 }
                 is Resource.Loading -> {
                 }
@@ -116,12 +106,10 @@ class MenuFragment : Fragment(R.layout.fragment_meni) {
             when (response) {
                 is Resource.Success -> {
                     progressBarMenu.visible(false)
-                    if (response != null) {
-                        val odgovor = response.value
+                    val odgovor = response.value
 
-                        recycleViewMenu.layoutManager = LinearLayoutManager(activity)
-                        recycleViewMenu.adapter = MealListAdapter(odgovor, this)
-                    }
+                    recycleViewMenu.layoutManager = LinearLayoutManager(activity)
+                    recycleViewMenu.adapter = MealListAdapter(odgovor, this)
                 }
                 is Resource.Loading -> {
                     progressBarMenu.visible(true)

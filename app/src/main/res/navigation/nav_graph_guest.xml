@@ -6,26 +6,6 @@
     app:startDestination="@id/qrFragment">
 
     <fragment
-        android:id="@+id/menuGuestFragment"
-        android:name="com.example.smartwaiter.ui.guest.menuguest.MenuGuestFragment"
-        android:label="Menu"
-        tools:layout="@layout/fragment_meni_guest" >
-        <action
-            android:id="@+id/action_menuGuestFragment_to_menuDetailsFragment"
-            app:destination="@id/menuDetailsFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
-        <argument
-            android:name="ordered"
-            app:argType="boolean"
-            android:defaultValue="false" />
-        <action
-            android:id="@+id/action_menuGuestFragment_to_menuGuestDialogFragment"
-            app:destination="@id/menuGuestDialogFragment" />
-    </fragment>
-    <fragment
         android:id="@+id/menuDetailsFragment"
         android:name="com.example.smartwaiter.ui.guest.menudetails.MenuDetailsFragment"
         android:label="Details"
@@ -37,25 +17,41 @@
             android:id="@+id/action_menuDetailsFragment_to_menuGuestFragment"
             app:destination="@id/menuGuestFragment" />
     </fragment>
+
     <dialog
         android:id="@+id/menuGuestDialogFragment"
         android:name="com.example.smartwaiter.ui.guest.menuguestdialog.MenuGuestDialogFragment"
         android:label="dialog_complete_order"
         tools:layout="@layout/dialog_complete_order" />
 
+    <fragment
+        android:id="@+id/menuGuestFragment"
         android:name="com.example.smartwaiter.ui.guest.menu_guest.MenuGuestFragment"
         android:label="fragment_meni_guest"
         tools:layout="@layout/fragment_meni_guest" >
+        <action
+            android:id="@+id/action_menuGuestFragment_to_menuDetailsFragment"
+            app:destination="@id/menuDetailsFragment" />
+        <action
+            android:id="@+id/action_menuGuestFragment_to_menuGuestDialogFragment"
+            app:destination="@id/menuGuestDialogFragment" />
         <argument
             android:name="restaurant_id"
-            app:argType="integer" />
+            app:argType="integer"
+            android:defaultValue="0" />
+        <argument
+            android:name="ordered"
+            app:argType="boolean"
+            android:defaultValue="false" />
     </fragment>
     <fragment
         android:id="@+id/qrFragment"
         android:name="com.example.smartwaiter.ui.restaurant.qr.QrFragment"
-        android:label="QrFragment" >
+        android:label="fragment_qrscanner"
+        tools:layout="@layout/fragment_qrscanner" >
         <action
-            android:id="@+id/action_qrFragment_to_menuGuestFragment2"
+            android:id="@+id/action_qrFragment_to_menuGuestFragment"
             app:destination="@id/menuGuestFragment" />
     </fragment>
+
 </navigation>

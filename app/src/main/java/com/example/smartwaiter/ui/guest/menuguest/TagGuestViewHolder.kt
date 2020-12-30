@@ -10,6 +10,8 @@ import androidx.lifecycle.ViewModelStoreOwner
 import androidx.recyclerview.widget.RecyclerView
 import com.example.smartwaiter.R
 import com.example.smartwaiter.repository.Add_mealRepository
+import com.example.smartwaiter.ui.guest.menuguest.MenuGuestModelFactory
+import com.example.smartwaiter.ui.guest.menuguest.MenuGuestViewModel
 import hr.foi.air.webservice.model.Tag
 
 class TagGuestViewHolder(inflater: LayoutInflater, parent: ViewGroup) :
