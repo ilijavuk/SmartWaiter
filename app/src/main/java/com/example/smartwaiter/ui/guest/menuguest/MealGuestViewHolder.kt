@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelStoreOwner
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.example.database.db.SMDatabase
 import com.example.smartwaiter.R
 import com.example.smartwaiter.repository.Add_mealRepository
 import hr.foi.air.webservice.model.Meal
