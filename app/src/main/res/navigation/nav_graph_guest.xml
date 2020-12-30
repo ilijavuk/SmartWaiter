@@ -17,6 +17,13 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
+        <argument
+            android:name="ordered"
+            app:argType="boolean"
+            android:defaultValue="false" />
+        <action
+            android:id="@+id/action_menuGuestFragment_to_menuGuestDialogFragment"
+            app:destination="@id/menuGuestDialogFragment" />
     </fragment>
     <fragment
         android:id="@+id/menuDetailsFragment"
@@ -26,5 +33,14 @@
         <argument
             android:name="meal"
             app:argType="hr.foi.air.webservice.model.Meal" />
+        <action
+            android:id="@+id/action_menuDetailsFragment_to_menuGuestFragment"
+            app:destination="@id/menuGuestFragment" />
     </fragment>
+    <dialog
+        android:id="@+id/menuGuestDialogFragment"
+        android:name="com.example.smartwaiter.ui.guest.menuguestdialog.MenuGuestDialogFragment"
+        android:label="dialog_complete_order"
+        tools:layout="@layout/dialog_complete_order" />
+
 </navigation>
