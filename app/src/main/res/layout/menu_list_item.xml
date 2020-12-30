@@ -99,7 +99,9 @@
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
             android:textAlignment="viewStart"
-            android:checked="false"/>
+            android:checked="false"
+            android:theme="@style/SwitchCompatTheme"
+            />
     </LinearLayout>
 
 

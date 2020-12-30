@@ -19,4 +19,6 @@
     <string name="save_changes">Save changes</string>
     <string name="currency">%s HRK</string>
     <string name="multiplier">%sx</string>
+    <string name="add_tags">Enter tags</string>
+    <string name="all_items">Sve</string>
 </resources>

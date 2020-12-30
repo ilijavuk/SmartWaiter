@@ -96,6 +96,8 @@ dependencies {
     kapt "androidx.room:room-compiler:$room_version"
     implementation "androidx.room:room-ktx:$room_version"
 
+    //TagsEditText
+    implementation 'com.github.mabbas007:TagsEditText:1.0.5'
 
 
 

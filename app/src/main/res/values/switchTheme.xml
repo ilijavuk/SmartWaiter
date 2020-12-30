@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="SwitchCompatTheme" >
+        <item name="colorControlActivated">@color/dark_red</item>
+    </style>
+</resources>
