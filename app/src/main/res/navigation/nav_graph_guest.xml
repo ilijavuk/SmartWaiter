@@ -27,7 +27,7 @@
     <fragment
         android:id="@+id/menuGuestFragment"
         android:name="com.example.smartwaiter.ui.guest.menu_guest.MenuGuestFragment"
-        android:label="fragment_meni_guest"
+        android:label="Today's Menu"
         tools:layout="@layout/fragment_meni_guest" >
         <action
             android:id="@+id/action_menuGuestFragment_to_menuDetailsFragment"
@@ -44,6 +44,7 @@
             app:argType="boolean"
             android:defaultValue="false" />
     </fragment>
+
     <fragment
         android:id="@+id/qrFragment"
         android:name="com.example.smartwaiter.ui.restaurant.qr.QrFragment"
@@ -51,7 +52,10 @@
         tools:layout="@layout/fragment_qrscanner" >
         <action
             android:id="@+id/action_qrFragment_to_menuGuestFragment"
-            app:destination="@id/menuGuestFragment" />
+            app:destination="@id/menuGuestFragment"
+            app:popUpTo="@id/qrFragment"
+            app:popUpToInclusive="true" />
     </fragment>
+    <include app:graph="@navigation/nav_graph" />
 
 </navigation>

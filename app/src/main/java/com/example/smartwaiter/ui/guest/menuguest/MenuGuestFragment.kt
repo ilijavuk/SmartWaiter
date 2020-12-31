@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.database.UserPreferences
 import com.example.smartwaiter.R
 import com.example.smartwaiter.repository.Add_mealRepository
 import com.example.smartwaiter.ui.guest.menuguest.MealGuestListAdapter
@@ -24,7 +25,6 @@ import kotlinx.android.synthetic.main.fragment_meni_guest.*
 class MenuGuestFragment : Fragment(R.layout.fragment_meni_guest) {
     private lateinit var lokal: String
     private lateinit var stol: String
-
     private lateinit var viewModel: MenuGuestViewModel
     private lateinit var repository: Add_mealRepository
     private lateinit var viewModelFactory: MenuGuestModelFactory
@@ -118,7 +118,6 @@ class MenuGuestFragment : Fragment(R.layout.fragment_meni_guest) {
         viewModel.myResponse3.observe(viewLifecycleOwner, { response ->
             when (response) {
                 is Resource.Success -> {
-
                     val odgovor = response.value
                     recycleViewMenuGuest.layoutManager = LinearLayoutManager(activity)
                     recycleViewMenuGuest.adapter = MealGuestListAdapter(odgovor, this)

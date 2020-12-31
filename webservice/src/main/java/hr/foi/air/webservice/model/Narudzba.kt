@@ -5,9 +5,11 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class Narudzba(
-    val korisnik_id: String,
-    val stol_id: String,
-    val stavka_id: String,
-    val kolicina: String,
-    val vrijeme: String
+    val id_zapisa: Int,
+    val korisnik_id: Int,
+    val stol_id: Int,
+    val status: Int,
+    val vrijeme: String,
+    val stavka_id: Int,
+    val kolicina: Int
 ) : Parcelable
