@@ -7,8 +7,8 @@
     <fragment
         android:id="@+id/tableListFragment"
         android:name="com.example.smartwaiter.ui.waiter.tablelist.TableListFragment"
-        android:label="fragment_table_list"
-        tools:layout="@layout/fragment_table_list" >
+        android:label="Tables"
+        tools:layout="@layout/fragment_table_list">
         <action
             android:id="@+id/action_tableListFragment_to_tableOrderFragment"
             app:destination="@id/tableOrderFragment" />
@@ -21,8 +21,8 @@
     <fragment
         android:id="@+id/tableOrderFragment"
         android:name="com.example.smartwaiter.ui.waiter.tableorder.TableOrderFragment"
-        android:label="fragment_table_order"
-        tools:layout="@layout/fragment_table_order" >
+        android:label="Orders"
+        tools:layout="@layout/fragment_table_order">
         <argument
             android:name="id_stola"
             app:argType="integer" />
