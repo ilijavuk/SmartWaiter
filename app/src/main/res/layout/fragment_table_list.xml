@@ -64,53 +64,6 @@
 
     </RadioGroup>
 
-
-    <!--<Button
-        android:id="@+id/button4"
-        android:layout_width="90dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        app:layout_constraintEnd_toStartOf="@+id/button3"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/id_text_filter"
-        android:text="Pendding"
-        android:textSize="10dp"
-        app:backgroundTint="@null"
-        android:background="@drawable/rounded_border_pendding"/>
-
-
-    <Button
-        android:id="@+id/button3"
-        android:layout_width="90dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        app:layout_constraintEnd_toStartOf="@+id/button5"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/button4"
-        app:layout_constraintTop_toBottomOf="@+id/id_text_filter"
-        android:text="Served"
-        android:textSize="10dp"
-        app:backgroundTint="@null"
-        android:background="@drawable/rounded_border_served"
-        />
-
-    <Button
-        android:id="@+id/button5"
-        android:layout_width="90dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/button3"
-        app:layout_constraintTop_toBottomOf="@+id/id_text_filter"
-        android:text="Free"
-        android:textSize="10dp"
-        app:backgroundTint="@null"
-        android:background="@drawable/rounded_border_free"
-        android:textColor="#616161"
-        />-->
-
     <TextView
         android:id="@+id/id_text_tables"
         android:layout_width="match_parent"
