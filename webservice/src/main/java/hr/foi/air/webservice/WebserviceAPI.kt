@@ -1,15 +1,7 @@
 package hr.foi.air.webservice
 
-import hr.foi.air.webservice.model.Korisnik
-import hr.foi.air.webservice.model.Meal
-import hr.foi.air.webservice.model.Restoran
+import hr.foi.air.webservice.model.*
 
-import hr.foi.air.webservice.model.TableOrder
-
-
-import hr.foi.air.webservice.model.Stol
-
-import hr.foi.air.webservice.model.Tag
 
 import retrofit2.Response
 import retrofit2.http.GET
@@ -123,6 +115,13 @@ interface WebserviceAPI {
         @Query("tablica") table : String,
         @Query("metoda") method : String,
         ): Response<List<TableOrder>>
+
+    @GET("sw-api/api.php")
+    suspend fun getOrders(
+        //@Query("tablica") table : String,
+        @Query("metoda") method : String,
+        @Query("stol_id") lokal_id: String
+    ): Response<List<Order>>
 
 
 
