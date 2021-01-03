@@ -55,16 +55,21 @@ class TableViewHolder(inflater: LayoutInflater, parent: ViewGroup, fragment: Tab
         viewModel = ViewModelProvider(this, viewModelFactory).get(TableListViewModel::class.java)
     }
 
-
-
     @SuppressLint("ResourceAsColor")
     fun bind(tableOrder: TableOrder){
         Name?.text = "Table " + tableOrder.id_stol.toString()
         PersonNumber?.text = tableOrder.broj_osoba.toString() + " Person"
-        /*Time?.text*/
-        if(tableOrder.broj_osoba != 0){
+
+        if(tableOrder.rezerviran == 1){
             Card?.isClickable = true
             ConstraintLayout?.setBackgroundResource(R.color.dark_red)
+            View?.setBackgroundResource(R.color.back_lightgery)
+            Name?.setTextColor(myFragment.getResources().getColor(R.color.back_lightgery))
+            PersonNumber?.setTextColor(myFragment.getResources().getColor(R.color.back_lightgery))
+            ImageView?.setColorFilter(myFragment.getResources().getColor(R.color.back_lightgery))
+        }else if(tableOrder.rezerviran == 2){
+            Card?.isClickable = true
+            ConstraintLayout?.setBackgroundResource(R.color.facebook_blue)
             View?.setBackgroundResource(R.color.back_lightgery)
             Name?.setTextColor(myFragment.getResources().getColor(R.color.back_lightgery))
             PersonNumber?.setTextColor(myFragment.getResources().getColor(R.color.back_lightgery))
@@ -73,7 +78,6 @@ class TableViewHolder(inflater: LayoutInflater, parent: ViewGroup, fragment: Tab
             Card?.isClickable = false
         }
     }
-
 
     override fun getViewModelStore(): ViewModelStore {
         return  ViewModelStore()

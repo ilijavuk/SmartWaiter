@@ -34,9 +34,6 @@ class TableListFragment : Fragment(R.layout.fragment_table_list) {
         viewModel = ViewModelProvider(this, viewModelFactory).get(TableListViewModel::class.java)
         viewModel.getTable("Stol", "narudzba")
 
-        
-
-
         viewModel.myResponse.observe(viewLifecycleOwner, {
             val response = it.body()
             if (response != null) {
