@@ -1,15 +1,24 @@
 <?php
 
 include 'conn.php';
+include 'upiti.php';
 
 	if($_SERVER['REQUEST_METHOD'] == "GET"){
-
+		if(isset($_GET['funkcija'])){
+			$sql=Upiti($_GET['funkcija']);
+			$_GET['metoda']='funkcija'; //compatability lol
+		}
+		else
 		if(isset($_GET['metoda'])){
 			
 			if(strcmp($_GET['metoda'],'narudzba')==0){
-					$sql="SELECT t.id_stol, COUNT(*) as broj_osoba FROM(SELECT Stol.id_stol, Narudzba.stol_id, Stol.broj_stola, COUNT(Narudzba.korisnik_id) as parc_broj FROM Stol LEFT OUTER JOIN Narudzba ON Stol.id_stol = Narudzba.stol_id GROUP BY Stol.id_stol, Narudzba.korisnik_id) t WHERE t.parc_broj != 0 GROUP BY t.id_stol UNION SELECT s.id_stol, s.parc_broj2 as broj_osoba FROM(SELECT Stol.id_stol, COUNT(Narudzba.korisnik_id) as parc_broj2 FROM Stol LEFT OUTER JOIN Narudzba ON Stol.id_stol = Narudzba.stol_id GROUP BY Stol.id_stol, Narudzba.korisnik_id) s WHERE parc_broj2 = 0";
+					$sql="SELECT t.id_stol, COUNT(*) as broj_osoba, t.rezerviran FROM(SELECT Stol.id_stol, Narudzba_novo.stol_id, Stol.broj_stola, COUNT(Narudzba_novo.id_zapisa) as parc_broj, Stol.rezerviran FROM Stol LEFT OUTER JOIN Narudzba_novo ON Stol.id_stol = Narudzba_novo.stol_id GROUP BY Stol.id_stol, Narudzba_novo.korisnik_id) t WHERE t.parc_broj != 0 GROUP BY t.id_stol UNION SELECT s.id_stol, s.parc_broj2 as broj_osoba, s.rezerviran FROM(SELECT Stol.id_stol, COUNT(Narudzba_novo.id_zapisa) as parc_broj2, Stol.rezerviran FROM Stol LEFT OUTER JOIN Narudzba_novo ON Stol.id_stol = Narudzba_novo.stol_id GROUP BY Stol.id_stol, Narudzba_novo.korisnik_id) s WHERE parc_broj2 = 0 ";
 			}
 			else 
+			if(strcmp($_GET['metoda'],'narudzba_stol')==0){
+				$sql='SELECT Stavka_jelovnika.naziv, Stavka_jelovnika.slika_path, TO_SECONDS(NOW()) - TO_SECONDS(Narudzba_novo.vrijeme) as vrijeme, Narudzba_novo.kolicina FROM Stavka_jelovnika, Narudzba_novo WHERE Stavka_jelovnika.id_stavka = Narudzba_novo.stavka_id AND Narudzba_novo.stol_id = "'.$_GET['stol_id'].'";';
+			}
+			else
 			if(strcmp($_GET['metoda'],'meniPoTagu')==0){
 				$sql='SELECT id_stavka, naziv, cijena, opis, slika_path, lokal_id, aktivno FROM Stavka_jelovnika join Stavka_tag on id_stavka = stavka_id join Tag_stavke on tag_id = id_tag WHERE id_tag = "'.$_GET['id_tag'].'" AND lokal_id = "'.$_GET['lokal_id'].'";';
 			}
@@ -19,22 +28,23 @@ include 'conn.php';
 				
 			}
 			else $sql=QueryBuilder();
-			if($sql!=null){
+						
+		}
+		if($sql!=null){
 				
-				$rez=$conn->query($sql);
-				$vrati = [];
-				if($rez -> num_rows > 0){
-					while ($red = $rez->fetch_assoc())
-					{
-						$vrati[] = $red;
-					}
-					
-				echo json_encode($vrati);
+			$rez=$conn->query($sql);
+			$vrati = [];
+			if($rez -> num_rows > 0){
+				while ($red = $rez->fetch_assoc())
+				{
+					$vrati[] = $red;
 				}
-				if(strcmp($_GET['metoda'],'insert')==0){
-					echo $conn->insert_id;
-				}
-			}			
+				
+			echo json_encode($vrati);
+			}
+			if(strcmp($_GET['metoda'],'insert')==0){
+				echo $conn->insert_id;
+			}
 		}
 	}
 	else echo "ŠTA RADIŠ TU";
