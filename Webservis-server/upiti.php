@@ -26,7 +26,7 @@ i tjt.
 
 
 
-
+        default: return null;   
         } //switch
     }//Upiti
 
