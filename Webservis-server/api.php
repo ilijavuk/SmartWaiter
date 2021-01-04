@@ -203,6 +203,12 @@ function mysql_get_prim_key($table){
 	}
 	}
 
-
+function Formatiraj($args, $izvrsi){
+	foreach($args as $arg){
+		$repl="_".$arg."_";
+		$izvrsi=str_ireplace($repl, '"'.$_GET[$arg].'"', $izvrsi);
+	}
+	return $izvrsi;
+}
 
 ?>
