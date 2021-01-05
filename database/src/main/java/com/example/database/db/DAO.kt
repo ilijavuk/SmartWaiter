@@ -2,17 +2,20 @@ package com.example.database.db
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import hr.foi.air.webservice.model.Meal
+import com.example.database.db.models.OrderedMeal
 
 @Dao
 interface DAO {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun upsert(meal: Meal)
+    suspend fun upsert(orderedMeal: OrderedMeal)
 
-    @Query("SELECT * FROM meals")
-    fun getMeals() : LiveData<List<Meal>>
+    @Query("SELECT * FROM orderedmeals")
+    fun getOrderedMeals() : LiveData<List<OrderedMeal>>
 
     @Delete
-    suspend fun deleteMeal(meal: Meal)
+    suspend fun deleteMeal(orderedMeal: OrderedMeal)
+
+    @Query("DELETE FROM orderedmeals")
+    suspend fun deleteAllFromOrder()
 }
