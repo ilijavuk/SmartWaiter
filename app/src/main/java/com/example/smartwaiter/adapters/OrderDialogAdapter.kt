@@ -7,13 +7,15 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.database.db.models.OrderedMeal
 import com.example.smartwaiter.databinding.OrderListItemBinding
-import hr.foi.air.webservice.model.Meal
 
-class OrderDialogAdapter(val clickListener: (Meal) -> Unit) : ListAdapter<Meal, OrderDialogAdapter.OrderViewHolder>(DiffCallback()) {
+class OrderDialogAdapter(val clickListener: (OrderedMeal) -> Unit) :
+    ListAdapter<OrderedMeal, OrderDialogAdapter.OrderViewHolder>(DiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OrderViewHolder {
-        val binding = OrderListItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding =
+            OrderListItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return OrderViewHolder(binding)
     }
 
@@ -23,27 +25,31 @@ class OrderDialogAdapter(val clickListener: (Meal) -> Unit) : ListAdapter<Meal, 
 
     }
 
-    class OrderViewHolder(private val binding: OrderListItemBinding): RecyclerView.ViewHolder(binding.root){
+    class OrderViewHolder(private val binding: OrderListItemBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(meal: Meal, clickListener: (Meal) -> Unit){
+        fun bind(orderedMeal: OrderedMeal, clickListener: (OrderedMeal) -> Unit) {
+            val price: Float = orderedMeal.meal.cijena.toFloat() * orderedMeal.order.kolicina
+            val finalMealPrice = String.format("%.2f", price)
             binding.apply {
-                textViewOrderMealTitle.text = meal.naziv
-                textViewOrderMealPrice.text = meal.cijena
+                textViewOrderMealTitle.text = orderedMeal.meal.naziv
+                textViewOrderMealPrice.text = finalMealPrice + " HRK"
+                textViewMultiplier.text = orderedMeal.order.kolicina.toString() + "x"
                 Glide
                     .with(itemView)
-                    .load(meal.slika_path)
+                    .load(orderedMeal.meal.slika_path)
                     .into(imageViewOrderMeal)
 
-                buttonRemoveMeal.setOnClickListener{clickListener(meal)}
+                buttonRemoveMeal.setOnClickListener { clickListener(orderedMeal) }
             }
         }
     }
 
-    class DiffCallback:DiffUtil.ItemCallback<Meal>(){
-        override fun areItemsTheSame(oldItem: Meal, newItem: Meal): Boolean =
-            oldItem.id_stavka == newItem.id_stavka
+    class DiffCallback : DiffUtil.ItemCallback<OrderedMeal>() {
+        override fun areItemsTheSame(oldItem: OrderedMeal, newItem: OrderedMeal): Boolean =
+            oldItem === newItem
 
-        override fun areContentsTheSame(oldItem: Meal, newItem: Meal): Boolean =
+        override fun areContentsTheSame(oldItem: OrderedMeal, newItem: OrderedMeal): Boolean =
             oldItem == newItem
     }
 }
