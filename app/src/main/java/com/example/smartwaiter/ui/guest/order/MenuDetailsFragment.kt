@@ -1,34 +1,42 @@
-package com.example.smartwaiter.ui.guest.menudetails
+package com.example.smartwaiter.ui.guest.order
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.asLiveData
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.example.database.UserPreferences
 import com.example.database.db.SMDatabase
+import com.example.database.db.models.OrderedMeal
 import com.example.smartwaiter.R
 import com.example.smartwaiter.repository.OrderRepository
-import com.google.android.material.snackbar.Snackbar
+import hr.foi.air.webservice.model.Order
 import kotlinx.android.synthetic.main.fragment_menu_details.*
+import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
+import java.util.*
 
 class MenuDetailsFragment : Fragment(R.layout.fragment_menu_details) {
 
     private lateinit var userPreferences: UserPreferences
-    private lateinit var viewModel: MenuDetailsViewModel
+    private lateinit var viewModel: OrderViewModel
     private val args: MenuDetailsFragmentArgs by navArgs()
     private var price: Float? = null
+    private var user = 0
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         userPreferences = UserPreferences(requireContext())
-        val repository = OrderRepository(SMDatabase(requireActivity()))
-        val viewModelFactory = MenuDetailsViewModelFactory(repository)
-        viewModel = ViewModelProvider(this, viewModelFactory).get(MenuDetailsViewModel::class.java)
+        val repository = OrderRepository(SMDatabase(requireActivity()),userPreferences)
+        val viewModelFactory = OrderViewModelFactory(repository)
+        viewModel = ViewModelProvider(this, viewModelFactory).get(OrderViewModel::class.java)
 
         price = args.meal.cijena.toFloat()
         var multiplier = 1
@@ -46,10 +54,21 @@ class MenuDetailsFragment : Fragment(R.layout.fragment_menu_details) {
             }
         }
 
+        userPreferences.authToken.asLiveData().observe(viewLifecycleOwner, {
+            it?.let {
+                user = it.toInt()
+            }
+        })
+
         buttonAddMealToOrder.setOnClickListener {
-            viewModel.saveMeal(args.meal)
-            Snackbar.make(view,"Meal added to Bucket", Snackbar.LENGTH_SHORT).show()
-            val action = MenuDetailsFragmentDirections.actionMenuDetailsFragmentToMenuGuestFragment(5, true)
+            val simpleDateFormat = SimpleDateFormat("yyyy.MM.dd HH:mm:ss")
+            val currentDateAndTime: String = simpleDateFormat.format(Date())
+            val order = Order(user, 6, 1, currentDateAndTime, args.meal.id_stavka.toInt(), multiplier)
+            Log.d("Order", order.toString())
+            val orderedMeal = OrderedMeal(args.meal, order)
+            viewModel.saveOrderedMeal(orderedMeal)
+            viewModel.saveOrderBucket(true)
+            val action = MenuDetailsFragmentDirections.actionMenuDetailsFragmentToMenuGuestFragment(1)
             findNavController().navigate(action)
         }
     }
@@ -60,7 +79,7 @@ class MenuDetailsFragment : Fragment(R.layout.fragment_menu_details) {
         buttonAddMealToOrder.text = getString(R.string.currency, args.meal.cijena)
         Glide.with(this)
             .load(args.meal.slika_path)
-            .transition(DrawableTransitionOptions.withCrossFade(1200))
+            .transition(DrawableTransitionOptions.withCrossFade(1000))
             .into(imageViewDetailMeal)
     }
 
