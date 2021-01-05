@@ -4,8 +4,7 @@ import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-data class Narudzba(
-    val id_zapisa: Int,
+data class Order(
     val korisnik_id: Int,
     val stol_id: Int,
     val status: Int,
