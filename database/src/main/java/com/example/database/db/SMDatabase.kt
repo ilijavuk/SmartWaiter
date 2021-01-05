@@ -4,12 +4,16 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
+import com.example.database.db.converters.OrderedMealConverter
+import com.example.database.db.models.OrderedMeal
 import hr.foi.air.webservice.model.Meal
 
 @Database(
-    entities = [Meal::class],
-    version = 1
+    entities = [OrderedMeal::class],
+    version = 3
 )
+@TypeConverters(OrderedMealConverter::class)
 abstract class SMDatabase : RoomDatabase(){
 
     abstract fun getDAO(): DAO
@@ -28,6 +32,6 @@ abstract class SMDatabase : RoomDatabase(){
                 context.applicationContext,
                 SMDatabase::class.java,
                 "smdatabase"
-            ).build()
+            ).fallbackToDestructiveMigration().build()
     }
 }
