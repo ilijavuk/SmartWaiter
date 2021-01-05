@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/menuDetailsFragment"
-        android:name="com.example.smartwaiter.ui.guest.menudetails.MenuDetailsFragment"
+        android:name="com.example.smartwaiter.ui.guest.order.MenuDetailsFragment"
         android:label="Details"
         tools:layout="@layout/fragment_menu_details" >
         <argument
@@ -20,9 +20,13 @@
 
     <dialog
         android:id="@+id/menuGuestDialogFragment"
-        android:name="com.example.smartwaiter.ui.guest.menuguestdialog.MenuGuestDialogFragment"
+        android:name="com.example.smartwaiter.ui.guest.order.OrderDialogFragment"
         android:label="dialog_complete_order"
-        tools:layout="@layout/dialog_complete_order" />
+        tools:layout="@layout/dialog_complete_order">
+        <action
+            android:id="@+id/action_menuGuestDialogFragment_to_waitMealFragment"
+            app:destination="@id/waitMealFragment" />
+    </dialog>
 
     <fragment
         android:id="@+id/menuGuestFragment"
@@ -39,10 +43,6 @@
             android:name="restaurant_id"
             app:argType="integer"
             android:defaultValue="0" />
-        <argument
-            android:name="ordered"
-            app:argType="boolean"
-            android:defaultValue="false" />
     </fragment>
 
     <fragment
@@ -56,6 +56,10 @@
             app:popUpTo="@id/qrFragment"
             app:popUpToInclusive="true" />
     </fragment>
-    <include app:graph="@navigation/nav_graph" />
+    <fragment
+        android:id="@+id/waitMealFragment"
+        android:name="com.example.smartwaiter.ui.guest.guestwaiting.WaitMealFragment"
+        android:label="fragment_waiting_meal"
+        tools:layout="@layout/fragment_waiting_meal" />
 
 </navigation>
