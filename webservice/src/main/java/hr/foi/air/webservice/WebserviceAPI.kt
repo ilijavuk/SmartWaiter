@@ -1,12 +1,6 @@
 package hr.foi.air.webservice
 
-import hr.foi.air.webservice.model.Korisnik
-import hr.foi.air.webservice.model.Meal
-import hr.foi.air.webservice.model.Restoran
-
-import hr.foi.air.webservice.model.Stol
-
-import hr.foi.air.webservice.model.Tag
+import hr.foi.air.webservice.model.*
 
 import retrofit2.Response
 import retrofit2.http.GET
@@ -154,4 +148,16 @@ interface WebserviceAPI {
         @Query("id_tag") id_tag: String,
         @Query("lokal_id") lokal_id: String,
     ): List<Meal>
+
+    @GET("sw-api/api.php")
+    suspend fun makeOrder(
+        @Query("tablica") table: String,
+        @Query("metoda") method: String,
+        @Query("korisnik_id") user_id: Int,
+        @Query("stol_id") table_id: Int,
+        @Query("status") status: Int,
+        @Query("vrijeme") time: String,
+        @Query("stavka_id") meal_id: Int,
+        @Query("kolicina") amount: Int
+    ): String
 }
