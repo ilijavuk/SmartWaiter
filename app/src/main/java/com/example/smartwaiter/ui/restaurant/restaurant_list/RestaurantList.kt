@@ -17,18 +17,24 @@ import com.example.smartwaiter.R
 import com.example.smartwaiter.repository.AddRestaurantRepository
 import hr.foi.air.webservice.model.Restoran
 import kotlinx.android.synthetic.main.fragment_restaurant_list.*
+import com.example.database.UserPreferences
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 class RestaurantList : Fragment(R.layout.fragment_restaurant_list) {
     lateinit var lv: ListView
     lateinit var restaurants: Array<Restoran>
     lateinit var adapter: ArrayAdapter<Restoran>
+    private lateinit var userPreferences: UserPreferences
 
     private lateinit var viewModel: RestaurantListViewModel
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        userPreferences = UserPreferences(requireContext())
+
         super.onViewCreated(view, savedInstanceState)
 
-        val repository = AddRestaurantRepository()
+        val repository = AddRestaurantRepository(userPreferences)
         val viewModelFactory = RestaurantListModelFactory(repository)
         viewModel = ViewModelProvider(this, viewModelFactory).get(RestaurantListViewModel::class.java)
 
@@ -54,7 +60,11 @@ class RestaurantList : Fragment(R.layout.fragment_restaurant_list) {
         lv.setOnItemClickListener { parent, view, position, id ->
             val element = adapter.getItem(position)
             val action = RestaurantListDirections.actionRestaurantListFragmentToMeniFragment(element!!.id_lokal)
+            GlobalScope.launch {
+                viewModel.saveActiveRestaurant(activeRestaurant = element!!.id_lokal.toString())
+            }
             findNavController().navigate(action)
+
         }
     }
 

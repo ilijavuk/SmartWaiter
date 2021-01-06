@@ -23,4 +23,7 @@ class RestaurantListViewModel
             myResponse.value = response
         }
     }
+     suspend fun saveActiveRestaurant(activeRestaurant: String) {
+        repository.saveActiveRestaurant(activeRestaurant)
+    }
 }

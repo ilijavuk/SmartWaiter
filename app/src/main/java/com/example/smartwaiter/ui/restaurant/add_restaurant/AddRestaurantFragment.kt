@@ -6,6 +6,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.example.database.UserPreferences
 import com.example.smartwaiter.R
 import com.example.smartwaiter.repository.AddRestaurantRepository
 import kotlinx.android.synthetic.main.fragment_add_restaurant.*
@@ -13,11 +14,13 @@ import kotlinx.android.synthetic.main.fragment_add_restaurant.*
 class AddRestaurantFragment : Fragment(R.layout.fragment_add_restaurant) {
 
     private lateinit var viewModel: AddRestaurantViewModel
+    private lateinit var userPreferences: UserPreferences
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val repository = AddRestaurantRepository()
+        userPreferences = UserPreferences(requireContext())
+        val repository = AddRestaurantRepository(userPreferences)
         val viewModelFactory = AddRestaurantModelFactory(repository)
         viewModel = ViewModelProvider(this, viewModelFactory).get(AddRestaurantViewModel::class.java)
 
