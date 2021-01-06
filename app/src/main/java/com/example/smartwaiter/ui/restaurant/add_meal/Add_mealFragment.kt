@@ -93,7 +93,7 @@ class Add_mealFragment: Fragment(R.layout.fragment_add_meal) {
             var name:String = textMealName.text.toString()
             var description:String = textMealDescription.text.toString()
             var price:String =textMealPrice.text.toString()
-            var lokal_id = "1"
+            var lokal_id = requireArguments().getInt("restaurant_id").toString()
             var pathNaServeru ="https://smartwaiter.app/sw-api/uploads/"
             var imageNotExists = true
 
@@ -152,7 +152,7 @@ class Add_mealFragment: Fragment(R.layout.fragment_add_meal) {
                     }
                 }
 
-                viewModel.insertMeal(table = "Stavka_jelovnika", method = "insert", name, price, description, pathNaServeru, requireArguments().getInt("restaurant_id").toString())
+                viewModel.insertMeal(table = "Stavka_jelovnika", method = "insert", name, price, description, pathNaServeru, lokal_id)
 
                 textMealDescription.text=null
                 textMealName.text=null
@@ -266,6 +266,10 @@ class Add_mealFragment: Fragment(R.layout.fragment_add_meal) {
                 })
             }
 
+        }
+        if(allNewItemTags.size == newTags.size){
+            Log.d("tagovi",allNewItemTags.toString())
+            bindTagsToItem(allNewItemTags)
         }
 
 
