@@ -3,7 +3,9 @@ package com.example.smartwaiter.repository
 import hr.foi.air.webservice.RetrofitInstance
 import hr.foi.air.webservice.model.Meal
 import hr.foi.air.webservice.model.Restoran
+import hr.foi.air.webservice.model.Tag
 import retrofit2.Response
+import retrofit2.http.GET
 import retrofit2.http.Query
 
 
@@ -96,5 +98,20 @@ class Add_mealRepository : BaseRepository() {
     ) = safeApiCall {
         RetrofitInstance.api.bindTag(table, method, stavka_id,tag_id)
     }
+    suspend fun tagsByMeal(
+        function : String,
+        lokal_id : String,
+    )  = safeApiCall {
+        RetrofitInstance.api.tagsByMeal(function, lokal_id)
+    }
+
+    suspend fun RemoveTagsFromMeal(
+        function : String,
+        lokal_id : String,
+    ) = safeApiCall {
+        RetrofitInstance.api.RemoveTagsFromMeal(function, lokal_id)
+    }
+
+
 
 }
