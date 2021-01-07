@@ -52,8 +52,6 @@
         <action
             android:id="@+id/action_meniFragment_to_editMealFragment2"
             app:destination="@id/editMealFragment" />
-        <argument android:name="restaurant_id"
-            app:argType="integer" />
         <action
             android:id="@+id/action_meniFragment_to_add_mealFragment"
             app:destination="@id/add_mealFragment" />

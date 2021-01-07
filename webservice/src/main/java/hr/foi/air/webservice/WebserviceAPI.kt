@@ -113,7 +113,7 @@ interface WebserviceAPI {
         @Query("cijena") mealPrice: String,
         @Query("opis") mealDescription: String,
         @Query("slika_path") mealPhotoPath: String,
-    )
+    ): String
 
 
     @GET("sw-api/api.php")

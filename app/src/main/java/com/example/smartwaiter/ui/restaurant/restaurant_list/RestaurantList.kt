@@ -12,6 +12,7 @@ import android.widget.ListView
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.smartwaiter.R
 import com.example.smartwaiter.repository.AddRestaurantRepository
@@ -59,8 +60,8 @@ class RestaurantList : Fragment(R.layout.fragment_restaurant_list) {
         })
         lv.setOnItemClickListener { parent, view, position, id ->
             val element = adapter.getItem(position)
-            val action = RestaurantListDirections.actionRestaurantListFragmentToMeniFragment(element!!.id_lokal)
-            GlobalScope.launch {
+            val action = RestaurantListDirections.actionRestaurantListFragmentToMeniFragment()
+            lifecycleScope.launch {
                 viewModel.saveActiveRestaurant(activeRestaurant = element!!.id_lokal.toString())
             }
             findNavController().navigate(action)
