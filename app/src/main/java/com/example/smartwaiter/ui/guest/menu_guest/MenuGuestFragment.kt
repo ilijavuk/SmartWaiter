@@ -10,7 +10,9 @@ import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.asLiveData
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.database.UserPreferences
 import com.example.smartwaiter.R
 import com.example.smartwaiter.repository.Add_mealRepository
 import com.example.smartwaiter.ui.restaurant.menu.MealListAdapter
@@ -30,6 +32,7 @@ class MenuGuestFragment : Fragment(R.layout.fragment_meni_guest) {
     private lateinit var viewModel: MenuGuestViewModel
     private lateinit var repository: Add_mealRepository
     private lateinit var viewModelFactory: MenuGuestModelFactory
+    private lateinit var userPreferences: UserPreferences
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -43,12 +46,19 @@ class MenuGuestFragment : Fragment(R.layout.fragment_meni_guest) {
         viewModelFactory = MenuGuestModelFactory(repository)
         viewModel = ViewModelProvider(this, viewModelFactory).get(MenuGuestViewModel::class.java)
 
-        lokal = requireArguments().getInt("restaurant_id").toString()
+        userPreferences = UserPreferences(requireContext())
+        Log.d("restoran","1")
+        userPreferences.activeRestaurant.asLiveData().observe(viewLifecycleOwner, {
+            it?.let {
+                lokal = it
+                load()
+                loadTags()
+            }
+        })
+        //lokal = requireArguments().getInt("restaurant_id").toString()
 
-        Log.d("qr", lokal)
 
-        load()
-        loadTags()
+
         viewModel.myResponse.observe(viewLifecycleOwner, { response ->
             when (response) {
                 is Resource.Success -> {

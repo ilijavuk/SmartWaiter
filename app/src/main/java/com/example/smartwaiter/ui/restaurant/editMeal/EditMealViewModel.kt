@@ -18,6 +18,7 @@ class EditMealViewModel(private val repository: Add_mealRepository): ViewModel()
     val myResponse4: MutableLiveData<Resource<String>> = MutableLiveData()
     val myResponse5: MutableLiveData<Resource<List<Tag>>> = MutableLiveData()
     val myResponse6: MutableLiveData<Resource<String>> = MutableLiveData()
+    val myResponse7: MutableLiveData<Resource<String>> = MutableLiveData()
 
 
     fun getMealById(
@@ -50,6 +51,7 @@ class EditMealViewModel(private val repository: Add_mealRepository): ViewModel()
                 mealDescription = mealDescription,
                 mealPhotoPath = mealPhotoPath,
             )
+            myResponse7.value = response
         }
     }
     fun insertTag(

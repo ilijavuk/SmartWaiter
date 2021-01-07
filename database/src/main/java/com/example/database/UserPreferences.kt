@@ -30,6 +30,11 @@ class UserPreferences(
             preferences[USER_TYPE]
         }
 
+    val activeRestaurant: Flow<String?>
+        get() = dataStore.data.map { preferences ->
+            preferences[ACTIVE_RESTAURANT]
+        }
+
     suspend fun saveAuthToken(authToken: String) {
         dataStore.edit { preferences ->
             preferences[KEY_AUTH] = authToken
@@ -42,6 +47,12 @@ class UserPreferences(
         }
     }
 
+    suspend fun saveActiveRestaurant(activeRestaurant: String) {
+        dataStore.edit { preferences ->
+            preferences[ACTIVE_RESTAURANT] = activeRestaurant
+        }
+    }
+
     suspend fun clear(){
         dataStore.edit {  preferences ->
              preferences.clear()
@@ -51,6 +62,7 @@ class UserPreferences(
     companion object {
         private val KEY_AUTH = preferencesKey<String>("key_auth")
         private val USER_TYPE = preferencesKey<String>("type_user")
+        private val ACTIVE_RESTAURANT = preferencesKey<String>("active_restaurant")
     }
 
 

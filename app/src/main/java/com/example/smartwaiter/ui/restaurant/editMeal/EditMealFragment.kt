@@ -45,6 +45,7 @@ class EditMealFragment: Fragment(R.layout.fragment_edit_meal) {
     private lateinit var ExistingTags: List<Tag>
 
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
 
@@ -149,7 +150,7 @@ class EditMealFragment: Fragment(R.layout.fragment_edit_meal) {
 
 
 
-            val action = EditMealFragmentDirections.actionEditMealFragment2ToMeniFragment(1)
+            val action = EditMealFragmentDirections.actionEditMealFragment2ToMeniFragment()
             //findNavController().navigate(action)
 
         }
