@@ -5,7 +5,10 @@ import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
+import androidx.fragment.app.setFragmentResultListener
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.asLiveData
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -15,33 +18,37 @@ import com.example.smartwaiter.repository.Add_mealRepository
 import com.example.smartwaiter.ui.guest.menuguest.MealGuestListAdapter
 import com.example.smartwaiter.ui.guest.menuguest.MenuGuestModelFactory
 import com.example.smartwaiter.ui.guest.menuguest.MenuGuestViewModel
+import com.example.smartwaiter.ui.guest.order.OrderDialogFragment
+import com.example.smartwaiter.ui.guest.order.OrderViewModel
 import com.example.smartwaiter.util.handleApiError
 import com.example.smartwaiter.util.visible
 import hr.foi.air.webservice.model.Meal
 import hr.foi.air.webservice.model.Tag
 import hr.foi.air.webservice.util.Resource
 import kotlinx.android.synthetic.main.fragment_meni_guest.*
+import kotlinx.coroutines.launch
 
 class MenuGuestFragment : Fragment(R.layout.fragment_meni_guest) {
+
     private lateinit var lokal: String
     private lateinit var stol: String
     private lateinit var viewModel: MenuGuestViewModel
     private lateinit var repository: Add_mealRepository
     private lateinit var viewModelFactory: MenuGuestModelFactory
+    private lateinit var userPreferences: UserPreferences
 
     private val args: MenuGuestFragmentArgs by navArgs()
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        userPreferences = UserPreferences(requireContext())
         repository = Add_mealRepository()
         viewModelFactory = MenuGuestModelFactory(repository)
         viewModel = ViewModelProvider(this, viewModelFactory).get(MenuGuestViewModel::class.java)
 
-        floatingActionButtonBasket.visible(false)
-        progressBarMenuGuest.visible(false)
 
-        if(args.ordered == true){
-            floatingActionButtonBasket.visible(true)
-        }
+        progressBarMenuGuest.visible(false)
+        updateOrderBucketUI()
 
         floatingActionButtonBasket.setOnClickListener {
             val action = MenuGuestFragmentDirections.actionMenuGuestFragmentToMenuGuestDialogFragment()
@@ -136,5 +143,29 @@ class MenuGuestFragment : Fragment(R.layout.fragment_meni_guest) {
 
     fun getActivityContext(): FragmentActivity? {
         return activity
+    }
+
+    private fun updateOrderBucketUI(){
+
+        setFragmentResultListener("basket_ui_request", ){_, bundle ->
+            val result = bundle.getBoolean("basket_ui_result")
+            if (result == true){
+                floatingActionButtonBasket.visible(true)
+            }
+            else{
+                floatingActionButtonBasket.visible(false)
+            }
+        }
+
+        userPreferences.orderBucket.asLiveData().observe(viewLifecycleOwner, {
+            it?.let {
+                Log.d("FAB", it.toString())
+                when(it) {
+                    true -> floatingActionButtonBasket.visible(true)
+                    false -> floatingActionButtonBasket.visible(false)
+                }
+            }
+        })
+
     }
 }
