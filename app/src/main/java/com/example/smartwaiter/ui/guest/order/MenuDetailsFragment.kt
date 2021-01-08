@@ -68,7 +68,7 @@ class MenuDetailsFragment : Fragment(R.layout.fragment_menu_details) {
             val orderedMeal = OrderedMeal(args.meal, order)
             viewModel.saveOrderedMeal(orderedMeal)
             viewModel.saveOrderBucket(true)
-            val action = MenuDetailsFragmentDirections.actionMenuDetailsFragmentToMenuGuestFragment(1)
+            val action = MenuDetailsFragmentDirections.actionMenuDetailsFragmentToMenuGuestFragment()
             findNavController().navigate(action)
         }
     }

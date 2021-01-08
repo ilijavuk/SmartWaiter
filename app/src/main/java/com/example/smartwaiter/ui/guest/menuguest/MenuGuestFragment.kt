@@ -37,9 +37,6 @@ class MenuGuestFragment : Fragment(R.layout.fragment_meni_guest) {
     private lateinit var viewModelFactory: MenuGuestModelFactory
     private lateinit var userPreferences: UserPreferences
 
-    private val args: MenuGuestFragmentArgs by navArgs()
-
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         userPreferences = UserPreferences(requireContext())
         repository = Add_mealRepository()

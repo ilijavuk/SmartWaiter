@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import com.budiyev.android.codescanner.CodeScanner
@@ -83,9 +84,9 @@ class QrFragment : Fragment(R.layout.fragment_qrscanner) {
 
                     lifecycleScope.launch {
                         viewModel.saveActiveRestaurant(response.value[0].lokal_id)
-
                     }
-                    val action = QrFragmentDirections.actionQrFragmentToMenuGuestFragment2()
+
+                    val action = QrFragmentDirections.actionQrFragmentToMenuGuestFragment()
                     findNavController().navigate(action)
 
                 }
