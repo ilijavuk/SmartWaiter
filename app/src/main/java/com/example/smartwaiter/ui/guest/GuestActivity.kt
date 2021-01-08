@@ -1,5 +1,6 @@
 package com.example.smartwaiter.ui.guest
 
+import android.app.Activity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -10,6 +11,7 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.onNavDestinationSelected
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.example.database.UserPreferences
 import com.example.smartwaiter.R
@@ -41,11 +43,16 @@ class GuestActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        lifecycleScope.launch {
-            preferences.clear()
+
+        if(item.itemId == R.id.homeFragment)
+        {
+            lifecycleScope.launch {
+                preferences.clear()
+            }
+            startNewActivity(MainActivity::class.java)
         }
-        startNewActivity(MainActivity::class.java)
-        return super.onOptionsItemSelected(item)
+
+        return item.onNavDestinationSelected(navController) || super.onOptionsItemSelected(item)
     }
 
     override fun onSupportNavigateUp(): Boolean {

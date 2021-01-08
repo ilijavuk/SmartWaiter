@@ -7,7 +7,6 @@ import androidx.lifecycle.viewModelScope
 import com.example.database.db.models.OrderedMeal
 import com.example.smartwaiter.repository.OrderRepository
 import hr.foi.air.webservice.util.Resource
-import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
 class OrderViewModel(private val orderRepository: OrderRepository) : ViewModel() {
