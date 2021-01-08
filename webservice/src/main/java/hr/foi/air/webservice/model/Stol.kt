@@ -7,5 +7,4 @@ data class Stol(
     val broj_stola: String,
     val rezerviran: String,
     val hash: String
-
 )

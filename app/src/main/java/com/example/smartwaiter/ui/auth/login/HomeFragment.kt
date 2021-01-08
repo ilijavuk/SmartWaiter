@@ -58,6 +58,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                             }
                         }
                         viewModel.saveUserType(response.value[0].tip_korisnika_id)
+                        viewModel.saveAuthToken(response.value[0].id_korisnik)
                     }
                 }
 

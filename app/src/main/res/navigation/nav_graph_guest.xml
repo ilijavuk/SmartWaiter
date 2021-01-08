@@ -6,16 +6,58 @@
     app:startDestination="@id/qrFragment">
 
     <fragment
+        android:id="@+id/menuDetailsFragment"
+        android:name="com.example.smartwaiter.ui.guest.order.MenuDetailsFragment"
+        android:label="Details"
+        tools:layout="@layout/fragment_menu_details" >
+        <argument
+            android:name="meal"
+            app:argType="hr.foi.air.webservice.model.Meal" />
+        <action
+            android:id="@+id/action_menuDetailsFragment_to_menuGuestFragment"
+            app:destination="@id/menuGuestFragment"
+            app:popUpTo="@id/menuGuestFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <dialog
+        android:id="@+id/menuGuestDialogFragment"
+        android:name="com.example.smartwaiter.ui.guest.order.OrderDialogFragment"
+        android:label="dialog_complete_order"
+        tools:layout="@layout/dialog_complete_order">
+        <action
+            android:id="@+id/action_menuGuestDialogFragment_to_waitMealFragment"
+            app:destination="@id/waitMealFragment" />
+    </dialog>
+
+    <fragment
         android:id="@+id/menuGuestFragment"
         android:name="com.example.smartwaiter.ui.guest.menu_guest.MenuGuestFragment"
-        android:label="fragment_meni_guest"
-        tools:layout="@layout/fragment_meni_guest" />
+        android:label="Today's Menu"
+        tools:layout="@layout/fragment_meni_guest" >
+        <action
+            android:id="@+id/action_menuGuestFragment_to_menuDetailsFragment"
+            app:destination="@id/menuDetailsFragment" />
+        <action
+            android:id="@+id/action_menuGuestFragment_to_menuGuestDialogFragment"
+            app:destination="@id/menuGuestDialogFragment" />
+    </fragment>
+
     <fragment
         android:id="@+id/qrFragment"
         android:name="com.example.smartwaiter.ui.restaurant.qr.QrFragment"
-        android:label="QrFragment" >
+        android:label="fragment_qrscanner"
+        tools:layout="@layout/fragment_qrscanner" >
         <action
-            android:id="@+id/action_qrFragment_to_menuGuestFragment2"
-            app:destination="@id/menuGuestFragment" />
+            android:id="@+id/action_qrFragment_to_menuGuestFragment"
+            app:destination="@id/menuGuestFragment"
+            app:popUpTo="@id/qrFragment"
+            app:popUpToInclusive="true" />
     </fragment>
+    <fragment
+        android:id="@+id/waitMealFragment"
+        android:name="com.example.smartwaiter.ui.guest.guestwaiting.WaitMealFragment"
+        android:label="fragment_waiting_meal"
+        tools:layout="@layout/fragment_waiting_meal" />
+
 </navigation>

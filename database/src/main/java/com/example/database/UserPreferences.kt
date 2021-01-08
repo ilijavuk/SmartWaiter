@@ -30,6 +30,12 @@ class UserPreferences(
             preferences[USER_TYPE]
         }
 
+    val orderBucket: Flow<Boolean?>
+        get() = dataStore.data.map { preferences ->
+            preferences[ORDER_BUCKET]
+        }
+
+
     val activeRestaurant: Flow<String?>
         get() = dataStore.data.map { preferences ->
             preferences[ACTIVE_RESTAURANT]
@@ -47,6 +53,12 @@ class UserPreferences(
         }
     }
 
+    suspend fun saveOrderBucket(orderBucket: Boolean) {
+        dataStore.edit { preferences ->
+            preferences[ORDER_BUCKET] = orderBucket
+            }
+    }
+    
     suspend fun saveActiveRestaurant(activeRestaurant: String) {
         dataStore.edit { preferences ->
             preferences[ACTIVE_RESTAURANT] = activeRestaurant
@@ -62,6 +74,7 @@ class UserPreferences(
     companion object {
         private val KEY_AUTH = preferencesKey<String>("key_auth")
         private val USER_TYPE = preferencesKey<String>("type_user")
+        private val ORDER_BUCKET = preferencesKey<Boolean>("order_bucket")
         private val ACTIVE_RESTAURANT = preferencesKey<String>("active_restaurant")
     }
 
