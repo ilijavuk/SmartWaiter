@@ -13,9 +13,9 @@
     <string name="add_item">Add item</string>
     <string name="Toast_please_fill">Please fill in all the fields!</string>
     <string name="itemadded">The item has been added to the menu</string>
-    <string name="dostupno">Dostupno:</string>
-    <string name="uredi">Uredi</string>
-    <string name="naru_i">Naruči</string>
+    <string name="dostupno">Available:</string>
+    <string name="uredi">Edit</string>
+    <string name="naru_i">Order</string>
     <string name="save_changes">Save changes</string>
     <string name="currency">%s HRK</string>
     <string name="multiplier">%sx</string>

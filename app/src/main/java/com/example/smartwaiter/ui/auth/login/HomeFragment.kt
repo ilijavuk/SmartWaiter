@@ -41,7 +41,6 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         val repository = AuthRepository(userPreferences)
         val viewModelFactory = HomeViewModelFactory(repository)
         viewModel = ViewModelProvider(this, viewModelFactory).get(HomeViewModel::class.java)
-
         viewModel.myResponse.observe(viewLifecycleOwner, { response ->
             when (response) {
                 is Resource.Success -> {

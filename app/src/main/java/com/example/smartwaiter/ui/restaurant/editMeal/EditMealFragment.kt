@@ -20,6 +20,7 @@ import com.example.smartwaiter.util.handleApiError
 import com.example.smartwaiter.util.visible
 //import com.example.smartwaiter.ui.restaurant.menu.MenuFragmentDirections
 import hr.foi.air.webservice.UploadUtility
+import hr.foi.air.webservice.model.Tag
 import hr.foi.air.webservice.util.Resource
 import kotlinx.android.synthetic.main.fragment_edit_meal.*
 import java.io.File
@@ -32,20 +33,24 @@ class EditMealFragment: Fragment(R.layout.fragment_edit_meal) {
     private lateinit var viewModel: EditMealViewModel
     private val args: EditMealFragmentArgs by navArgs()
     private lateinit var mealId : String
+    private lateinit var ExistingTags: List<Tag>
+
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
 
 
+
         mealId = args.mealId
 
         load()
+        loadBindedMealTags()
         viewModel.myResponse.observe(viewLifecycleOwner, { response ->
             when (response) {
                 is Resource.Success -> {
                     progressBarEditMeal.visible(false)
-                    EditMealLinearLayout.visible(true)
+                    EditMealContent.visible(true)
                     if (response != null) {
                         val odgovor = response.value
                         if (odgovor != null) {
@@ -70,11 +75,11 @@ class EditMealFragment: Fragment(R.layout.fragment_edit_meal) {
                 }
                 is Resource.Loading -> {
                     progressBarEditMeal.visible(true)
-                    EditMealLinearLayout.visible(false)
+                    EditMealContent.visible(false)
                 }
                 is Resource.Failure -> {
                     handleApiError(response) { load() }
-                    EditMealLinearLayout.visible(false)
+                    EditMealContent.visible(false)
                     progressBarEditMeal.visible(true)
                     Log.d("Response", response.toString())
                 }
@@ -93,8 +98,8 @@ class EditMealFragment: Fragment(R.layout.fragment_edit_meal) {
             val priceOfMeal:String = textMealPriceEdit.text.toString()
             val descritptionOfMeal:String = textMealDescriptionEdit.text.toString()
             var photoPathOfMeal:String = textMealDescriptionEdit.getTag().toString()
-
-
+            loadExistingTags()
+            RemoveOldTags()
             if(imageTagHolder.getTag() == "0"){
 
             }
@@ -132,8 +137,12 @@ class EditMealFragment: Fragment(R.layout.fragment_edit_meal) {
             }
 
             viewModel.updateMeal(table = "Stavka_jelovnika", method = "update", mealId = primaryKey, mealName = nameOfMeal, mealPrice = priceOfMeal, mealDescription = descritptionOfMeal, mealPhotoPath = photoPathOfMeal)
-            val action = EditMealFragmentDirections.actionEditMealFragment2ToMeniFragment(1)
-            findNavController().navigate(action)
+
+
+
+
+            val action = EditMealFragmentDirections.actionEditMealFragment2ToMeniFragment()
+            //findNavController().navigate(action)
 
         }
         btnChoosePhotoEdit.setOnClickListener{
@@ -180,5 +189,146 @@ class EditMealFragment: Fragment(R.layout.fragment_edit_meal) {
         val viewModelFactory = EditMealModelFactory(repository)
         viewModel = ViewModelProvider(this, viewModelFactory).get(EditMealViewModel::class.java)
         viewModel.getMealById("Stavka_jelovnika","select", mealId)
+    }
+    private fun callExistingTags(){
+        viewModel.getAllTags("Tag_stavke","select")
+    }
+    private fun loadExistingTags(){
+        callExistingTags()
+        viewModel.myResponse2.observe(viewLifecycleOwner, { response ->
+            when (response) {
+                is Resource.Success -> {
+                    if (response != null) {
+                        ExistingTags = response.value
+                        Log.d("tagovi", ExistingTags.toString())
+                        processNewTags()
+                    }
+                }
+                is Resource.Loading -> {
+                }
+                is Resource.Failure -> {
+                    handleApiError(response) { callExistingTags() }
+                }
+            }
+        })
+    }
+
+    private fun callInsertTag(newTag: String){
+        viewModel.insertTag(table = "Tag_stavke", method = "insert", newTag)
+    }
+    private fun processNewTags(){
+        var newTags:List<String> = tagsEditTextEdit.tags
+        var allNewItemTags: MutableList<String> = mutableListOf<String>()
+        for (newTag in newTags){
+            var found = false
+            for (existingTag in ExistingTags){
+                if (existingTag.tag==newTag){
+                    allNewItemTags.add(existingTag.id_tag)
+                    found = true
+                }
+            }
+            if(!found){
+
+                callInsertTag(newTag)
+
+                viewModel.myResponse3.observe(viewLifecycleOwner, { response ->
+                    when (response) {
+                        is Resource.Success -> {
+                            if (response != null) {
+                                if(!allNewItemTags.contains(response.value) ){
+                                    allNewItemTags.add(response.value)
+                                    Log.d("tagovi",allNewItemTags.toString())
+                                }
+                                if(allNewItemTags.size == newTags.size){
+                                    Log.d("tagovi",allNewItemTags.toString())
+                                    bindTagsToItem(allNewItemTags)
+                                }
+                            }
+                        }
+                        is Resource.Loading -> {
+                        }
+                        is Resource.Failure -> {
+                            handleApiError(response) { callInsertTag(newTag) }
+                        }
+                    }
+                })
+            }
+
+        }
+        if(allNewItemTags.size == newTags.size){
+            Log.d("tagovi",allNewItemTags.toString())
+            bindTagsToItem(allNewItemTags)
+        }
+
+
+    }
+    private fun callBindTag(stavka_id: String, tag_id: String){
+        viewModel.bindTag(table = "Stavka_tag", method = "insert", stavka_id=stavka_id,tag_id=tag_id)
+    }
+
+    private fun bindTagsToItem(tagsToBind:List<String>){
+        for (tag in tagsToBind){
+            Log.d("tagovi", tag)
+            callBindTag(mealId, tag)
+            viewModel.myResponse3.observe(viewLifecycleOwner, { response ->
+                when (response) {
+                    is Resource.Success -> {
+
+                    }
+                    is Resource.Loading -> {
+                    }
+                    is Resource.Failure -> {
+                        handleApiError(response) { callBindTag(mealId, tag) }
+                    }
+                }
+            })
+        }
+    }
+    private fun loadMealTags(){
+        viewModel.tagsByMeal("tagsByMeal", mealId)
+    }
+    private fun loadBindedMealTags(){
+        loadMealTags()
+        viewModel.myResponse5.observe(viewLifecycleOwner, { response ->
+            when (response) {
+                is Resource.Success -> {
+                    if (response != null) {
+                        var oldTags  = mutableListOf<String>()
+                        for(tag in response.value){
+
+                            oldTags.add(tag.tag)
+                            Log.d("tagovi-stari",tag.tag)
+                        }
+                        val OldTags: Array<String> = oldTags.toTypedArray()
+                        tagsEditTextEdit.setTags(OldTags)
+
+
+                    }
+                }
+                is Resource.Loading -> {
+                }
+                is Resource.Failure -> {
+                    handleApiError(response) { loadMealTags() }
+                }
+            }
+        })
+    }
+
+    private fun RemoveTagsFromMeal(){
+        viewModel.RemoveTagsFromMeal("RemoveTagsFromMeal", mealId)
+    }
+    private fun RemoveOldTags(){
+        RemoveTagsFromMeal()
+        viewModel.myResponse6.observe(viewLifecycleOwner, { response ->
+            when (response) {
+                is Resource.Success -> {
+                }
+                is Resource.Loading -> {
+                }
+                is Resource.Failure -> {
+                    handleApiError(response) { callExistingTags() }
+                }
+            }
+        })
     }
 }

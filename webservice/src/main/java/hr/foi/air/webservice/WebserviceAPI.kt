@@ -105,7 +105,7 @@ interface WebserviceAPI {
         @Query("cijena") mealPrice: String,
         @Query("opis") mealDescription: String,
         @Query("slika_path") mealPhotoPath: String,
-    )
+    ): String
 
     @GET("sw-api/api.php")
     suspend fun getTableFromHash(
@@ -160,4 +160,22 @@ interface WebserviceAPI {
         @Query("stavka_id") meal_id: Int,
         @Query("kolicina") amount: Int
     ): String
+
+    suspend fun tagsByMeal(
+        @Query("funkcija") function : String,
+        @Query("meal_id") lokal_id : String,
+    ): List<Tag>
+
+    @GET("sw-api/api.php")
+    suspend fun RemoveTagsFromMeal(
+        @Query("funkcija") function : String,
+        @Query("meal_id") lokal_id : String,
+    ): String
+
+    /*@GET("sw-api/api.php")
+    suspend fun getEmail(
+        @Query("tablica") table : String,
+        @Query("metoda") method : String,
+        @Query("email") email : String
+    ): Response<List<Korisnik>>*/
 }

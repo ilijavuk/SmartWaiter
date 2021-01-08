@@ -55,12 +55,15 @@ class MenuGuestFragment : Fragment(R.layout.fragment_meni_guest) {
             findNavController().navigate(action)
         }
 
-        lokal = requireArguments().getInt("restaurant_id").toString()
+        Log.d("restoran","1")
+        userPreferences.activeRestaurant.asLiveData().observe(viewLifecycleOwner, {
+            it?.let {
+                lokal = it
+                load()
+                loadTags()
+            }
+        })
 
-        Log.d("qr", lokal)
-
-        load()
-        loadTags()
         viewModel.myResponse.observe(viewLifecycleOwner, { response ->
             when (response) {
                 is Resource.Success -> {

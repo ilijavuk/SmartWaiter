@@ -21,5 +21,8 @@ class QrViewModel(private val repository: StolRepostiory) : ViewModel() {
             myResponse.value=response
         }
     }
+    suspend fun saveActiveRestaurant(activeRestaurant: String) {
+        repository.saveActiveRestaurant(activeRestaurant)
+    }
 
 }

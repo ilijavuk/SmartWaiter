@@ -13,6 +13,8 @@ import androidx.navigation.fragment.findNavController
 import com.budiyev.android.codescanner.CodeScanner
 import com.budiyev.android.codescanner.CodeScannerView
 import com.budiyev.android.codescanner.DecodeCallback
+import com.budiyev.android.codescanner.ScanMode
+import com.example.database.UserPreferences
 import com.example.smartwaiter.R
 import com.example.smartwaiter.repository.StolRepostiory
 import com.example.smartwaiter.ui.waiter.WaiterActivity
@@ -29,6 +31,7 @@ class QrFragment : Fragment(R.layout.fragment_qrscanner) {
     private lateinit var repostiory: StolRepostiory
     private lateinit var viewModelFactory: QrModelFactory
     private lateinit var codeScanner: CodeScanner
+    private lateinit var userPreferences: UserPreferences
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -36,7 +39,7 @@ class QrFragment : Fragment(R.layout.fragment_qrscanner) {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
+        userPreferences = UserPreferences(requireContext())
 
         val scannerView = view.findViewById<CodeScannerView>(R.id.scanner_view)
         val activity = requireActivity()
@@ -69,7 +72,7 @@ class QrFragment : Fragment(R.layout.fragment_qrscanner) {
     }
 
     fun load(hash : String){
-        repostiory= StolRepostiory()
+        repostiory= StolRepostiory(userPreferences)
         viewModelFactory=QrModelFactory(repostiory)
         viewModel= ViewModelProvider(this, viewModelFactory).get(QrViewModel::class.java)
         decodeFromWeb(hash)
@@ -77,7 +80,12 @@ class QrFragment : Fragment(R.layout.fragment_qrscanner) {
             when (response) {
                 is Resource.Success -> {
                     Log.d("REEEEEEEEEEEEE", response.value.toString())
-                    val action = QrFragmentDirections.actionQrFragmentToMenuGuestFragment(response.value[0].lokal_id.toInt())
+
+                    lifecycleScope.launch {
+                        viewModel.saveActiveRestaurant(response.value[0].lokal_id)
+
+                    }
+                    val action = QrFragmentDirections.actionQrFragmentToMenuGuestFragment2()
                     findNavController().navigate(action)
 
                 }

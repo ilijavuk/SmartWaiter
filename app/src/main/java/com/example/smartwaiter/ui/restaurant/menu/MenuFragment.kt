@@ -1,6 +1,8 @@
 package com.example.smartwaiter.ui.restaurant.menu
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -8,11 +10,18 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.asLiveData
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.database.UserPreferences
 import com.example.smartwaiter.R
 import com.example.smartwaiter.repository.Add_mealRepository
+import com.example.smartwaiter.ui.auth.MainActivity
+import com.example.smartwaiter.ui.guest.GuestActivity
+import com.example.smartwaiter.ui.restaurant.RestaurantActivity
+import com.example.smartwaiter.ui.waiter.WaiterActivity
 import com.example.smartwaiter.util.handleApiError
+import com.example.smartwaiter.util.startNewActivity
 import com.example.smartwaiter.util.visible
 import hr.foi.air.webservice.model.Tag
 import hr.foi.air.webservice.util.Resource
@@ -24,6 +33,7 @@ class MenuFragment : Fragment(R.layout.fragment_meni) {
     private lateinit var viewModel: MenuViewModel
     private lateinit var repository: Add_mealRepository
     private lateinit var viewModelFactory: MenuModelFactory
+    private lateinit var userPreferences: UserPreferences
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -33,12 +43,24 @@ class MenuFragment : Fragment(R.layout.fragment_meni) {
         inflater.inflate(R.layout.fragment_meni, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        lokal = requireArguments().getInt("restaurant_id").toString()
+
+
+        userPreferences = UserPreferences(requireContext())
+        Log.d("restoran","1")
+        userPreferences.activeRestaurant.asLiveData().observe(viewLifecycleOwner, {
+            it?.let {
+                lokal = it
+                load()
+                loadTags()
+            }
+        })
+
+        Log.d("restoran","4")
+        //lokal = requireArguments().getInt("restaurant_id").toString()
         repository = Add_mealRepository()
         viewModelFactory = MenuModelFactory(repository)
         viewModel = ViewModelProvider(this, viewModelFactory).get(MenuViewModel::class.java)
-        load()
-        loadTags()
+
         btnCallAddMeal.setOnClickListener{
             findNavController().navigate(MenuFragmentDirections.actionMeniFragmentToAddMealFragment(lokal.toInt()))
         }
