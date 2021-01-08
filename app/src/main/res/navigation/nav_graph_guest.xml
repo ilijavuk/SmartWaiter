@@ -15,7 +15,9 @@
             app:argType="hr.foi.air.webservice.model.Meal" />
         <action
             android:id="@+id/action_menuDetailsFragment_to_menuGuestFragment"
-            app:destination="@id/menuGuestFragment" />
+            app:destination="@id/menuGuestFragment"
+            app:popUpTo="@id/menuGuestFragment"
+            app:popUpToInclusive="true" />
     </fragment>
 
     <dialog
