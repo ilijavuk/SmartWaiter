@@ -2,12 +2,12 @@ package com.example.smartwaiter.ui.guest.order
 
 import android.content.DialogInterface
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
+import androidx.fragment.app.setFragmentResult
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.asLiveData
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.database.UserPreferences
@@ -27,6 +27,7 @@ class OrderDialogFragment : BottomSheetDialogFragment() {
 
     private lateinit var viewModel: OrderViewModel
     private lateinit var userPreferences: UserPreferences
+    private var basketHandler: Boolean = false
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -60,9 +61,10 @@ class OrderDialogFragment : BottomSheetDialogFragment() {
 
         viewModel.getOrderedMeals().observe(viewLifecycleOwner, { orderedMeals ->
             if (orderedMeals.isNullOrEmpty()) {
-                viewModel.saveOrderBucket(false)
+                basketHandler = false
                 dismiss()
             } else {
+                basketHandler = true
                 var sum = 0.0
                 orderedMeals.forEach { orderedMeal ->
                     val mealPrice = orderedMeal.meal.cijena.toFloat() * orderedMeal.order.kolicina
@@ -79,10 +81,10 @@ class OrderDialogFragment : BottomSheetDialogFragment() {
         viewModel.myResponse.observe(viewLifecycleOwner, { response ->
             when (response) {
                 is Resource.Success -> {
-                    Snackbar.make(requireView(), "OrderComplete", Snackbar.LENGTH_SHORT).show()
-                    val action = OrderDialogFragmentDirections.actionMenuGuestDialogFragmentToWaitMealFragment()
+                    Snackbar.make(requireView(), "Order Completed", Snackbar.LENGTH_SHORT).show()
+                    val action =
+                        OrderDialogFragmentDirections.actionMenuGuestDialogFragmentToWaitMealFragment()
                     findNavController().navigate(action)
-
                 }
 
                 is Resource.Loading -> {
@@ -90,7 +92,7 @@ class OrderDialogFragment : BottomSheetDialogFragment() {
                 }
 
                 is Resource.Failure -> {
-                    Snackbar.make(requireView(), "Can't make order", Snackbar.LENGTH_SHORT).show()
+                    Snackbar.make(requireView(), "Can't make Order", Snackbar.LENGTH_SHORT).show()
                 }
             }
 
@@ -116,13 +118,13 @@ class OrderDialogFragment : BottomSheetDialogFragment() {
 
     override fun onDismiss(dialog: DialogInterface) {
         super.onDismiss(dialog)
-        val callback = targetFragment as? OrderDialogcallBack
-        callback?.onOrderDialogcallBack()
+        viewModel.saveOrderBucket(basketHandler)
+        setFragmentResult(
+            "basket_ui_request",
+            bundleOf("basket_ui_result" to basketHandler)
+        )
     }
 
-    interface OrderDialogcallBack{
-        fun onOrderDialogcallBack()
-    }
 
     private fun deleteOrderedMealClicked(orderedMeal: OrderedMeal) {
         viewModel.deleteOrderedMeal(orderedMeal)
