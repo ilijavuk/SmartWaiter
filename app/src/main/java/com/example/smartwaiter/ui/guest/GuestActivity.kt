@@ -75,7 +75,8 @@ class GuestActivity : AppCompatActivity() {
     private fun visibilityNavElements(navController: NavController) {
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
-                R.id.qrFragment -> toolbarGuest.visible(false)
+                R.id.qrFragment,
+                R.id.waitMealFragment -> toolbarGuest.visible(false)
                 else -> toolbarGuest.visible(true)
             }
         }

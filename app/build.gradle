@@ -102,6 +102,10 @@ dependencies {
     //TagsEditText
     implementation 'com.github.mabbas007:TagsEditText:1.0.5'
 
+    //Lottie animations
+    implementation "com.airbnb.android:lottie:3.4.0"
+
+
 
 
 }

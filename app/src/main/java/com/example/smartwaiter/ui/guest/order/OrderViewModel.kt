@@ -31,6 +31,10 @@ class OrderViewModel(private val orderRepository: OrderRepository) : ViewModel()
         orderRepository.deleteMeal(orderedMeal)
     }
 
+    fun deleteAllFromOrder() = viewModelScope.launch {
+        orderRepository.deleteAllFromOrder()
+    }
+
     /********************* REMOTE DATABASE **************************/
 
     fun makeOrder(
