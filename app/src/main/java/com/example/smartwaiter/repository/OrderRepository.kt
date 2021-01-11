@@ -13,6 +13,8 @@ class OrderRepository(val db: SMDatabase, private val preferences: UserPreferenc
 
     suspend fun deleteMeal(orderedMeal: OrderedMeal) = db.getDAO().deleteMeal(orderedMeal)
 
+    suspend fun deleteAllFromOrder() = db.getDAO().deleteAllFromOrder()
+
     suspend fun makeOrder(
         table: String,
         method: String,

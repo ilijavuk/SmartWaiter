@@ -81,9 +81,9 @@ class OrderDialogFragment : BottomSheetDialogFragment() {
         viewModel.myResponse.observe(viewLifecycleOwner, { response ->
             when (response) {
                 is Resource.Success -> {
-                    Snackbar.make(requireView(), "Order Completed", Snackbar.LENGTH_SHORT).show()
-                    val action =
-                        OrderDialogFragmentDirections.actionMenuGuestDialogFragmentToWaitMealFragment()
+                    viewModel.deleteAllFromOrder()
+                    basketHandler = false
+                    val action = OrderDialogFragmentDirections.actionMenuGuestDialogFragmentToWaitMealFragment()
                     findNavController().navigate(action)
                 }
 
