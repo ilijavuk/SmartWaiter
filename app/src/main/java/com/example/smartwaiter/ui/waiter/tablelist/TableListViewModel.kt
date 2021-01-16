@@ -14,11 +14,12 @@ class TableListViewModel(
     val myResponse: MutableLiveData<Response<List<TableOrder>>> = MutableLiveData()
 
     fun getTable(
-        table: String,
+        //table: String,
         method: String,
+        //rezerviran: String
     ){
         viewModelScope.launch {
-            val response = repository.getTables(table, method)
+            val response = repository.getTables(method)
             myResponse.value = response
         }
     }
