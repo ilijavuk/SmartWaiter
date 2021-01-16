@@ -112,8 +112,9 @@ interface WebserviceAPI {
 
     @GET("sw-api/api.php")
     suspend fun getTables(
-        @Query("tablica") table : String,
+        //@Query("tablica") table : String,
         @Query("metoda") method : String,
+        //@Query("rezerviran") rezerviran : String,
         ): Response<List<TableOrder>>
 
     @GET("sw-api/api.php")
