@@ -7,9 +7,10 @@ import retrofit2.Response
 class TableOrderRepository {
 
     suspend fun getTables(
-        table: String,
+        //table: String,
         method: String,
+        //rezerviran: String
     ):Response<List<TableOrder>>{
-        return RetrofitInstance.api.getTables(table, method)
+        return RetrofitInstance.api.getTables(method)
     }
 }
