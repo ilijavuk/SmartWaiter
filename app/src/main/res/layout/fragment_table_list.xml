@@ -7,15 +7,14 @@
     android:background="#e0e0e0"
     tools:context=".ui.waiter.tablelist.TableListFragment">
 
-
     <TextView
         android:id="@+id/id_text_filter"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingStart="40dp"
-        android:paddingTop="15dp"
+        android:paddingTop="20dp"
         android:text="FILTERS"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appBarWaiter"
         android:textSize="18dp"/>
 
     <RadioGroup
@@ -24,10 +23,11 @@
         app:layout_constraintTop_toBottomOf="@+id/id_text_filter"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:text="FILTERS"
         android:orientation="horizontal"
         android:gravity="center">
 
-        <CheckBox
+        <RadioButton
             android:id="@+id/checkbox_1"
             android:layout_width="80dp"
             android:layout_height="35dp"
@@ -39,7 +39,7 @@
             android:layout_marginEnd="10dp"
             android:checked="true"/>
 
-        <CheckBox
+        <RadioButton
             android:id="@+id/checkbox_2"
             android:layout_width="80dp"
             android:layout_height="35dp"
@@ -51,7 +51,7 @@
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"/>
 
-        <CheckBox
+        <RadioButton
             android:id="@+id/checkbox_3"
             android:layout_width="80dp"
             android:layout_height="35dp"
