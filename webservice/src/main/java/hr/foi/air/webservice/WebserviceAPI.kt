@@ -4,7 +4,6 @@ import hr.foi.air.webservice.model.*
 
 import retrofit2.Response
 import retrofit2.http.GET
-import retrofit2.http.PUT
 import retrofit2.http.Query
 
 interface WebserviceAPI {
@@ -106,6 +105,22 @@ interface WebserviceAPI {
         @Query("opis") mealDescription: String,
         @Query("slika_path") mealPhotoPath: String,
     ): String
+
+    @GET("sw-api/api.php")
+    suspend fun getTables(
+        //@Query("tablica") table : String,
+        @Query("metoda") method : String,
+        //@Query("rezerviran") rezerviran : String,
+        ): Response<List<TableOrder>>
+
+    @GET("sw-api/api.php")
+    suspend fun getOrders(
+        //@Query("tablica") table : String,
+        @Query("metoda") method : String,
+        @Query("stol_id") lokal_id: String
+    ): Response<List<Order>>
+
+
 
     @GET("sw-api/api.php")
     suspend fun getTableFromHash(

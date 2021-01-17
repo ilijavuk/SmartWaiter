@@ -81,7 +81,7 @@ dependencies {
     //Guava
     implementation("com.google.guava:guava:30.0-android")
 
-    // GSON and retrofit
+    //GSON and retrofit
     implementation 'com.google.code.gson:gson:2.8.5'
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'

@@ -3,105 +3,77 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_marginTop="4dp"
+    android:layout_marginBottom="4dp">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/orderCardView"
-        android:layout_width="match_parent"
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/row_cardView"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
+        app:cardCornerRadius="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:strokeColor="@color/back_lightgery"
+        app:strokeWidth="1dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="80dp">
+            android:layout_height="118dp"
+            android:background="@color/white">
 
             <ImageView
-                android:id="@+id/imageViewOrderMeal"
-                android:layout_width="80dp"
+                android:id="@+id/order_imageView"
+                android:layout_width="180dp"
                 android:layout_height="0dp"
                 android:scaleType="centerCrop"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:srcCompat="@tools:sample/avatars" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/textViewOrderMealTitle"
+                android:id="@+id/title_textView"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="20dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="12dp"
                 android:ellipsize="end"
+                android:fontFamily="@font/kalam_bold"
                 android:maxLines="2"
-                android:text="Meal Title"
-                android:textColor="@color/black"
-                app:layout_constraintBottom_toBottomOf="@+id/textViewMultiplier"
-                app:layout_constraintEnd_toStartOf="@+id/buttonRemoveMeal"
-                app:layout_constraintStart_toEndOf="@+id/textViewMultiplier"
-                app:layout_constraintTop_toTopOf="@+id/textViewMultiplier" />
-
-            <TextView
-                android:id="@+id/textViewOrderMealPrice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:text="20 HRK"
-                android:textColor="@color/black"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@+id/textViewPriceDesc"
-                app:layout_constraintStart_toEndOf="@+id/textViewPriceDesc"
-                app:layout_constraintTop_toTopOf="@+id/textViewPriceDesc" />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/buttonRemoveMeal"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:layout_marginEnd="16dp"
-                android:background="@drawable/button_style_full_round"
-                android:padding="0dp"
-                app:backgroundTint="@android:color/holo_red_dark"
-                app:icon="@drawable/ic_remove"
-                app:iconGravity="textStart"
-                app:iconPadding="0dp"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:text="Title"
+                android:textSize="18dp"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/order_imageView"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/textViewMultiplier"
+                android:id="@+id/order_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/round_border_background"
-                android:paddingStart="6dp"
-                android:paddingTop="3dp"
-                android:paddingEnd="6dp"
-                android:paddingBottom="3dp"
-                android:text="2x"
-                android:textColor="@color/black"
-                android:textSize="12sp"
-                app:layout_constraintStart_toEndOf="@+id/imageViewOrderMeal"
-                app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/textViewPriceDesc"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="10dp"
-                android:text="Price:"
-                android:textColor="@color/black"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/textViewMultiplier"
-                app:layout_constraintTop_toBottomOf="@+id/textViewMultiplier" />
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/radio_flat_selected"
+                android:ellipsize="end"
+                android:gravity="start"
+                android:maxLines="1"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:text="1x"
+                android:textColor="#E0E0E0"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="@+id/title_textView"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/title_textView"
+                app:layout_constraintTop_toBottomOf="@+id/title_textView" />
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
