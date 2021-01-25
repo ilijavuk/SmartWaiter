@@ -9,10 +9,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.smartwaiter.ui.auth.register.RegisterFragmentDirections
 import com.example.smartwaiter.ui.waiter.tableorder.TableOrderFragment
 import hr.foi.air.webservice.model.Order
+import hr.foi.air.webservice.model.Order2
 import hr.foi.air.webservice.model.TableOrder
 import java.security.AccessController.getContext
 
-class TableOrderRecyclerAdapter(private val list: List<Order>, fragment: TableOrderFragment)
+class TableOrderRecyclerAdapter(private val list: List<Order2>, fragment: TableOrderFragment)
     : RecyclerView.Adapter<TableOrderViewHolder>(){
     val myFragment=fragment
 
@@ -27,7 +28,7 @@ class TableOrderRecyclerAdapter(private val list: List<Order>, fragment: TableOr
     }
 
     override fun onBindViewHolder(holder: TableOrderViewHolder, position: Int) {
-        val m: Order = list[position]
+        val m: Order2 = list[position]
         holder.bind(m)
 
         /*if(m.broj_osoba != 0){

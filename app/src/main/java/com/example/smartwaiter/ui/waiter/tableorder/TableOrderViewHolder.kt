@@ -19,14 +19,16 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.smartwaiter.R
 import com.example.smartwaiter.repository.OrderRepository
+import com.example.smartwaiter.repository.OrderRepository2
 import com.example.smartwaiter.repository.TableOrderRepository
 import com.example.smartwaiter.ui.waiter.tableorder.TableOrderFragment
 import hr.foi.air.webservice.model.Meal
 import hr.foi.air.webservice.model.Order
+import hr.foi.air.webservice.model.Order2
 import hr.foi.air.webservice.model.TableOrder
 
 class TableOrderViewHolder(inflater: LayoutInflater, parent: ViewGroup, fragment: TableOrderFragment) :
-    RecyclerView.ViewHolder(inflater.inflate(R.layout.order_list_item, parent, false)), ViewModelStoreOwner {
+    RecyclerView.ViewHolder(inflater.inflate(R.layout.order_list_item_2, parent, false)), ViewModelStoreOwner {
     val myFragment=fragment
     private var context: Context
 
@@ -57,14 +59,14 @@ class TableOrderViewHolder(inflater: LayoutInflater, parent: ViewGroup, fragment
         var checkBox_2 = itemView.findViewById(R.id.checkbox_2) as CheckBox
         var checkBox_3 = itemView.findViewById(R.id.checkbox_3) as CheckBox*/
 
-        val repository = OrderRepository()
+        val repository = OrderRepository2()
         val viewModelFactory = TableOrderViewModelFactory(repository)
 
         viewModel = ViewModelProvider(this, viewModelFactory).get(TableOrderViewModel::class.java)
     }
 
     @SuppressLint("ResourceAsColor")
-    fun bind(order: Order){
+    fun bind(order: Order2){
         Title?.text = "Table " + order.naziv.toString()
         OrderCount?.text = order.kolicina.toString() + "x"
         Image?.let {

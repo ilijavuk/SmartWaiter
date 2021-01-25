@@ -118,7 +118,7 @@ interface WebserviceAPI {
         //@Query("tablica") table : String,
         @Query("metoda") method : String,
         @Query("stol_id") lokal_id: String
-    ): Response<List<Order>>
+    ): Response<List<Order2>>
 
 
 

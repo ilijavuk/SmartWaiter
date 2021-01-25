@@ -12,9 +12,8 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.smartwaiter.R
 import com.example.smartwaiter.repository.OrderRepository
-import com.example.smartwaiter.repository.TableOrderRepository
+import com.example.smartwaiter.repository.OrderRepository2
 import com.example.smartwaiter.ui.waiter.tablelist.*
-import kotlinx.android.synthetic.main.fragment_table_list.*
 import kotlinx.android.synthetic.main.fragment_table_order.*
 
 class TableOrderFragment : Fragment(R.layout.fragment_table_order) {
@@ -33,7 +32,7 @@ class TableOrderFragment : Fragment(R.layout.fragment_table_order) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val repository = OrderRepository()
+        val repository = OrderRepository2()
         val viewModelFactory = TableOrderViewModelFactory(repository)
 
 
