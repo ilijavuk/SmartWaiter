@@ -127,12 +127,12 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
         viewModel.RegisterKorisnik(
             table = "Korisnik",
             method = "insert",
-            username,
-            firstName,
-            lastName,
-            email,
-            "1",
-            hashed
+            username = username,
+            firstName = firstName,
+            lastName = lastName,
+            email = email,
+            userType = "1",
+            password = hashed
         )
         Toast.makeText(context, "Register Success", Toast.LENGTH_SHORT).show()
         val action = RegisterFragmentDirections.actionRegisterFragmentToHomeFragment()
