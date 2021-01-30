@@ -26,5 +26,11 @@
         <argument
             android:name="id_stola"
             app:argType="integer" />
+        <argument
+            android:name="rezerviran"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_tableOrderFragment_to_tableListFragment"
+            app:destination="@id/tableListFragment" />
     </fragment>
 </navigation>
