@@ -120,6 +120,14 @@ interface WebserviceAPI {
         @Query("stol_id") lokal_id: String
     ): Response<List<Order2>>
 
+    @GET("sw-api/api.php")
+    suspend fun setOrders(
+        @Query("tablica") table: String,
+        @Query("metoda") method: String,
+        @Query("key") id_stol: Int,
+        @Query("rezerviran") rezerviran: Int
+    )
+
 
 
     @GET("sw-api/api.php")
