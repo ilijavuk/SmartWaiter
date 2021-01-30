@@ -2,13 +2,8 @@ package com.example.smartwaiter.ui.waiter.tablelist
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.navigation.Navigation.findNavController
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
-import com.example.smartwaiter.ui.auth.register.RegisterFragmentDirections
 import hr.foi.air.webservice.model.TableOrder
-import java.security.AccessController.getContext
 
 class TableRecyclerAdapter(private val list: List<TableOrder>, fragment: TableListFragment)
     : RecyclerView.Adapter<TableViewHolder>(){
@@ -30,7 +25,7 @@ class TableRecyclerAdapter(private val list: List<TableOrder>, fragment: TableLi
 
         if(m.broj_osoba != 0){
             holder.Card?.setOnClickListener{
-                myFragment.callTable(m.id_stol)
+                myFragment.callTable(m.id_stol, m.rezerviran)
             }
         }
 
