@@ -183,7 +183,7 @@ interface WebserviceAPI {
         @Query("stavka_id") meal_id: Int,
         @Query("kolicina") amount: Int
     ): String
-
+    @GET("sw-api/api.php")
     suspend fun tagsByMeal(
         @Query("funkcija") function : String,
         @Query("meal_id") lokal_id : String,
