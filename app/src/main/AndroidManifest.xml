@@ -11,6 +11,7 @@
     <uses-permission android:name="android.permission.CAMERA"/>
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.camera.autofocus"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
 
 
@@ -25,6 +26,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SmartWaiter"
         android:windowSoftInputMode="adjustResize|stateHidden">
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyC7iFx5H945GRSEclkSv44xCfb95Gbz4mA" />
         
         <activity android:name=".ui.splash.SplashScreenActivity" android:label="@string/app_name">
             <intent-filter>
