@@ -8,6 +8,7 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import com.example.database.UserPreferences
 import com.example.smartwaiter.R
@@ -93,8 +94,8 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         viewModel.getKorisnik(
             table = "Korisnik",
             method = "select",
-            username,
-            encryptedPassword
+            username = username,
+            password = encryptedPassword
         )
     }
 }
