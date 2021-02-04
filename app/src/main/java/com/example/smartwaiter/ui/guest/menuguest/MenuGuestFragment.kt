@@ -9,6 +9,7 @@ import androidx.fragment.app.setFragmentResultListener
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -111,10 +112,10 @@ class MenuGuestFragment : Fragment(R.layout.fragment_meni_guest) {
     }
 
     fun load(){
-        viewModel.getMeal(table = "Stavka_jelovnika", method = "select", lokal)
+        viewModel.getMeal(table = "Stavka_jelovnika", method = "select", lokal_id = lokal)
     }
     fun loadTags(){
-        viewModel.tagsByRestaurant(method= "tagoviPoRestoranu", lokal)
+        viewModel.tagsByRestaurant(method= "tagoviPoRestoranu", lokal_id = lokal)
     }
     fun callMenuByTag(id_tag: String){
         viewModel.menuByTag(method = "meniPoTagu", id_tag=id_tag, lokal_id = lokal)
