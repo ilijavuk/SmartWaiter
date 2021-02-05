@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph_guest"
-    app:startDestination="@id/mapFragment">
+    app:startDestination="@id/qrFragment">
 
     <fragment
         android:id="@+id/menuDetailsFragment"
@@ -62,6 +62,6 @@
     <fragment
         android:id="@+id/mapFragment"
         android:name="com.example.smartwaiter.ui.guest.map.MapFragment"
-        android:label="MapFragment" />
+        android:label="Supported venues" />
 
 </navigation>
