@@ -59,5 +59,9 @@
         android:name="com.example.smartwaiter.ui.guest.guestwaiting.WaitMealFragment"
         android:label="fragment_waiting_meal"
         tools:layout="@layout/fragment_waiting_meal" />
+    <fragment
+        android:id="@+id/mapFragment"
+        android:name="com.example.smartwaiter.ui.guest.map.MapFragment"
+        android:label="Supported venues" />
 
 </navigation>
