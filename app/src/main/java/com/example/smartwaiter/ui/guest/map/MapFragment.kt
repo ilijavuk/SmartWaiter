@@ -43,6 +43,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
     private lateinit var mMap: GoogleMap
     private var locationManager : LocationManager? = null
     private lateinit var viewModel: MapViewModel
+    private var already_located=false
 
     val permissionGranted : MutableLiveData<Boolean> =  MutableLiveData()
 
@@ -85,7 +86,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
     }
     private val locationListener: LocationListener = object : LocationListener {
         override fun onLocationChanged(location: Location) {
-            //if(!already_loaded) {
+            if(!already_located) {
                 val sydney = LatLng(location.latitude, location.longitude)
                 mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
                 mMap?.moveCamera(
@@ -97,8 +98,8 @@ class MapFragment : Fragment(), OnMapReadyCallback {
                     )
                 )
 
-            //}
-            //already_loaded=true
+            }
+            already_located=true
 
         }
         override fun onStatusChanged(provider: String, status: Int, extras: Bundle) {}

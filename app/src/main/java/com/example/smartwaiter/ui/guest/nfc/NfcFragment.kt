@@ -1,4 +1,4 @@
-package com.example.smartwaiter.ui.restaurant.qr
+package com.example.smartwaiter.ui.guest.nfc
 
 import android.os.Bundle
 import android.util.Log
@@ -13,69 +13,56 @@ import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import com.budiyev.android.codescanner.CodeScanner
 import com.budiyev.android.codescanner.CodeScannerView
-import com.budiyev.android.codescanner.DecodeCallback
-import com.budiyev.android.codescanner.ScanMode
 import com.example.database.UserPreferences
 import com.example.smartwaiter.R
 import com.example.smartwaiter.repository.StolRepostiory
-import com.example.smartwaiter.ui.waiter.WaiterActivity
+import com.example.smartwaiter.ui.guest.qr.QrFragmentDirections
+import com.example.smartwaiter.ui.guest.qr.QrModelFactory
+import com.example.smartwaiter.ui.guest.qr.QrViewModel
 import com.example.smartwaiter.util.handleApiError
-import com.example.smartwaiter.util.startNewActivity
-import com.example.smartwaiter.util.visible
-import com.google.common.primitives.UnsignedBytes.toInt
 import hr.foi.air.webservice.util.Resource
-import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.coroutines.launch
 
-class QrFragment : Fragment(R.layout.fragment_qrscanner) {
-    private lateinit var viewModel: QrViewModel
-    private lateinit var repostiory: StolRepostiory
-    private lateinit var viewModelFactory: QrModelFactory
-    private lateinit var codeScanner: CodeScanner
-    private lateinit var userPreferences: UserPreferences
+class NfcFragment : Fragment(R.layout.fragment_nfc) {
 
+    private lateinit var viewModel: NfcViewModel
+    private lateinit var repostiory: StolRepostiory
+    private lateinit var viewModelFactory: NfcModelFactory
+    private lateinit var userPreferences: UserPreferences
+    var hash=""
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_qrscanner, container, false)
+        var hash = arguments?.getString("hash").toString()
+
+        return inflater.inflate(R.layout.fragment_meni, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         userPreferences = UserPreferences(requireContext())
 
-        val scannerView = view.findViewById<CodeScannerView>(R.id.scanner_view)
         val activity = requireActivity()
-        codeScanner = CodeScanner(activity, scannerView)
-        codeScanner.decodeCallback = DecodeCallback {
+
             activity.runOnUiThread {
+                Log.d("NFC", hash)
 
-                var tableHash=it.text.removePrefix("https://smartwaiter.app/app.php?")
-                load(tableHash)
-                //val action = QrFragmentDirections.actionQrFragmentToMenuGuestFragment2(it.text.toInt())
+                load(hash)
+               // val action = QrFragmentDirections.actionQrFragmentToMenuGuestFragment2(it.text.toInt())
                 //findNavController().navigate(action)
-                Toast.makeText(activity, tableHash, Toast.LENGTH_LONG).show()
-               // val action = QrFragmentDirections.actionQrFragmentToHomeFragment()
-               // findNavController().navigate(action)
+
+                // val action = QrFragmentDirections.actionQrFragmentToHomeFragment()
+                // findNavController().navigate(action)
             }
-        }
-        scannerView.setOnClickListener {
-            codeScanner.startPreview()
-        }
     }
 
-    override fun onResume() {
-        super.onResume()
-        codeScanner.startPreview()
-    }
 
-    override fun onPause() {
-        codeScanner.releaseResources()
-        super.onPause()
-    }
+
 
     fun load(hash : String){
+        Log.d("NFC", "Nesto2")
         repostiory= StolRepostiory(userPreferences)
-        viewModelFactory=QrModelFactory(repostiory)
-        viewModel= ViewModelProvider(this, viewModelFactory).get(QrViewModel::class.java)
+        viewModelFactory=
+            NfcModelFactory(repostiory)
+        viewModel= ViewModelProvider(this, viewModelFactory).get(NfcViewModel::class.java)
         decodeFromWeb(hash)
         viewModel.myResponse.observe(viewLifecycleOwner) { response ->
             when (response) {
@@ -86,8 +73,8 @@ class QrFragment : Fragment(R.layout.fragment_qrscanner) {
                         viewModel.saveActiveRestaurant(response.value[0].lokal_id)
                     }
 
-                    val action = QrFragmentDirections.actionQrFragmentToMenuGuestFragment()
-                    findNavController().navigate(action)
+                   // val action = NfcFragmentDirections.actionNfcFragmentToMenuGuestFragment2()
+                 //   findNavController().navigate(action)
 
                 }
                 is Resource.Loading -> { }
