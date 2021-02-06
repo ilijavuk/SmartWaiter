@@ -10,11 +10,15 @@ import android.location.Location
 import android.location.LocationListener
 import android.location.LocationManager
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
 import com.example.smartwaiter.R
@@ -39,7 +43,9 @@ class MapFragment : Fragment(), OnMapReadyCallback {
     private lateinit var mMap: GoogleMap
     private var locationManager : LocationManager? = null
     private lateinit var viewModel: MapViewModel
-    var already_loaded = false
+
+    val permissionGranted : MutableLiveData<Boolean> =  MutableLiveData()
+
 
     companion object {
         var mapFragment : SupportMapFragment?=null
@@ -48,11 +54,26 @@ class MapFragment : Fragment(), OnMapReadyCallback {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+        ): View? {
         load()
+        permissionGranted.value=false
+        val requestPermission =
+            registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
+                // Do something if permission granted
+                if (isGranted) {
+                    permissionGranted.value = true
+
+                }
+                else {
+
+                }
+            }
+        requestPermission.launch(Manifest.permission.ACCESS_FINE_LOCATION)
+
+
         // Inflate the layout for this fragment
         var rootView = inflater.inflate(R.layout.fragment_map, container, false)
-        locationManager = activity?.getSystemService(LOCATION_SERVICE) as LocationManager?
+        //locationManager = activity?.getSystemService(LOCATION_SERVICE) as LocationManager?
 
 
 
@@ -64,7 +85,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
     }
     private val locationListener: LocationListener = object : LocationListener {
         override fun onLocationChanged(location: Location) {
-            if(!already_loaded) {
+            //if(!already_loaded) {
                 val sydney = LatLng(location.latitude, location.longitude)
                 mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
                 mMap?.moveCamera(
@@ -75,8 +96,9 @@ class MapFragment : Fragment(), OnMapReadyCallback {
                         ), 15F
                     )
                 )
-            }
-            already_loaded=true
+
+            //}
+            //already_loaded=true
 
         }
         override fun onStatusChanged(provider: String, status: Int, extras: Bundle) {}
@@ -92,28 +114,63 @@ class MapFragment : Fragment(), OnMapReadyCallback {
 
     override fun onMapReady(googleMap: GoogleMap?) {
         mMap = googleMap!!
-        if (activity?.let {
-                ActivityCompat.checkSelfPermission(
-                    it,
-                    Manifest.permission.ACCESS_FINE_LOCATION
-                )
-            } != PackageManager.PERMISSION_GRANTED && activity?.let {
-                ActivityCompat.checkSelfPermission(
-                    it,
-                    Manifest.permission.ACCESS_COARSE_LOCATION
-                )
-            } != PackageManager.PERMISSION_GRANTED
-        ) {
+        activity?.let {
+            permissionGranted.observe(it, Observer {
 
+                if(permissionGranted.value==true) {
+                    locationManager = activity?.getSystemService(LOCATION_SERVICE) as LocationManager?
+                    if (activity?.let {
+                            ActivityCompat.checkSelfPermission(
+                                it,
+                                Manifest.permission.ACCESS_FINE_LOCATION
+                            )
+                        } != PackageManager.PERMISSION_GRANTED && activity?.let {
+                            ActivityCompat.checkSelfPermission(
+                                it,
+                                Manifest.permission.ACCESS_COARSE_LOCATION
+                            )
+                        } != PackageManager.PERMISSION_GRANTED
+                    ) {
+
+                    }
+                    mMap.setMyLocationEnabled(true)
+                    locationManager?.requestLocationUpdates(
+                        LocationManager.NETWORK_PROVIDER,
+                        0L,
+                        0f,
+                        locationListener
+                    )
+                    mMap?.uiSettings?.isMyLocationButtonEnabled = true
+                }
+
+            })
         }
-        mMap.setMyLocationEnabled(true);
-        locationManager?.requestLocationUpdates(
-            LocationManager.NETWORK_PROVIDER,
-            0L,
-            0f,
-            locationListener
-        )
-        mMap?.uiSettings?.isMyLocationButtonEnabled = true 
+
+        if(permissionGranted.value==true) {
+            locationManager = activity?.getSystemService(LOCATION_SERVICE) as LocationManager?
+            if (activity?.let {
+                    ActivityCompat.checkSelfPermission(
+                        it,
+                        Manifest.permission.ACCESS_FINE_LOCATION
+                    )
+                } != PackageManager.PERMISSION_GRANTED && activity?.let {
+                    ActivityCompat.checkSelfPermission(
+                        it,
+                        Manifest.permission.ACCESS_COARSE_LOCATION
+                    )
+                } != PackageManager.PERMISSION_GRANTED
+            ) {
+
+            }
+            mMap.setMyLocationEnabled(true)
+            locationManager?.requestLocationUpdates(
+                LocationManager.NETWORK_PROVIDER,
+                0L,
+                0f,
+                locationListener
+            )
+            mMap?.uiSettings?.isMyLocationButtonEnabled = true
+        }
 
         SetMarkers()
 
