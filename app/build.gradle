@@ -105,7 +105,7 @@ dependencies {
     //Lottie animations
     implementation "com.airbnb.android:lottie:3.4.0"
 
-
+    implementation 'com.mikhaellopez:circularprogressbar:3.0.3'
 
 
 }
