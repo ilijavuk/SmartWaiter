@@ -1,9 +1,6 @@
 package com.example.smartwaiter.ui.guest.qr
 
 import android.Manifest
-import android.content.Context
-import android.content.pm.PackageManager
-import android.location.LocationManager
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -11,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
@@ -45,8 +41,8 @@ class QrFragment : Fragment(R.layout.fragment_qrscanner) {
     private lateinit var viewModelFactory: QrModelFactory
     private lateinit var codeScanner: CodeScanner
     private lateinit var userPreferences: UserPreferences
-
     val qrPermissionGranted : MutableLiveData<Boolean> =  MutableLiveData()
+
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -63,9 +59,7 @@ class QrFragment : Fragment(R.layout.fragment_qrscanner) {
                 }
             }
         requestPermissionQr.launch(Manifest.permission.CAMERA)
-
         return inflater.inflate(R.layout.fragment_qrscanner, container, false)
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -80,115 +74,61 @@ class QrFragment : Fragment(R.layout.fragment_qrscanner) {
         }
         userPreferences = UserPreferences(requireContext())
         Log.d("Skeniran", args.passedUrl.toString())
-        activity?.let {
-            qrPermissionGranted.observe(it, Observer {
+        if(args.passedUrl==null){
+            val scannerView = view.findViewById<CodeScannerView>(R.id.scanner_view)
+            val activity = requireActivity()
+            codeScanner = CodeScanner(activity, scannerView)
+            codeScanner.decodeCallback = DecodeCallback {
+                activity.runOnUiThread {
 
-                if(qrPermissionGranted.value==true) {
-                    if(args.passedUrl==null){
-                        val scannerView = view.findViewById<CodeScannerView>(R.id.scanner_view)
-                        val activity = requireActivity()
-                        if (!this::codeScanner.isInitialized) {
-                            codeScanner = CodeScanner(activity, scannerView)
-                        }
-                        codeScanner.decodeCallback = DecodeCallback {
-                            activity.runOnUiThread {
-
-                                var tableHash=it.text.removePrefix("https://smartwaiter.app/app.php?")
-                                load(tableHash)
-                                //val action = QrFragmentDirections.actionQrFragmentToMenuGuestFragment2(it.text.toInt())
-                                //findNavController().navigate(action)
-                                Toast.makeText(activity, tableHash, Toast.LENGTH_LONG).show()
-                                // val action = QrFragmentDirections.actionQrFragmentToHomeFragment()
-                                // findNavController().navigate(action)
-                            }
-                        }
-                        scannerView.setOnClickListener {
-                            codeScanner.startPreview()
-                        }
-                    }
-                    else {
-                        var tableHash=args.passedUrl.toString().removePrefix("https://smartwaiter.app/app.php?")
-                        load(tableHash)
-                    }
-
+                    var tableHash=it.text.removePrefix("https://smartwaiter.app/app.php?")
+                    load(tableHash)
+                    //val action = QrFragmentDirections.actionQrFragmentToMenuGuestFragment2(it.text.toInt())
+                    //findNavController().navigate(action)
+                    Toast.makeText(activity, tableHash, Toast.LENGTH_LONG).show()
+                    // val action = QrFragmentDirections.actionQrFragmentToHomeFragment()
+                    // findNavController().navigate(action)
                 }
-
-            })
+            }
+            scannerView.setOnClickListener {
+                codeScanner.startPreview()
+            }
         }
-
-        if(qrPermissionGranted.value==true) {
-            if(args.passedUrl==null){
-                val scannerView = view.findViewById<CodeScannerView>(R.id.scanner_view)
-                val activity = requireActivity()
-                if (!this::codeScanner.isInitialized) {
-                    codeScanner = CodeScanner(activity, scannerView)
-                }
-                codeScanner.decodeCallback = DecodeCallback {
-                    activity.runOnUiThread {
-
-                        var tableHash=it.text.removePrefix("https://smartwaiter.app/app.php?")
-                        load(tableHash)
-                        //val action = QrFragmentDirections.actionQrFragmentToMenuGuestFragment2(it.text.toInt())
-                        //findNavController().navigate(action)
-                        Toast.makeText(activity, tableHash, Toast.LENGTH_LONG).show()
-                        // val action = QrFragmentDirections.actionQrFragmentToHomeFragment()
-                        // findNavController().navigate(action)
-                    }
-                }
-                scannerView.setOnClickListener {
-                    codeScanner.startPreview()
-                }
-            }
-            else {
-                var tableHash=args.passedUrl.toString().removePrefix("https://smartwaiter.app/app.php?")
-                load(tableHash)
-            }
+        else {
+            var tableHash=args.passedUrl.toString().removePrefix("https://smartwaiter.app/app.php?")
+            load(tableHash)
         }
     }
 
     override fun onResume() {
         super.onResume()
         if(args.passedUrl==null){
-        activity?.let {
-            qrPermissionGranted.observe(it, Observer {
+            activity?.let {
+                qrPermissionGranted.observe(it, Observer {
 
-                if(qrPermissionGranted.value==true) {
-                    codeScanner.startPreview()
+                    if(qrPermissionGranted.value==true) {
+                        codeScanner.startPreview()
+                    }
 
-                }
+                })
+            }
 
-            })
-        }
-
-        if(qrPermissionGranted.value==true) {
-            codeScanner.startPreview()
-        }
-
+            if(qrPermissionGranted.value==true) {
+                codeScanner.startPreview()
+            }
         }
     }
 
     override fun onPause() {
         if(args.passedUrl==null){
-        activity?.let {
-            qrPermissionGranted.observe(it, Observer {
-
-                if(qrPermissionGranted.value==true) {
-
-                    codeScanner.releaseResources()
-                }
-
-            })
-        }
-
-        if(qrPermissionGranted.value==true) {
-            codeScanner.releaseResources()
-        }
-
+            if(qrPermissionGranted.value==true) {
+                codeScanner.releaseResources()
+            }
         }
         super.onPause()
     }
 
-    fun load(hash : String){
+    public fun load(hash : String){
         repostiory= StolRepostiory(userPreferences)
         viewModelFactory=
             QrModelFactory(repostiory)
