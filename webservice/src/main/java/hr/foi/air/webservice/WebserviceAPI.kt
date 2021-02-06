@@ -54,6 +54,11 @@ interface WebserviceAPI {
     )
 
     @GET("sw-api/api.php")
+    suspend fun getLvl(
+        @Query("metoda") method : String,
+    ): Response<List<Lvl>>
+
+    @GET("sw-api/api.php")
     suspend fun getUsername(
         @Query("tablica") table: String,
         @Query("metoda") method: String,
