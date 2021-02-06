@@ -27,6 +27,7 @@ import com.example.smartwaiter.util.visible
 import com.google.common.primitives.UnsignedBytes.toInt
 import hr.foi.air.webservice.util.Resource
 import kotlinx.android.synthetic.main.fragment_home.*
+import kotlinx.android.synthetic.main.fragment_qrscanner.*
 import kotlinx.coroutines.launch
 
 class QrFragment : Fragment(R.layout.fragment_qrscanner) {
@@ -43,6 +44,12 @@ class QrFragment : Fragment(R.layout.fragment_qrscanner) {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        btnCallMap.setOnClickListener {
+            val action =
+                QrFragmentDirections.actionQrFragmentToMapFragment()
+            findNavController().navigate(action)
+
+        }
         userPreferences = UserPreferences(requireContext())
         Log.d("Skeniran", args.passedUrl.toString())
         if(args.passedUrl==null){
