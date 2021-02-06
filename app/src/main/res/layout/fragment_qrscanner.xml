@@ -27,21 +27,36 @@
             app:frameCornersSize="50dp"
             app:frameSize="0.75"
             app:frameThickness="2dp"
-            app:layout_constraintBottom_toTopOf="@+id/btnCallMap"
+            app:layout_constraintBottom_toTopOf="@+id/qrButtons"
             app:layout_constraintTop_toTopOf="parent"
             app:maskColor="#77000000"
             tools:layout_editor_absoluteX="-16dp">
 
 
         </com.budiyev.android.codescanner.CodeScannerView>
-
-        <Button
-            android:id="@+id/btnCallMap"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/qrButtons"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Karta"
+            android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            android:gravity="center"
+            >
+            <Button
+                android:id="@+id/btnManualEntry"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ručni unos koda"
+                />
+            <Button
+                android:id="@+id/btnCallMap"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Karta"
+                />
+
+        </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

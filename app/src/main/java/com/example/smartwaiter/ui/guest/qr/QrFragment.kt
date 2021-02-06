@@ -75,6 +75,9 @@ class QrFragment : Fragment(R.layout.fragment_qrscanner) {
             findNavController().navigate(action)
 
         }
+        btnManualEntry.setOnClickListener {
+
+        }
         userPreferences = UserPreferences(requireContext())
         Log.d("Skeniran", args.passedUrl.toString())
         activity?.let {
@@ -84,7 +87,9 @@ class QrFragment : Fragment(R.layout.fragment_qrscanner) {
                     if(args.passedUrl==null){
                         val scannerView = view.findViewById<CodeScannerView>(R.id.scanner_view)
                         val activity = requireActivity()
-                        codeScanner = CodeScanner(activity, scannerView)
+                        if (!this::codeScanner.isInitialized) {
+                            codeScanner = CodeScanner(activity, scannerView)
+                        }
                         codeScanner.decodeCallback = DecodeCallback {
                             activity.runOnUiThread {
 
@@ -115,7 +120,9 @@ class QrFragment : Fragment(R.layout.fragment_qrscanner) {
             if(args.passedUrl==null){
                 val scannerView = view.findViewById<CodeScannerView>(R.id.scanner_view)
                 val activity = requireActivity()
-                codeScanner = CodeScanner(activity, scannerView)
+                if (!this::codeScanner.isInitialized) {
+                    codeScanner = CodeScanner(activity, scannerView)
+                }
                 codeScanner.decodeCallback = DecodeCallback {
                     activity.runOnUiThread {
 
@@ -136,12 +143,7 @@ class QrFragment : Fragment(R.layout.fragment_qrscanner) {
                 var tableHash=args.passedUrl.toString().removePrefix("https://smartwaiter.app/app.php?")
                 load(tableHash)
             }
-
         }
-
-
-
-
     }
 
     override fun onResume() {
@@ -186,7 +188,7 @@ class QrFragment : Fragment(R.layout.fragment_qrscanner) {
         super.onPause()
     }
 
-    public fun load(hash : String){
+    fun load(hash : String){
         repostiory= StolRepostiory(userPreferences)
         viewModelFactory=
             QrModelFactory(repostiory)
