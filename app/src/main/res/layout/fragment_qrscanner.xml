@@ -21,5 +21,13 @@
         app:frameCornersSize="50dp"
         app:frameSize="0.75"
         app:frameThickness="2dp"
-        app:maskColor="#77000000" />
+        app:maskColor="#77000000" >
+
+
+    </com.budiyev.android.codescanner.CodeScannerView>
+    <Button
+        android:layout_width="200px"
+        android:layout_height="60px"
+        android:text="Karta"
+        />
 </FrameLayout>
