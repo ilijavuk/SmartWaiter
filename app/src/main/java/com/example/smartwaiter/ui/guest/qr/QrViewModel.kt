@@ -1,4 +1,4 @@
-package com.example.smartwaiter.ui.restaurant.qr
+package com.example.smartwaiter.ui.guest.qr
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
