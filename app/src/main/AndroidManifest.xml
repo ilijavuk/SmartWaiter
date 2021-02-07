@@ -16,6 +16,7 @@
 
 
     <application
+        android:name=".ui.guest.MyApp"
         android:hardwareAccelerated="true"
         android:requestLegacyExternalStorage="true"
         android:usesCleartextTraffic="true"
@@ -26,6 +27,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SmartWaiter"
         android:windowSoftInputMode="adjustResize|stateHidden">
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyC7iFx5H945GRSEclkSv44xCfb95Gbz4mA" />
@@ -62,6 +64,7 @@
 
 
         <activity android:name=".ui.waiter.WaiterActivity"/>
+        <activity android:name=".ui.guest.payments.PaymentActivity"/>
 
         <activity android:name=".ui.guest.nfc.NfcActivity" android:windowSoftInputMode="adjustPan">
 

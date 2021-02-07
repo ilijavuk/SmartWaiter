@@ -1,8 +1,11 @@
 package hr.foi.air.webservice
 
 import hr.foi.air.webservice.model.*
+import hr.foi.air.webservice.model.Tag
+import retrofit2.Call
 
 import retrofit2.Response
+import retrofit2.http.*
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -52,6 +55,11 @@ interface WebserviceAPI {
         @Query("tip_korisnika_id") userType: String,
         @Query("lozinka_sha256") password: String
     )
+
+    @GET("sw-api/api.php")
+    suspend fun getLvl(
+        @Query("metoda") method : String,
+    ): Response<List<Lvl>>
 
     @GET("sw-api/api.php")
     suspend fun getUsername(
@@ -128,6 +136,13 @@ interface WebserviceAPI {
         @Query("rezerviran") rezerviran: Int
     )
 
+    @GET("sw-api/api.php")
+    suspend fun setXp(
+        @Query("tablica") table: String,
+        @Query("metoda") method: String,
+        @Query("key") id_korisnik: Int,
+        @Query("iskustvo") iskustvo: Int
+    )
 
 
     @GET("sw-api/api.php")
@@ -195,6 +210,25 @@ interface WebserviceAPI {
         @Query("meal_id") lokal_id : String,
     ): String
 
+
+
+    @GET("sw-api/create.php")
+    suspend fun createCustomer(): Customer
+
+    @FormUrlEncoded
+    @POST("sw-api/checkout.php")
+    fun getEphemeralKey(
+        @Field("api_version") apiVersion: String,
+        @Field("customerID") customerID: String
+        ): Call<Any>
+
+    @FormUrlEncoded
+    @POST("sw-api/checkout2.php")
+    fun payMeal(
+        @Field("amount") amount: String,
+        @Field("customerID") customer: String
+    ): Call<Any>
+
     @GET("sw-api/api.php")
     suspend fun getRestorani2(
         @Query("tablica") table: String,
@@ -207,4 +241,5 @@ interface WebserviceAPI {
         @Query("metoda") method : String,
         @Query("email") email : String
     ): Response<List<Korisnik>>*/
+
 }

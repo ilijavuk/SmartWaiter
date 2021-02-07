@@ -6,6 +6,11 @@
     app:startDestination="@id/qrFragment">
 
     <fragment
+        android:id="@+id/restaurantProfilFragment"
+        android:name="com.example.smartwaiter.ui.restaurant.restaurant_profil.RestaurantProfilFragment"
+        android:label="Profil"
+        tools:layout="@layout/fragment_restaurant_profil" />
+    <fragment
         android:id="@+id/menuDetailsFragment"
         android:name="com.example.smartwaiter.ui.guest.order.MenuDetailsFragment"
         android:label="Details"
@@ -69,7 +74,26 @@
         android:id="@+id/waitMealFragment"
         android:name="com.example.smartwaiter.ui.guest.guestwaiting.WaitMealFragment"
         android:label="fragment_waiting_meal"
-        tools:layout="@layout/fragment_waiting_meal" />
+        tools:layout="@layout/fragment_waiting_meal" >
+        <action
+            android:id="@+id/action_waitMealFragment_to_paymentFragment"
+            app:destination="@id/paymentFragment" />
+        <action
+            android:id="@+id/action_waitMealFragment_to_menuGuestFragment"
+            app:destination="@id/menuGuestFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/paymentFragment"
+        android:name="com.example.smartwaiter.ui.guest.payments.PaymentFragment"
+        android:label="fragment_payment"
+        tools:layout="@layout/fragment_payment" >
+        <action
+            android:id="@+id/action_paymentFragment_to_menuGuestFragment"
+            app:destination="@id/menuGuestFragment" />
+    </fragment>
+
+    
     <fragment
         android:id="@+id/mapFragment"
         android:name="com.example.smartwaiter.ui.guest.map.MapFragment"
@@ -83,5 +107,6 @@
             android:id="@+id/action_fragmentManualEntry3_to_qrFragment"
             app:destination="@id/qrFragment" />
     </fragment>
+
 
 </navigation>

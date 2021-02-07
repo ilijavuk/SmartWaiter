@@ -21,4 +21,10 @@ class AuthRepository(private val preferences: UserPreferences) : BaseRepository(
         preferences.saveUserType(userType)
     }
 
+    suspend fun saveCustomerID(customerID: String){
+        preferences.saveCustomerID(customerID)
+    }
+
+    suspend fun createCustomer() = safeApiCall { RetrofitInstance.api.createCustomer() }
+
 }
