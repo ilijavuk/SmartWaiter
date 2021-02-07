@@ -48,18 +48,21 @@ class MenuGuestFragment : Fragment(R.layout.fragment_meni_guest) {
         progressBarMenuGuest.visible(false)
         updateOrderBucketUI()
 
-        floatingActionButtonBasket.setOnClickListener {
-            val action = MenuGuestFragmentDirections.actionMenuGuestFragmentToMenuGuestDialogFragment(lokal)
-            findNavController().navigate(action)
-        }
-
         userPreferences.activeRestaurant.asLiveData().observe(viewLifecycleOwner, {
             it?.let {
                 lokal = it
                 load()
                 loadTags()
+                Log.d("MYTAG", lokal)
             }
         })
+
+
+        floatingActionButtonBasket.setOnClickListener {
+            val action = MenuGuestFragmentDirections.actionMenuGuestFragmentToMenuGuestDialogFragment(lokal)
+            findNavController().navigate(action)
+        }
+
 
         viewModel.myResponse.observe(viewLifecycleOwner, { response ->
             when (response) {
