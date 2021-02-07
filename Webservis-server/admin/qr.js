@@ -1,18 +1,26 @@
-$.ajax({
-  method: "POST",
-  dataType: 'json',
-  url: "./admin.php?stvar=listaStolova",
-}).done(function(data){
-  for(var i=0; i<data.length; i++){
-    if(data[i].hash==null){
-      data[i].akcija="<a href=# onclick=GenerirajQR("+data[i].id_stol+")>Generiraj</a>";
+UcitajStolove();
+
+function UcitajStolove(){
+
+  $.ajax({
+    method: "POST",
+    dataType: 'json',
+    url: "./admin.php?stvar=listaStolova",
+  }).done(function(data){
+    for(var i=0; i<data.length; i++){
+      if(data[i].hash==null){
+        data[i].akcija="<a href=# onclick=GenerirajQR("+data[i].id_stol+")>Generiraj</a>";
+      }
+      else{
+        data[i].akcija="<a href=# onclick=UkloniHash("+data[i].id_stol+")>Obriši hash</a>";
+      }
     }
-    else{
-      data[i].akcija="<a href=# onclick=UkloniHash("+data[i].id_stol+")>Obriši hash</a>";
-    }
-  }
-  CreateTableFromJSON(data);
-})
+    CreateTableFromJSON(data);
+  })
+
+}
+
+
 
 function UkloniHash(id_stol){
   $.ajax({
@@ -20,8 +28,10 @@ function UkloniHash(id_stol){
     dataType: 'text',
     url: "./admin.php?stvar=UkloniHash&id_stola="+id_stol,
   }).done(function(data){
-    alert(data);
-    
+   
+    UcitajStolove();
+    document.getElementById("uri").innerHTML=" ";
+    document.getElementById("qr-panel").innerHTML=" ";
   })
 }
 
@@ -32,7 +42,11 @@ function GenerirajQR(id_stol){
     url: "./admin.php?stvar=GenerirajQR&id_stola="+id_stol,
   }).done(function(data){
     new QRCode(document.getElementById("qr-panel"),"https://smartwaiter.app/app.php?"+data);
-    
+    var x = document.getElementById("uri").innerHTML;
+    x+="<p>URI za NFC Karticu: <br>https://smartwaiter.app/app.php?"+data+"</p>";
+    document.getElementById("uri").innerHTML=x;
+    console.log(x);
+    UcitajStolove();
   })
 }
 
