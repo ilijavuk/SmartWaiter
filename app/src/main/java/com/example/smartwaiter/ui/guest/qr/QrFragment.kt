@@ -92,7 +92,10 @@ class QrFragment : Fragment(R.layout.fragment_qrscanner) {
                 activity.runOnUiThread {
 
                     var tableHash=it.text.removePrefix("https://smartwaiter.app/app.php?")
-                    load(tableHash)
+                    if(tableHash.length==32){
+                        load(tableHash)
+                    }
+
                     //val action = QrFragmentDirections.actionQrFragmentToMenuGuestFragment2(it.text.toInt())
                     //findNavController().navigate(action)
                     Toast.makeText(activity, tableHash, Toast.LENGTH_LONG).show()
