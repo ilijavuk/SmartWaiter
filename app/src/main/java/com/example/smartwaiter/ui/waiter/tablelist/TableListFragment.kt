@@ -4,26 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.CheckBox
-import android.widget.CompoundButton
-import android.widget.Toast
-import android.widget.Toast.LENGTH_LONG
-import androidx.core.view.children
-import androidx.core.view.forEach
-import androidx.core.view.forEachIndexed
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.smartwaiter.R
 import com.example.smartwaiter.repository.TableOrderRepository
-import hr.foi.air.webservice.model.TableOrder
 import kotlinx.android.synthetic.main.fragment_table_list.*
-import kotlinx.android.synthetic.main.fragment_table_list.view.*
-import kotlinx.android.synthetic.main.table_list_item.*
-import kotlinx.coroutines.flow.merge
-
 
 
 class TableListFragment : Fragment(R.layout.fragment_table_list) {
@@ -58,24 +46,13 @@ class TableListFragment : Fragment(R.layout.fragment_table_list) {
             }
 
         }
-
-        //viewModel.getTable("narudzba", "2")
-
-        /*viewModel.myResponse.observe(viewLifecycleOwner, {
-            val response = it.body()
-            if (response != null) {
-                response.forEach {
-                    table_grid_view.layoutManager = GridLayoutManager(activity, 2)
-                    table_grid_view.adapter = TableRecyclerAdapter(response, this)
-                }
-            }
-        })*/
     }
 
 
-    fun callTable(id_stola: Int) {
+    fun callTable(id_stola: Int, rezerviran: Int) {
         val action = TableListFragmentDirections.actionTableListFragmentToTableOrderFragment(
-            id_stola
+            id_stola,
+            rezerviran
         )
         findNavController().navigate(action)
     }

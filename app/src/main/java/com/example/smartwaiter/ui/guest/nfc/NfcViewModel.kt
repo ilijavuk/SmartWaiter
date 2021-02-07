@@ -1,4 +1,4 @@
-package com.example.smartwaiter.ui.restaurant.qr
+package com.example.smartwaiter.ui.guest.nfc
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -8,7 +8,7 @@ import hr.foi.air.webservice.model.Stol
 import hr.foi.air.webservice.util.Resource
 import kotlinx.coroutines.launch
 
-class QrViewModel(private val repository: StolRepostiory) : ViewModel() {
+class NfcViewModel(private val repository: StolRepostiory) : ViewModel() {
     val myResponse: MutableLiveData<Resource<List<Stol>>> = MutableLiveData()
 
     fun getTableByHash(

@@ -107,8 +107,8 @@ class MenuFragment : Fragment(R.layout.fragment_meni) {
 
     fun callEditMeal(mealId: String){
         val meal = mealId
-        //val action = MenuFragmentDirections.actionMeniFragmentToEditMealFragment2(meal)
-        //findNavController().navigate(action)
+        val action = MenuFragmentDirections.actionMeniFragmentToEditMealFragment2(meal)
+        findNavController().navigate(action)
     }
     fun load(){
         viewModel.getMeal(table = "Stavka_jelovnika", method = "select", lokal)

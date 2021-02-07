@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.smartwaiter.repository.AuthRepository
+import hr.foi.air.webservice.model.Customer
 import hr.foi.air.webservice.model.Korisnik
 import hr.foi.air.webservice.util.Resource
 import kotlinx.coroutines.launch
@@ -16,6 +17,10 @@ class HomeViewModel(
     private val _myResponse: MutableLiveData<Resource<List<Korisnik>>> = MutableLiveData()
     val myResponse: LiveData<Resource<List<Korisnik>>>
         get() = _myResponse
+
+    private val _myResponse2: MutableLiveData<Resource<Customer>> = MutableLiveData()
+    val myResponse2: LiveData<Resource<Customer>>
+        get() = _myResponse2
 
     fun getKorisnik(
         table: String,
@@ -37,4 +42,14 @@ class HomeViewModel(
     suspend fun saveUserType(userType: String) {
         authRepository.saveUserType(userType)
     }
+
+    suspend fun saveCustomerID(customerID: String){
+        authRepository.saveCustomerID(customerID)
+    }
+
+    fun createCustomer() = viewModelScope.launch {
+        val response = authRepository.createCustomer()
+        _myResponse2.value = response
+    }
+
 }

@@ -8,6 +8,7 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import com.example.database.UserPreferences
 import com.example.smartwaiter.R
@@ -54,6 +55,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                     lifecycleScope.launch {
                         when (response.value[0].tip_korisnika_id) {
                             "1" -> {
+                                viewModel.createCustomer()
                                 requireActivity().startNewActivity(GuestActivity::class.java)
                             }
                             "2" -> {
@@ -79,6 +81,22 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             }
         })
 
+        viewModel.myResponse2.observe(viewLifecycleOwner,{
+            when(it){
+                is Resource.Success -> {
+                    Log.d("customer", "Uspjeh: " + it.value.customerID)
+                    lifecycleScope.launch {
+                        viewModel.saveCustomerID(it.value.customerID)
+                    }
+                }
+                is Resource.Loading -> {}
+                is Resource.Failure -> {
+                    Log.d("customer", "Greska")
+                }
+            }
+
+        })
+
         editTextPassword.addTextChangedListener {
             val username = editTextUsername.text.toString().trim()
             btnLogin.enable(username.isNotEmpty() && it.toString().isNotEmpty())
@@ -101,8 +119,8 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         viewModel.getKorisnik(
             table = "Korisnik",
             method = "select",
-            username,
-            encryptedPassword
+            username = username,
+            password = encryptedPassword
         )
     }
 }

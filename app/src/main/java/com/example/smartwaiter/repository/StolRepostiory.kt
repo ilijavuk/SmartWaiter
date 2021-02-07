@@ -16,6 +16,9 @@ class StolRepostiory(private val preferences: UserPreferences) : BaseRepository(
     suspend fun saveActiveRestaurant(token: String) {
         preferences.saveActiveRestaurant(token)
     }
+    suspend fun saveManualEntry(data: String) {
+        preferences.saveManualEntry(data)
+    }
 
 
 }

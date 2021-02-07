@@ -10,6 +10,7 @@ import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
@@ -214,7 +215,7 @@ class EditMealFragment: Fragment(R.layout.fragment_edit_meal) {
     }
 
     private fun callInsertTag(newTag: String){
-        viewModel.insertTag(table = "Tag_stavke", method = "insert", newTag)
+        viewModel.insertTag(table = "Tag_stavke", method = "insert", tag=newTag)
     }
     private fun processNewTags(){
         var newTags:List<String> = tagsEditTextEdit.tags

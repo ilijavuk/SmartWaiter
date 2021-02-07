@@ -13,4 +13,15 @@ class OrderRepository2{
     ): retrofit2.Response<List<Order2>> {
         return RetrofitInstance.api.getOrders(method, stol_id)
     }
+
+    suspend fun setOrders(
+        table: String,
+        method: String,
+        id_stol: Int,
+        rezerviran: Int
+    ){
+        return RetrofitInstance.api.setOrders(table, method, id_stol, rezerviran)
+    }
+
+
 }

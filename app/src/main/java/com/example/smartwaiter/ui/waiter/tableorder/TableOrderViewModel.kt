@@ -27,4 +27,15 @@ class TableOrderViewModel(
             myResponse.value = response
         }
     }
+
+    fun setOrders(
+        table: String,
+        method: String,
+        id_stol: Int,
+        rezerviran: Int
+    ){
+        viewModelScope.launch {
+            repository.setOrders(table, method, id_stol, rezerviran)
+        }
+    }
 }
