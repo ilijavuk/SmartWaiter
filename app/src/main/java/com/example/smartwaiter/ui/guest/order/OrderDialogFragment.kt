@@ -5,10 +5,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.setFragmentResult
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.asLiveData
+import androidx.lifecycle.observe
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -17,7 +19,11 @@ import com.example.database.db.SMDatabase
 import com.example.database.db.models.OrderedMeal
 import com.example.smartwaiter.R
 import com.example.smartwaiter.adapters.OrderDialogAdapter
+import com.example.smartwaiter.repository.GameRepository
 import com.example.smartwaiter.repository.OrderRepository
+import com.example.smartwaiter.repository.RegisterRepository
+import com.example.smartwaiter.ui.auth.register.RegisterViewModel
+import com.example.smartwaiter.ui.auth.register.RegisterViewModelFactory
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -29,8 +35,13 @@ import kotlinx.coroutines.launch
 class OrderDialogFragment : BottomSheetDialogFragment() {
 
     private lateinit var viewModel: OrderViewModel
+    private lateinit var viewModelGame: GameViewModel
     private lateinit var userPreferences: UserPreferences
     private var basketHandler: Boolean = false
+
+    private var user = 0
+
+
     private var sum = 0.0
 
     override fun onCreateView(
@@ -49,12 +60,28 @@ class OrderDialogFragment : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         userPreferences = UserPreferences(requireContext())
+
+        userPreferences.authToken.asLiveData().observe(viewLifecycleOwner, {
+            it?.let {
+                user = it.toInt()
+                Toast.makeText(requireContext(), user.toString(), Toast.LENGTH_LONG).show()
+
+            }
+        })
+
+
+
         val orderDialogAdapter = OrderDialogAdapter { orderedMeal: OrderedMeal ->
             deleteOrderedMealClicked(
                 orderedMeal
             )
         }
         val repository = OrderRepository(SMDatabase(requireActivity()), userPreferences)
+        val repositoryGame = GameRepository()
+
+        val viewModelFactoryGame = GameViewModelFactory(repositoryGame)
+        viewModelGame = ViewModelProvider(this, viewModelFactoryGame).get(GameViewModel::class.java)
+
         val viewModelFactory = OrderViewModelFactory(repository)
         viewModel = ViewModelProvider(this, viewModelFactory).get(OrderViewModel::class.java)
 
@@ -106,8 +133,10 @@ class OrderDialogFragment : BottomSheetDialogFragment() {
         })
 
         buttonCompleteOrder.setOnClickListener {
+            var id_korisnik: Int = 0
             viewModel.getOrderedMeals().observe(viewLifecycleOwner, { orderedMeals ->
                 orderedMeals!!.forEach {
+                    id_korisnik = it.order.korisnik_id
                     viewModel.makeOrder(
                         "Narudzba_novo",
                         "insert",
@@ -120,6 +149,10 @@ class OrderDialogFragment : BottomSheetDialogFragment() {
                     )
                 }
             })
+
+            val xp = textViewFinalPrice.text.toString().split(".")
+            val xpf = xp[0].takeLast(2)
+            viewModelGame.setXp("razina", "update_xp", user, xpf.toInt())
         }
     }
 

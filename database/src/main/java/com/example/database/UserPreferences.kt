@@ -98,8 +98,10 @@ class UserPreferences(
         private val USER_TYPE = preferencesKey<String>("type_user")
         private val ORDER_BUCKET = preferencesKey<Boolean>("order_bucket")
         private val ACTIVE_RESTAURANT = preferencesKey<String>("active_restaurant")
+
         private val TOTAL_COST = preferencesKey<String>("total_cost")
         private val CUSTOMER_ID = preferencesKey<String>("customer_id")
+
     }
 
 

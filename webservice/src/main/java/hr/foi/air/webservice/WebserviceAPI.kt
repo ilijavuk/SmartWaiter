@@ -57,6 +57,11 @@ interface WebserviceAPI {
     )
 
     @GET("sw-api/api.php")
+    suspend fun getLvl(
+        @Query("metoda") method : String,
+    ): Response<List<Lvl>>
+
+    @GET("sw-api/api.php")
     suspend fun getUsername(
         @Query("tablica") table: String,
         @Query("metoda") method: String,
@@ -131,6 +136,13 @@ interface WebserviceAPI {
         @Query("rezerviran") rezerviran: Int
     )
 
+    @GET("sw-api/api.php")
+    suspend fun setXp(
+        @Query("tablica") table: String,
+        @Query("metoda") method: String,
+        @Query("key") id_korisnik: Int,
+        @Query("iskustvo") iskustvo: Int
+    )
 
 
     @GET("sw-api/api.php")
