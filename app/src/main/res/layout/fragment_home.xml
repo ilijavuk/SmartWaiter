@@ -80,26 +80,11 @@
         android:layout_marginBottom="20dp"
         android:background="@drawable/ic_button_style_primary"
         android:text="Login"
-        app:layout_constraintBottom_toTopOf="@+id/btnLoginFacebook"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/btnLoginFacebook"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:background="@drawable/rounded_facebook_login_button"
-        android:drawableLeft="@drawable/ic_facebook_circular_logo"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        android:text="Login with Facebook"
-        android:textAllCaps="false"
-        android:textColor="@color/white"
-        android:theme="@style/Button.Facebook"
         app:layout_constraintBottom_toTopOf="@+id/btnRegister"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+
 
     <TextView
         android:id="@+id/btnRegister"
