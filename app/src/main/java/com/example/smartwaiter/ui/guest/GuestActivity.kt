@@ -1,6 +1,5 @@
 package com.example.smartwaiter.ui.guest
 
-import android.app.Activity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -14,6 +13,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.onNavDestinationSelected
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.example.database.UserPreferences
+import com.example.database.db.SMDatabase
 import com.example.smartwaiter.R
 import com.example.smartwaiter.ui.auth.MainActivity
 import com.example.smartwaiter.util.startNewActivity
@@ -44,14 +44,15 @@ class GuestActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
-        if(item.itemId == R.id.homeFragment)
-        {
+        if (item.itemId == R.id.homeFragment) {
             lifecycleScope.launch {
+                val smDatabase:SMDatabase = SMDatabase.invoke(application)
+                if (smDatabase.getDAO().getOrderedMeals().value.isNullOrEmpty())
+                    smDatabase.getDAO().deleteAllFromOrder()
                 preferences.clear()
             }
             startNewActivity(MainActivity::class.java)
         }
-
         return item.onNavDestinationSelected(navController) || super.onOptionsItemSelected(item)
     }
 
@@ -76,7 +77,8 @@ class GuestActivity : AppCompatActivity() {
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
                 R.id.qrFragment,
-                R.id.waitMealFragment -> toolbarGuest.visible(false)
+                R.id.waitMealFragment,
+                R.id.paymentFragment -> toolbarGuest.visible(false)
                 else -> toolbarGuest.visible(true)
             }
         }

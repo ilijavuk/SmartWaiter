@@ -8,6 +8,8 @@ import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.setFragmentResult
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.asLiveData
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.database.UserPreferences
@@ -22,12 +24,14 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.snackbar.Snackbar
 import hr.foi.air.webservice.util.Resource
 import kotlinx.android.synthetic.main.dialog_complete_order.*
+import kotlinx.coroutines.launch
 
 class OrderDialogFragment : BottomSheetDialogFragment() {
 
     private lateinit var viewModel: OrderViewModel
     private lateinit var userPreferences: UserPreferences
     private var basketHandler: Boolean = false
+    private var sum = 0.0
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -65,7 +69,7 @@ class OrderDialogFragment : BottomSheetDialogFragment() {
                 dismiss()
             } else {
                 basketHandler = true
-                var sum = 0.0
+                sum = 0.0
                 orderedMeals.forEach { orderedMeal ->
                     val mealPrice = orderedMeal.meal.cijena.toFloat() * orderedMeal.order.kolicina
                     sum += mealPrice
@@ -81,6 +85,9 @@ class OrderDialogFragment : BottomSheetDialogFragment() {
         viewModel.myResponse.observe(viewLifecycleOwner, { response ->
             when (response) {
                 is Resource.Success -> {
+                    lifecycleScope.launch {
+                        userPreferences.saveTotalCost(sum.toString())
+                    }
                     viewModel.deleteAllFromOrder()
                     basketHandler = false
                     val action = OrderDialogFragmentDirections.actionMenuGuestDialogFragmentToWaitMealFragment()

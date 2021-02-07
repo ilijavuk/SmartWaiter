@@ -43,7 +43,7 @@ class MenuGuestFragment : Fragment(R.layout.fragment_meni_guest) {
         viewModelFactory = MenuGuestModelFactory(repository)
         viewModel = ViewModelProvider(this, viewModelFactory).get(MenuGuestViewModel::class.java)
 
-        floatingActionButtonBasket.visible(false)
+
         progressBarMenuGuest.visible(false)
         updateOrderBucketUI()
 

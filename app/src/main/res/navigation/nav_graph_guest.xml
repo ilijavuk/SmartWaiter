@@ -58,6 +58,22 @@
         android:id="@+id/waitMealFragment"
         android:name="com.example.smartwaiter.ui.guest.guestwaiting.WaitMealFragment"
         android:label="fragment_waiting_meal"
-        tools:layout="@layout/fragment_waiting_meal" />
+        tools:layout="@layout/fragment_waiting_meal" >
+        <action
+            android:id="@+id/action_waitMealFragment_to_paymentFragment"
+            app:destination="@id/paymentFragment" />
+        <action
+            android:id="@+id/action_waitMealFragment_to_menuGuestFragment"
+            app:destination="@id/menuGuestFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/paymentFragment"
+        android:name="com.example.smartwaiter.ui.guest.payments.PaymentFragment"
+        android:label="fragment_payment"
+        tools:layout="@layout/fragment_payment" >
+        <action
+            android:id="@+id/action_paymentFragment_to_menuGuestFragment"
+            app:destination="@id/menuGuestFragment" />
+    </fragment>
 
 </navigation>

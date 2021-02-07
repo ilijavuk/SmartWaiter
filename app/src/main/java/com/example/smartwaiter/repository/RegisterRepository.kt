@@ -5,7 +5,7 @@ import hr.foi.air.webservice.model.Korisnik
 import hr.foi.air.webservice.model.Restoran
 import retrofit2.Response
 
-class RegisterRepository {
+class RegisterRepository : BaseRepository() {
 
     suspend fun RegisterKorisnik(
         table: String,
@@ -29,4 +29,5 @@ class RegisterRepository {
     ): Response<List<Korisnik>> {
         return RetrofitInstance.api.getUsername(table, method, username, operator, email)
     }
+
 }

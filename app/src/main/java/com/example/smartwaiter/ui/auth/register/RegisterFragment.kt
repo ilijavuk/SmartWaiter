@@ -13,6 +13,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.smartwaiter.R
 import com.example.smartwaiter.repository.RegisterRepository
 import com.google.common.hash.Hashing
+import hr.foi.air.webservice.util.Resource
 import kotlinx.android.synthetic.main.fragment_register.*
 import kotlinx.android.synthetic.main.fragment_register.btnRegister
 import java.nio.charset.StandardCharsets
@@ -38,6 +39,7 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
 
         viewModel.myResponseUsername.observe(viewLifecycleOwner, Observer {
             if (it.isSuccessful && it.body() != null) {
+
                 it.body()!!.forEach {
                     if (it.korisnicko_ime == usernameField.text.toString()
                             .trim() && it.email != emailField.text.toString().trim()
@@ -57,6 +59,7 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
             }
 
         })
+
 
         btnRegister.setOnClickListener {
             val username = editText_username.text.toString().trim()

@@ -105,7 +105,7 @@ dependencies {
     //Lottie animations
     implementation "com.airbnb.android:lottie:3.4.0"
 
-
-
+    // Stripe Android SDK
+    implementation 'com.stripe:stripe-android:16.1.1'
 
 }
