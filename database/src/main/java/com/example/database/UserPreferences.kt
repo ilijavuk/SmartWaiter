@@ -41,6 +41,16 @@ class UserPreferences(
             preferences[ACTIVE_RESTAURANT]
         }
 
+    val totalCost: Flow<String?>
+        get() = dataStore.data.map { preferences ->
+            preferences[TOTAL_COST]
+        }
+
+    val customerID: Flow<String?>
+        get() = dataStore.data.map { preferences ->
+            preferences[CUSTOMER_ID]
+        }
+
     suspend fun saveAuthToken(authToken: String) {
         dataStore.edit { preferences ->
             preferences[KEY_AUTH] = authToken
@@ -65,6 +75,18 @@ class UserPreferences(
         }
     }
 
+    suspend fun saveTotalCost(totalCost: String) {
+        dataStore.edit { preferences ->
+            preferences[TOTAL_COST] = totalCost
+        }
+    }
+
+    suspend fun saveCustomerID(customerID: String) {
+        dataStore.edit { preferences ->
+            preferences[CUSTOMER_ID] = customerID
+        }
+    }
+
     suspend fun clear(){
         dataStore.edit {  preferences ->
              preferences.clear()
@@ -76,6 +98,9 @@ class UserPreferences(
         private val USER_TYPE = preferencesKey<String>("type_user")
         private val ORDER_BUCKET = preferencesKey<Boolean>("order_bucket")
         private val ACTIVE_RESTAURANT = preferencesKey<String>("active_restaurant")
+
+        private val TOTAL_COST = preferencesKey<String>("total_cost")
+        private val CUSTOMER_ID = preferencesKey<String>("customer_id")
 
     }
 

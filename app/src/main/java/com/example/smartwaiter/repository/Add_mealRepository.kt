@@ -112,6 +112,13 @@ class Add_mealRepository : BaseRepository() {
         RetrofitInstance.api.RemoveTagsFromMeal(function, lokal_id)
     }
 
+    suspend fun getRestorani(
+        tablica: String,
+        metoda: String,
+    ) = safeApiCall {
+        RetrofitInstance.api.getRestorani2(tablica, metoda)
+    }
+
 
 
 }

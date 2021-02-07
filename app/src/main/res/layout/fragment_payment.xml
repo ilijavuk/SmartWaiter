@@ -4,57 +4,56 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.guest.guestwaiting.WaitMealFragment">
+    tools:context=".ui.guest.payments.PaymentFragment">
 
-    <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/lottieAnimationView"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <Button
+        android:id="@+id/buttonPayOrder"
+        android:layout_width="140dp"
+        android:layout_height="70dp"
+        android:layout_marginBottom="20dp"
+        android:text="Pay Now"
+        app:layout_constraintBottom_toTopOf="@+id/buttonChosePayment"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.3"
-        app:lottie_autoPlay="true"
-        app:lottie_loop="true"
-        app:lottie_rawRes="@raw/preparing_food" />
+        app:layout_constraintStart_toStartOf="parent" />
 
-    <TextView
-        android:id="@+id/textViewPrepareMeal"
+    <Button
+        android:id="@+id/buttonChosePayment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/kalam_bold"
-        android:text="Preparing order..."
+        android:layout_marginBottom="40dp"
+        android:text="Choose paymend method"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textViewPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="200 HRK"
+        android:textColor="@color/black"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/buttonPayOrder"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textViewPaymentDetails"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text=""
         android:textColor="@color/black"
         android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lottieAnimationView" />
-
-    <Button
-        android:id="@+id/buttonMakePayment"
-        android:layout_width="140dp"
-        android:layout_height="70dp"
-        android:layout_marginTop="50dp"
-        android:text="Mobile pay"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewPrepareMeal" />
-
-    <Button
-        android:id="@+id/buttonCashPay"
-        android:layout_width="140dp"
-        android:layout_height="70dp"
-        android:layout_marginTop="20dp"
-        android:text="Pay with cash"
-        app:layout_constraintEnd_toEndOf="@+id/buttonMakePayment"
-        app:layout_constraintStart_toStartOf="@+id/buttonMakePayment"
-        app:layout_constraintTop_toBottomOf="@+id/buttonMakePayment" />
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/textViewPrice"
+        app:layout_constraintStart_toStartOf="@+id/textViewPrice"
+        app:layout_constraintTop_toBottomOf="@+id/textViewPrice" />
 
     <View
-        android:id="@+id/success_background"
+        android:id="@+id/successBackground"
         android:layout_width="1dp"
         android:layout_height="1dp"
         android:alpha="0"

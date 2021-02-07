@@ -18,7 +18,7 @@ object RetrofitInstance {
                     client.addInterceptor(logging)
                 }
             }.build())
-            .addConverterFactory(NullOnEmptyConverterFactory())
+            //.addConverterFactory(NullOnEmptyConverterFactory())
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
