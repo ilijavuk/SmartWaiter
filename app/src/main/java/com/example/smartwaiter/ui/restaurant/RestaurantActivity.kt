@@ -31,9 +31,9 @@ class RestaurantActivity : AppCompatActivity() {
 
         bottom_nav.setupWithNavController(navController)
         //visibilityNavElements(navController)
-        if (intent != null) {
-            processIntent(intent)
-        }
+      //  if (intent != null) {
+      //      processIntent(intent)
+      //  }
     }
 
     private fun setUpNavigation() {
@@ -50,31 +50,5 @@ class RestaurantActivity : AppCompatActivity() {
           }
       }
   }*/
-    //OVO ISPOD TREBA ZA NFC
-    override fun onNewIntent(intent: Intent?) {
-        super.onNewIntent(intent)
-        if (intent != null) {
-            processIntent(intent)
-        }
-    }
 
-    private fun processIntent(checkIntent: Intent) {
-        // Check if intent has the action of a discovered NFC tag
-        // with NDEF formatted contents
-        if (checkIntent.action == NfcAdapter.ACTION_NDEF_DISCOVERED) {
-            // Retrieve the raw NDEF message from the tag
-            val rawMessages = checkIntent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES)
-            var ndefMsg = rawMessages?.get(0) as NdefMessage
-            var ndefRecord = ndefMsg.records[0]
-            if (ndefRecord.toUri() != null) {
-                // Use Android functionality to convert payload to URI
-                Log.d("URI detected", ndefRecord.toUri().toString())
-                //TODO: napravit nešto s NFC-om lol
-            } else {
-                // Other NFC Tags
-                Log.d("Payload", ndefRecord.payload.contentToString())
-            }
-            // ...
-        }
-    }
 }

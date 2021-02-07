@@ -7,6 +7,30 @@
     <fragment
         android:id="@+id/tableListFragment"
         android:name="com.example.smartwaiter.ui.waiter.tablelist.TableListFragment"
-        android:label="fragment_table_list"
-        tools:layout="@layout/fragment_table_list" />
+        android:label="Tables"
+        tools:layout="@layout/fragment_table_list">
+        <action
+            android:id="@+id/action_tableListFragment_to_tableOrderFragment"
+            app:destination="@id/tableOrderFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/restaurantProfilFragment"
+        android:name="com.example.smartwaiter.ui.restaurant.restaurant_profil.RestaurantProfilFragment"
+        android:label="fragment_restaurant_profil"
+        tools:layout="@layout/fragment_restaurant_profil" />
+    <fragment
+        android:id="@+id/tableOrderFragment"
+        android:name="com.example.smartwaiter.ui.waiter.tableorder.TableOrderFragment"
+        android:label="Orders"
+        tools:layout="@layout/fragment_table_order">
+        <argument
+            android:name="id_stola"
+            app:argType="integer" />
+        <argument
+            android:name="rezerviran"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_tableOrderFragment_to_tableListFragment"
+            app:destination="@id/tableListFragment" />
+    </fragment>
 </navigation>

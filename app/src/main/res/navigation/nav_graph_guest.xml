@@ -45,7 +45,7 @@
 
     <fragment
         android:id="@+id/qrFragment"
-        android:name="com.example.smartwaiter.ui.restaurant.qr.QrFragment"
+        android:name="com.example.smartwaiter.ui.guest.qr.QrFragment"
         android:label="fragment_qrscanner"
         tools:layout="@layout/fragment_qrscanner" >
         <action
@@ -53,6 +53,14 @@
             app:destination="@id/menuGuestFragment"
             app:popUpTo="@id/qrFragment"
             app:popUpToInclusive="true" />
+        <argument
+            android:name="passedUrl"
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue="@null" />
+        <action
+            android:id="@+id/action_qrFragment_to_mapFragment"
+            app:destination="@id/mapFragment" />
     </fragment>
     <fragment
         android:id="@+id/waitMealFragment"
@@ -66,6 +74,7 @@
             android:id="@+id/action_waitMealFragment_to_menuGuestFragment"
             app:destination="@id/menuGuestFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/paymentFragment"
         android:name="com.example.smartwaiter.ui.guest.payments.PaymentFragment"
@@ -75,5 +84,12 @@
             android:id="@+id/action_paymentFragment_to_menuGuestFragment"
             app:destination="@id/menuGuestFragment" />
     </fragment>
+
+    
+    <fragment
+        android:id="@+id/mapFragment"
+        android:name="com.example.smartwaiter.ui.guest.map.MapFragment"
+        android:label="Supported venues" />
+
 
 </navigation>

@@ -11,11 +11,13 @@
     <uses-permission android:name="android.permission.CAMERA"/>
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.camera.autofocus"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
 
 
     <application
         android:name=".ui.guest.MyApp"
+        android:hardwareAccelerated="true"
         android:requestLegacyExternalStorage="true"
         android:usesCleartextTraffic="true"
         android:allowBackup="true"
@@ -26,6 +28,10 @@
         android:theme="@style/Theme.SmartWaiter"
         android:windowSoftInputMode="adjustResize|stateHidden">
 
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyC7iFx5H945GRSEclkSv44xCfb95Gbz4mA" />
+        
         <activity android:name=".ui.splash.SplashScreenActivity" android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -35,6 +41,11 @@
         </activity>
         <activity android:name=".ui.auth.MainActivity" />
         <activity android:name=".ui.restaurant.RestaurantActivity"
+            >
+
+
+        </activity>
+        <activity android:name=".ui.guest.GuestActivity"
             android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.nfc.action.NDEF_DISCOVERED"/>
@@ -49,11 +60,15 @@
                 https://developer.android.com/training/app-links/verify-site-associations.html -->
                 <data android:scheme="http" />
             </intent-filter>
-
         </activity>
-        <activity android:name=".ui.guest.GuestActivity"/>
+
+
         <activity android:name=".ui.waiter.WaiterActivity"/>
         <activity android:name=".ui.guest.payments.PaymentActivity"/>
+
+        <activity android:name=".ui.guest.nfc.NfcActivity" android:windowSoftInputMode="adjustPan">
+
+        </activity>
 
 
     </application>
