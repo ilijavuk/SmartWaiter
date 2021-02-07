@@ -1,6 +1,7 @@
 package com.example.smartwaiter.ui.restaurant.restaurant_profil
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -51,7 +52,7 @@ class RestaurantProfilFragment  : Fragment(R.layout.fragment_restaurant_profil){
             val response = it.body()
             if (response != null) {
                 response.forEach {
-                    if (it.id_korisnik == 99){
+                    if (it.id_korisnik == user.toInt()){
                         progress.progressMax = it.razina * 110f
                         progress.setProgressWithAnimation(it.iskustvo.toFloat())
                         name_tv.text = it.ime + " " + it.prezime

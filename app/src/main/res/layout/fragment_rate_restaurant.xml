@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.guest.raterestaurant.RateRestaurant">
+
+    <TextView
+        android:id="@+id/restaurant_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:text="Placeholder text"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout4"
+        tools:layout_editor_absoluteX="0dp" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="28dp"
+        android:gravity="center"
+        app:layout_constraintBottom_toTopOf="@+id/submit_button"
+        tools:layout_editor_absoluteX="0dp">
+
+        <ImageView
+            android:id="@+id/star1"
+            android:layout_width="50dp"
+            android:layout_height="100dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:src="@drawable/star_empty" />
+
+        <ImageView
+            android:id="@+id/star2"
+            android:layout_width="50dp"
+            android:layout_height="100dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:src="@drawable/star_empty" />
+
+        <ImageView
+            android:id="@+id/star3"
+            android:layout_width="50dp"
+            android:layout_height="100dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:src="@drawable/star_empty" />
+
+        <ImageView
+            android:id="@+id/star4"
+            android:layout_width="50dp"
+            android:layout_height="100dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:src="@drawable/star_empty" />
+
+        <ImageView
+            android:id="@+id/star5"
+            android:layout_width="50dp"
+            android:layout_height="100dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:src="@drawable/star_empty" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/submit_button"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="240dp"
+        android:text="Pošalji"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

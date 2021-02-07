@@ -119,7 +119,7 @@ interface WebserviceAPI {
         //@Query("tablica") table : String,
         @Query("metoda") method : String,
         //@Query("rezerviran") rezerviran : String,
-        ): Response<List<TableOrder>>
+    ): Response<List<TableOrder>>
 
     @GET("sw-api/api.php")
     suspend fun getOrders(
@@ -220,7 +220,7 @@ interface WebserviceAPI {
     fun getEphemeralKey(
         @Field("api_version") apiVersion: String,
         @Field("customerID") customerID: String
-        ): Call<Any>
+    ): Call<Any>
 
     @FormUrlEncoded
     @POST("sw-api/checkout2.php")
@@ -234,6 +234,44 @@ interface WebserviceAPI {
         @Query("tablica") table: String,
         @Query("metoda") method: String,
     ): List<Restoran>
+
+    @GET("sw-api/api.php")
+    suspend fun pushRating(
+        @Query("tablica") table: String,
+        @Query("metoda") method: String,
+        @Query("korisnik_id") user_id: String,
+        @Query("lokal_id") lokal_id: String,
+        @Query("ocjena") rating: String
+    )
+
+    @GET("sw-api/api.php")
+    suspend fun getRating(
+        @Query("tablica") table: String,
+        @Query("metoda") method: String,
+        @Query("korisnik_id") user_id: String,
+        @Query("lokal_id") lokal_id: String,
+    ): Response<List<RestaurantRating>>
+
+    @GET("sw-api/api.php")
+    suspend fun getRestoran(
+        @Query("tablica") table: String,
+        @Query("metoda") method: String,
+        @Query("korisnik_id") user_id: String,
+        @Query("lokal_id") lokal_id: String,
+    ): Response<List<RestaurantRating>>
+
+    @GET("sw-api/api.php")
+    suspend fun pushNotification(
+        @Query("pushnotification") function: String,
+        @Query("lokal_id") lokal_id: Int,
+    )
+
+    @GET("sw-api/api.php")
+    suspend fun getRestaurantName(
+        @Query("tablica") table: String,
+        @Query("metoda") method: String,
+        @Query("id_lokal") lokal_id: String,
+    ): Response<List<Restoran>>
 
     /*@GET("sw-api/api.php")
     suspend fun getEmail(

@@ -6,6 +6,7 @@ import android.nfc.NfcAdapter
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.asLiveData
@@ -41,7 +42,7 @@ class RestaurantActivity : AppCompatActivity() {
         navController = navHostFragment.findNavController()
     }
 
-    /*private fun visibilityNavElements(navController: NavController) {
+    private fun visibilityNavElements(navController: NavController) {
       navController.addOnDestinationChangedListener { _, destination, _ ->
           when (destination.id) {
               R.id.homeFragment,
@@ -49,6 +50,6 @@ class RestaurantActivity : AppCompatActivity() {
               else -> bottom_nav?.visibility = View.VISIBLE
           }
       }
-  }*/
+  }
 
 }

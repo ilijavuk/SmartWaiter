@@ -16,7 +16,7 @@ class WaitMealFragment : Fragment(R.layout.fragment_waiting_meal) {
         super.onViewCreated(view, savedInstanceState)
 
         buttonMakePayment.setOnClickListener {
-            val action = WaitMealFragmentDirections.actionWaitMealFragmentToPaymentFragment()
+            val action = WaitMealFragmentDirections.actionWaitMealFragmentToPaymentFragment(requireArguments().getString("lokal_id").toString())
             findNavController().navigate(action)
         }
 
@@ -58,7 +58,7 @@ class WaitMealFragment : Fragment(R.layout.fragment_waiting_meal) {
     }
 
     private fun navigateAfterSuccess(){
-        val action = WaitMealFragmentDirections.actionWaitMealFragmentToMenuGuestFragment()
+        val action = WaitMealFragmentDirections.actionWaitMealFragmentToRateRestaurant(requireArguments().getString("lokal_id").toString())
         findNavController().navigate(action)
     }
 }

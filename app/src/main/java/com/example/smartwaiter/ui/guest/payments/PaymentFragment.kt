@@ -43,7 +43,7 @@ class PaymentFragment : Fragment(R.layout.fragment_payment) {
         userPreferences.totalCost.asLiveData().observe(viewLifecycleOwner, {
             it?.let {
                 textViewPrice.text = "Price: " + String.format("%.2f",it.toDouble()) + " HRK"
-                userCost = String.format("%.2f",it.toDouble()).replace(",","")
+                userCost = String.format("%.2f",it.toDouble()).replace(".","")
                 Log.d("cost",userCost)
             }
         })
@@ -178,7 +178,7 @@ class PaymentFragment : Fragment(R.layout.fragment_payment) {
     }
 
     private fun navigateAfterSuccess(){
-        val action = PaymentFragmentDirections.actionPaymentFragmentToMenuGuestFragment()
+        val action = PaymentFragmentDirections.actionPaymentFragmentToRateRestaurant(requireArguments().getString("lokal_id").toString())
         findNavController().navigate(action)
     }
 
