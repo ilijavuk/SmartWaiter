@@ -63,4 +63,12 @@ class OrderViewModel(private val orderRepository: OrderRepository) : ViewModel()
         }
     }
 
+    fun sendNotification(
+        lokal_id: Int,
+    ) {
+        viewModelScope.launch {
+            orderRepository.pushNotification(lokal_id)
+        }
+    }
+
 }

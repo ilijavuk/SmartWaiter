@@ -50,9 +50,10 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         viewModel.myResponse.observe(viewLifecycleOwner, { response ->
             when (response) {
                 is Resource.Success -> {
-                    Log.d("MYTAG", response.toString());
                     progressBarLogin.visible(false)
                     lifecycleScope.launch {
+                        viewModel.saveUserType(response.value[0].tip_korisnika_id)
+                        viewModel.saveAuthToken(response.value[0].id_korisnik)
                         when (response.value[0].tip_korisnika_id) {
                             "1" -> {
                                 viewModel.createCustomer()
@@ -67,8 +68,6 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                                 requireActivity().startNewActivity(RestaurantActivity::class.java)
                             }
                         }
-                        viewModel.saveUserType(response.value[0].tip_korisnika_id)
-                        viewModel.saveAuthToken(response.value[0].id_korisnik)
                     }
                 }
 

@@ -252,6 +252,27 @@ interface WebserviceAPI {
         @Query("lokal_id") lokal_id: String,
     ): Response<List<RestaurantRating>>
 
+    @GET("sw-api/api.php")
+    suspend fun getRestoran(
+        @Query("tablica") table: String,
+        @Query("metoda") method: String,
+        @Query("korisnik_id") user_id: String,
+        @Query("lokal_id") lokal_id: String,
+    ): Response<List<RestaurantRating>>
+
+    @GET("sw-api/api.php")
+    suspend fun pushNotification(
+        @Query("pushnotification") function: String,
+        @Query("lokal_id") lokal_id: Int,
+    )
+
+    @GET("sw-api/api.php")
+    suspend fun getRestaurantName(
+        @Query("tablica") table: String,
+        @Query("metoda") method: String,
+        @Query("id_lokal") lokal_id: String,
+    ): Response<List<Restoran>>
+
     /*@GET("sw-api/api.php")
     suspend fun getEmail(
         @Query("tablica") table : String,

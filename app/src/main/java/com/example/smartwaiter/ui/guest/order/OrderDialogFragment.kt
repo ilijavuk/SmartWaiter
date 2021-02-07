@@ -2,6 +2,7 @@ package com.example.smartwaiter.ui.guest.order
 
 import android.content.DialogInterface
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -64,12 +65,8 @@ class OrderDialogFragment : BottomSheetDialogFragment() {
         userPreferences.authToken.asLiveData().observe(viewLifecycleOwner, {
             it?.let {
                 user = it.toInt()
-                Toast.makeText(requireContext(), user.toString(), Toast.LENGTH_LONG).show()
-
             }
         })
-
-
 
         val orderDialogAdapter = OrderDialogAdapter { orderedMeal: OrderedMeal ->
             deleteOrderedMealClicked(
@@ -117,7 +114,7 @@ class OrderDialogFragment : BottomSheetDialogFragment() {
                     }
                     viewModel.deleteAllFromOrder()
                     basketHandler = false
-                    val action = OrderDialogFragmentDirections.actionMenuGuestDialogFragmentToWaitMealFragment()
+                    val action = OrderDialogFragmentDirections.actionMenuGuestDialogFragmentToWaitMealFragment(requireArguments().getString("lokal_id").toString())
                     findNavController().navigate(action)
                 }
 
@@ -133,6 +130,8 @@ class OrderDialogFragment : BottomSheetDialogFragment() {
         })
 
         buttonCompleteOrder.setOnClickListener {
+
+
             var id_korisnik: Int = 0
             viewModel.getOrderedMeals().observe(viewLifecycleOwner, { orderedMeals ->
                 orderedMeals!!.forEach {
@@ -147,6 +146,12 @@ class OrderDialogFragment : BottomSheetDialogFragment() {
                         it.order.stavka_id,
                         it.order.kolicina
                     )
+                }
+            })
+
+            userPreferences.activeRestaurant.asLiveData().observe(viewLifecycleOwner, {
+                it?.let {
+                    viewModel.sendNotification(it.toInt())
                 }
             })
 

@@ -33,6 +33,7 @@
         <action
             android:id="@+id/action_menuGuestDialogFragment_to_waitMealFragment"
             app:destination="@id/waitMealFragment" />
+        <argument android:name="lokal_id" />
     </dialog>
 
     <fragment
@@ -81,6 +82,10 @@
         <action
             android:id="@+id/action_waitMealFragment_to_menuGuestFragment"
             app:destination="@id/menuGuestFragment" />
+        <action
+            android:id="@+id/action_waitMealFragment_to_rateRestaurant"
+            app:destination="@id/rateRestaurant" />
+        <argument android:name="lokal_id" />
     </fragment>
 
     <fragment
@@ -89,8 +94,9 @@
         android:label="fragment_payment"
         tools:layout="@layout/fragment_payment" >
         <action
-            android:id="@+id/action_paymentFragment_to_menuGuestFragment"
-            app:destination="@id/menuGuestFragment" />
+            android:id="@+id/action_paymentFragment_to_rateRestaurant"
+            app:destination="@id/rateRestaurant" />
+        <argument android:name="lokal_id" />
     </fragment>
 
 
@@ -111,7 +117,12 @@
     <fragment
         android:id="@+id/rateRestaurant"
         android:name="com.example.smartwaiter.ui.guest.raterestaurant.RateRestaurant"
-        android:label="fragment_rate_restaurant"
-        tools:layout="@layout/fragment_rate_restaurant" />
+        android:label="Rate this restaurant"
+        tools:layout="@layout/fragment_rate_restaurant">
+        <action
+            android:id="@+id/action_rateRestaurant_to_menuGuestFragment"
+            app:destination="@id/menuGuestFragment" />
+        <argument android:name="lokal_id" />
+    </fragment>
 
 </navigation>

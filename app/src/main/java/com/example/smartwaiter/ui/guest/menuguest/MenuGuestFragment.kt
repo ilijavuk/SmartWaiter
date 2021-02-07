@@ -49,11 +49,10 @@ class MenuGuestFragment : Fragment(R.layout.fragment_meni_guest) {
         updateOrderBucketUI()
 
         floatingActionButtonBasket.setOnClickListener {
-            val action = MenuGuestFragmentDirections.actionMenuGuestFragmentToMenuGuestDialogFragment()
+            val action = MenuGuestFragmentDirections.actionMenuGuestFragmentToMenuGuestDialogFragment(lokal)
             findNavController().navigate(action)
         }
 
-        Log.d("restoran","1")
         userPreferences.activeRestaurant.asLiveData().observe(viewLifecycleOwner, {
             it?.let {
                 lokal = it
@@ -77,7 +76,6 @@ class MenuGuestFragment : Fragment(R.layout.fragment_meni_guest) {
                 is Resource.Failure -> {
                     handleApiError(response) { load() }
                     progressBarMenuGuest.visible(false)
-                    Log.d("Response", response.toString())
                 }
             }
         })
