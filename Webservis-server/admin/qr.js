@@ -13,6 +13,7 @@ function UcitajStolove(){
       }
       else{
         data[i].akcija="<a href=# onclick=UkloniHash("+data[i].id_stol+")>Obriši hash</a>";
+        data[i].hash="<a href=# onclick=PrikaziQr('"+data[i].hash+"')>"+data[i].hash+"</a>";
       }
     }
     CreateTableFromJSON(data);
@@ -20,7 +21,15 @@ function UcitajStolove(){
 
 }
 
-
+function PrikaziQr(hash){
+  console.log("nesto");
+  document.getElementById("uri").innerHTML=" ";
+    document.getElementById("qr-panel").innerHTML=" ";
+  new QRCode(document.getElementById("qr-panel"),"https://smartwaiter.app/app.php?"+hash);
+    var x = document.getElementById("uri").innerHTML;
+    x+="<p>URI za NFC Karticu: <br>https://smartwaiter.app/app.php?"+hash+"</p>";
+    document.getElementById("uri").innerHTML=x;
+}
 
 function UkloniHash(id_stol){
   $.ajax({
