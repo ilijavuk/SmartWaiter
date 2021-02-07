@@ -23,4 +23,7 @@
     <string name="all_items">Sve</string>
     <string name="complete_order">Complete Order</string>
     <string name="final_price">Total Price: %s HRK</string>
+    <string name="msg_subscribed">Topic subscription succeeded</string>
+    <string name="msg_subscribe_failed">Topic subscription failed</string>
+    <string name="channel_name">FirebaseCloudMessaging notification channel</string>
 </resources>
