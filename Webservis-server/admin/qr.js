@@ -1,4 +1,82 @@
-UcitajStolove();
+UcitajRestorane();
+$('#dodajStol').hide();
+
+
+$('#restorani').on('change', function(){
+  if($('#restorani').val()==0){
+    $('#dodajStol').hide();
+  }
+  else{
+    $('#dodajStol').show();
+  }
+  DohvatiStolovePoRestoranu();
+})
+
+
+function DohvatiStolovePoRestoranu(){
+  var path="./admin.php?stvar=StoloviPoRestoranu&id="+$('#restorani').val();
+  console.log(path);
+  $.ajax({
+    method: "POST",
+    dataType: 'json',
+    url: path,
+  }).done(function(data){
+    
+    for(var i=0; i<data.length; i++){
+      if(data[i].hash==null){
+        data[i].akcija="<a href=# onclick=GenerirajQR("+data[i].id_stol+")>Generiraj</a>";
+      }
+      else{
+        data[i].akcija="<a href=# onclick=UkloniHash("+data[i].id_stol+")>Obriši hash</a> | <a href='#' onclick=ObrisiStol('"+data[i].id_stol+"')>Obriši stol</a>";
+        data[i].hash="<a href=# onclick=PrikaziQr('"+data[i].hash+"')>"+data[i].hash+"</a>";
+      }
+    }
+    CreateTableFromJSON(data, "stolovi");
+  })
+}
+
+function ObrisiStol(id){
+  var path="./admin.php?stvar=ObrisiStol&id="+id;
+  console.log(path);
+  $.ajax({
+    method: "POST",
+    dataType: 'json',
+    url: path,
+  }).done(function(){
+
+      DohvatiStolovePoRestoranu();
+      
+  })
+}
+
+function DodajStol(){
+
+  var path="./admin.php?stvar=DodajStol&lokal_id="+$('#restorani').val()+"&oznaka="+$("#oznaka").val()+"&broj="+$("#broj_stola").val();
+  console.log(path);
+  $.ajax({
+    method: "POST",
+    dataType: 'json',
+    url: path,
+  }).done(function(data){
+      console.log(data);
+  })
+}
+
+
+function UcitajRestorane(){
+  $.ajax({
+    method: "POST",
+    dataType: 'json',
+    url: "./admin.php?stvar=ImenaRestorana",
+  }).done(function(data){
+    for(var i=0; i<data.length; i++){
+      var o = new Option(data[i].Ime, data[i].id);
+      $("#restorani").append(o);
+    }
+    
+  })
+}
+
 
 function UcitajStolove(){
 
@@ -16,7 +94,7 @@ function UcitajStolove(){
         data[i].hash="<a href=# onclick=PrikaziQr('"+data[i].hash+"')>"+data[i].hash+"</a>";
       }
     }
-    CreateTableFromJSON(data);
+    CreateTableFromJSON(data, "postavke-panel");
   })
 
 }
@@ -55,11 +133,11 @@ function GenerirajQR(id_stol){
     x+="<p>URI za NFC Karticu: <br>https://smartwaiter.app/app.php?"+data+"</p>";
     document.getElementById("uri").innerHTML=x;
     console.log(x);
-    UcitajStolove();
+    DohvatiStolovePoRestoranu();
   })
 }
 
-function CreateTableFromJSON(myBooks) {
+function CreateTableFromJSON(myBooks, place) {
   
   // EXTRACT VALUE FOR HTML HEADER. 
   // ('Book ID', 'Book Name', 'Category' and 'Price')
@@ -97,7 +175,7 @@ function CreateTableFromJSON(myBooks) {
   }
 
   // FINALLY ADD THE NEWLY CREATED TABLE WITH JSON DATA TO A CONTAINER.
-  var divContainer = document.getElementById("postavke-panel");
+  var divContainer = document.getElementById(place);
   divContainer.innerHTML = "";
   divContainer.appendChild(table);
 }

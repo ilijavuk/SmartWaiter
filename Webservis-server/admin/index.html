@@ -36,6 +36,39 @@
                 <div class="col-md-6" id="uri"></div>
                 
             </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <select name=restorani id=restorani>
+                        <option value=0>
+                            Izaberi...
+                        </option>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12" id="stolovi">
+                   
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12" id="dodajStol">
+                   <h3>Dodaj stol:</h3>
+                   <form onsubmit="DodajStol(); return false;">
+                   
+                       <div class="form-group">
+                           <label class="sr-only" for="oznaka">Oznaka stola:</label>
+                           <input type="number" class="form-control" id="oznaka" placeholder="Oznaka stola">
+                           <label class="sr-only" for="broj_stola">Broj stola:</label>
+                           <input type="number" class="form-control" id="broj_stola">
+                       </div>
+                   
+                       
+                   
+                       <button type="submit" class="btn btn-primary">Submit</button>
+                   </form>
+                   
+                </div>
+            </div>
         </div>
     </div>
     <script src="assets/js/jquery.min.js"></script>
