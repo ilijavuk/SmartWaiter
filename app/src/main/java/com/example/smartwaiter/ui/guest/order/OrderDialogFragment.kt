@@ -41,6 +41,7 @@ class OrderDialogFragment : BottomSheetDialogFragment() {
     private var basketHandler: Boolean = false
 
     private var user = 0
+    private var idTable = 0
 
 
     private var sum = 0.0
@@ -65,6 +66,12 @@ class OrderDialogFragment : BottomSheetDialogFragment() {
         userPreferences.authToken.asLiveData().observe(viewLifecycleOwner, {
             it?.let {
                 user = it.toInt()
+            }
+        })
+
+        userPreferences.tableId.asLiveData().observe(viewLifecycleOwner, {
+            it?.let {
+                idTable = it.toInt()
             }
         })
 
@@ -131,7 +138,7 @@ class OrderDialogFragment : BottomSheetDialogFragment() {
 
         buttonCompleteOrder.setOnClickListener {
 
-
+            var stol = 0;
             var id_korisnik: Int = 0
             viewModel.getOrderedMeals().observe(viewLifecycleOwner, { orderedMeals ->
                 orderedMeals!!.forEach {
@@ -158,6 +165,13 @@ class OrderDialogFragment : BottomSheetDialogFragment() {
             val xp = textViewFinalPrice.text.toString().split(".")
             val xpf = xp[0].takeLast(2)
             viewModelGame.setXp("razina", "update_xp", user, xpf.toInt())
+
+            viewModel.setOrders(
+                table = "Stol",
+                method = "update",
+                id_stol = idTable,
+                rezerviran = 1
+            )
         }
     }
 

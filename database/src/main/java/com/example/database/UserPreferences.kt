@@ -25,6 +25,11 @@ class UserPreferences(
         preferences[KEY_AUTH]
     }
 
+    val tableId: Flow<String?>
+        get() = dataStore.data.map { preferences ->
+            preferences[TABLE_ID]
+        }
+
     val userType: Flow<String?>
         get() = dataStore.data.map { preferences ->
             preferences[USER_TYPE]
@@ -70,6 +75,11 @@ class UserPreferences(
         }
     }
 
+    suspend fun saveTableId(tableId: String) {
+        dataStore.edit { preferences ->
+            preferences[TABLE_ID] = tableId
+        }
+    }
     suspend fun saveUserType(userType: String) {
         dataStore.edit { preferences ->
             preferences[USER_TYPE] = userType
@@ -117,6 +127,8 @@ class UserPreferences(
 
         private val TOTAL_COST = preferencesKey<String>("total_cost")
         private val CUSTOMER_ID = preferencesKey<String>("customer_id")
+        private val TABLE_ID = preferencesKey<String>("table_id")
+
 
 
     }
