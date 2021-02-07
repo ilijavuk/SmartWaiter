@@ -1,3 +1,4 @@
+include ':ManualEntry'
 include ':webservice'
 include ':database'
 include ':app'
