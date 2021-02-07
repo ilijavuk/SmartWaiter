@@ -41,6 +41,17 @@ class UserPreferences(
             preferences[ACTIVE_RESTAURANT]
         }
 
+    val manualEntry: Flow<String?>
+        get() = dataStore.data.map { preferences ->
+            preferences[MANUAL_ENTRY]
+        }
+
+    suspend fun saveManualEntry(authToken: String) {
+        dataStore.edit { preferences ->
+            preferences[MANUAL_ENTRY] = authToken
+        }
+    }
+
     suspend fun saveAuthToken(authToken: String) {
         dataStore.edit { preferences ->
             preferences[KEY_AUTH] = authToken
@@ -76,6 +87,7 @@ class UserPreferences(
         private val USER_TYPE = preferencesKey<String>("type_user")
         private val ORDER_BUCKET = preferencesKey<Boolean>("order_bucket")
         private val ACTIVE_RESTAURANT = preferencesKey<String>("active_restaurant")
+        private val MANUAL_ENTRY = preferencesKey<String>("manual_entry")
     }
 
 

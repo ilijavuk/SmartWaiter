@@ -61,6 +61,9 @@
         <action
             android:id="@+id/action_qrFragment_to_mapFragment"
             app:destination="@id/mapFragment" />
+        <action
+            android:id="@+id/action_qrFragment_to_fragmentManualEntry3"
+            app:destination="@id/fragmentManualEntry3" />
     </fragment>
     <fragment
         android:id="@+id/waitMealFragment"
@@ -71,5 +74,14 @@
         android:id="@+id/mapFragment"
         android:name="com.example.smartwaiter.ui.guest.map.MapFragment"
         android:label="Supported venues" />
+    <fragment
+        android:id="@+id/fragmentManualEntry3"
+        android:name="hr.foi.air.manualentry.FragmentManualEntry"
+        android:label="Ručni unos koda"
+        tools:layout="@layout/fragment_manual_entry">
+        <action
+            android:id="@+id/action_fragmentManualEntry3_to_qrFragment"
+            app:destination="@id/qrFragment" />
+    </fragment>
 
 </navigation>

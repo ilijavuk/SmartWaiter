@@ -9,11 +9,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.observe
+import androidx.lifecycle.*
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.budiyev.android.codescanner.CodeScanner
@@ -46,10 +42,20 @@ class QrFragment : Fragment(R.layout.fragment_qrscanner) {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
+        userPreferences = UserPreferences(requireContext())
+        repostiory= StolRepostiory(userPreferences)
+        viewModelFactory=
+            QrModelFactory(repostiory)
+        viewModel= ViewModelProvider(this, viewModelFactory).get(QrViewModel::class.java)
+
+        lifecycleScope.launch {
+            viewModel.saveManualEntry("")
+        }
+
         qrPermissionGranted.value=false
         val requestPermissionQr =
             registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
-                // Do something if permission granted
+
                 if (isGranted) {
                     qrPermissionGranted.value = true
 
@@ -70,9 +76,13 @@ class QrFragment : Fragment(R.layout.fragment_qrscanner) {
 
         }
         btnManualEntry.setOnClickListener {
-
+            val action =
+                QrFragmentDirections.actionQrFragmentToFragmentManualEntry3()
+            findNavController().navigate(action)
         }
-        userPreferences = UserPreferences(requireContext())
+
+
+
         Log.d("Skeniran", args.passedUrl.toString())
         if(args.passedUrl==null){
             val scannerView = view.findViewById<CodeScannerView>(R.id.scanner_view)
@@ -116,7 +126,19 @@ class QrFragment : Fragment(R.layout.fragment_qrscanner) {
             if(qrPermissionGranted.value==true) {
                 codeScanner.startPreview()
             }
+            var hashKeyManual = ""
+            userPreferences.manualEntry.asLiveData().observe(viewLifecycleOwner, {
+                it?.let {
+                    hashKeyManual = it
+                    if(hashKeyManual!=""){
+                        load(hashKeyManual)
+                    }
+                }
+            })
+
         }
+
+
     }
 
     override fun onPause() {
@@ -129,10 +151,7 @@ class QrFragment : Fragment(R.layout.fragment_qrscanner) {
     }
 
     public fun load(hash : String){
-        repostiory= StolRepostiory(userPreferences)
-        viewModelFactory=
-            QrModelFactory(repostiory)
-        viewModel= ViewModelProvider(this, viewModelFactory).get(QrViewModel::class.java)
+
         decodeFromWeb(hash)
         viewModel.myResponse.observe(viewLifecycleOwner) { response ->
             when (response) {
