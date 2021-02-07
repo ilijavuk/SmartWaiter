@@ -51,11 +51,11 @@ class RestaurantProfilFragment  : Fragment(R.layout.fragment_restaurant_profil){
             val response = it.body()
             if (response != null) {
                 response.forEach {
-                    if (it.id_korisnik == 14){
+                    if (it.id_korisnik == 99){
                         progress.progressMax = it.razina * 110f
                         progress.setProgressWithAnimation(it.iskustvo.toFloat())
                         name_tv.text = it.ime + " " + it.prezime
-                        lvl_tv.text = "Lvl: " + it.razina
+                        lvl_tv.text = it.razina.toString() + ". lvl"
                     }
                 }
             }

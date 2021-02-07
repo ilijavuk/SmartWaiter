@@ -6,6 +6,11 @@
     app:startDestination="@id/qrFragment">
 
     <fragment
+        android:id="@+id/restaurantProfilFragment"
+        android:name="com.example.smartwaiter.ui.restaurant.restaurant_profil.RestaurantProfilFragment"
+        android:label="Profil"
+        tools:layout="@layout/fragment_restaurant_profil" />
+    <fragment
         android:id="@+id/menuDetailsFragment"
         android:name="com.example.smartwaiter.ui.guest.order.MenuDetailsFragment"
         android:label="Details"

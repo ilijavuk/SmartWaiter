@@ -13,7 +13,7 @@
         android:layout_height="90dp"
         android:layout_marginTop="40dp"
         android:src="@drawable/ic_user_acc"
-        app:layout_constraintBottom_toTopOf="@+id/name_tv"
+        app:layout_constraintBottom_toTopOf="@+id/lvl_tv"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -33,25 +33,27 @@
         android:id="@+id/name_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="48dp"
         android:text="proba"
         android:textSize="25dp"
 
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/image_view" />
+        app:layout_constraintTop_toBottomOf="@id/lvl_tv" />
 
     <TextView
         android:id="@+id/lvl_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="72dp"
         android:text="lvl"
+        app:layout_constraintBottom_toTopOf="@id/name_tv"
+
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.506"
-        app:layout_constraintStart_toEndOf="@id/image_view"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/btnLogout"
