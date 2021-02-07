@@ -12,7 +12,15 @@ include 'upiti.php';
 		if(isset($_GET['metoda'])){
 			
 			if(strcmp($_GET['metoda'],'narudzba')==0){
-					$sql="SELECT t.id_stol, COUNT(*) as broj_osoba, t.rezerviran FROM(SELECT Stol.id_stol, Narudzba_novo.stol_id, Stol.broj_stola, COUNT(Narudzba_novo.id_zapisa) as parc_broj, Stol.rezerviran FROM Stol LEFT OUTER JOIN Narudzba_novo ON Stol.id_stol = Narudzba_novo.stol_id GROUP BY Stol.id_stol, Narudzba_novo.korisnik_id) t WHERE t.parc_broj != 0 GROUP BY t.id_stol UNION SELECT s.id_stol, s.parc_broj2 as broj_osoba, s.rezerviran FROM(SELECT Stol.id_stol, COUNT(Narudzba_novo.id_zapisa) as parc_broj2, Stol.rezerviran FROM Stol LEFT OUTER JOIN Narudzba_novo ON Stol.id_stol = Narudzba_novo.stol_id GROUP BY Stol.id_stol, Narudzba_novo.korisnik_id) s WHERE parc_broj2 = 0 ";
+					$sql='SELECT t.id_stol, COUNT(*) as broj_osoba, t.rezerviran FROM(SELECT Stol.id_stol, Narudzba_novo.stol_id, Stol.broj_stola, COUNT(Narudzba_novo.id_zapisa) as parc_broj, Stol.rezerviran FROM Stol LEFT OUTER JOIN Narudzba_novo ON Stol.id_stol = Narudzba_novo.stol_id GROUP BY Stol.id_stol, Narudzba_novo.korisnik_id) t GROUP BY t.id_stol;';
+			}
+			else
+			if(strcmp($_GET['metoda'],'update_xp')==0){
+					$sql='UPDATE razina SET razina.iskustvo = razina.iskustvo + "'.$_GET['iskustvo'].'" WHERE razina.korisnik_id = "'.$_GET['key'].'";';
+			}
+			else
+			if(strcmp($_GET['metoda'],'select_r')==0){
+					$sql='SELECT razina.id_razina, razina.iskustvo, razina.razina, Korisnik.id_korisnik, Korisnik.ime, Korisnik.prezime FROM razina, Korisnik WHERE razina.korisnik_id = Korisnik.id_korisnik';
 			}
 			else 
 			if(strcmp($_GET['metoda'],'narudzba_stol')==0){
@@ -30,6 +38,7 @@ include 'upiti.php';
 			else $sql=QueryBuilder();
 						
 		}
+		
 		if($sql!=null){
 				
 			$rez=$conn->query($sql);
@@ -80,7 +89,7 @@ include 'upiti.php';
 				if(sizeof($arr)==1){
 					$temp.=array_key_last($arr).' = "'. array_pop($arr) .'";';
 				}
-				
+				echo $sql;
 			}
 			
 //AKO NEMA OPERATOR			
@@ -188,6 +197,18 @@ include 'upiti.php';
 }
 
 
+//zakomentirat ovu funkciju na php 7.3 i novijem
+function array_key_last( $array ) {
+        $key = NULL;
+
+        if ( is_array( $array ) ) {
+
+            end( $array );
+            $key = key( $array );
+        }
+
+        return $key;
+}
 function mysql_get_prim_key($table){
 	include 'conn.php';
 	$sql1 = "SHOW INDEX FROM $table WHERE Key_name = 'PRIMARY'";

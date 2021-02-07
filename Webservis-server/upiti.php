@@ -23,7 +23,25 @@ i tjt.
                 break;
             }//case
 
+			case "test2": {
+				$args=[];
+				$izvrsi="Select * from Korisnik";
+				return Formatiraj($args, $izvrsi);
+				break;
+			}
 
+			case "tagsByMeal": {
+             	$args=["meal_id"];
+                $izvrsi="select distinct id_tag, tag FROM Stavka_jelovnika left join Stavka_tag on id_stavka = stavka_id right join Tag_stavke on tag_id = id_tag WHERE id_stavka=_meal_id_";
+                return Formatiraj($args, $izvrsi);
+                break;
+            }//case
+			case "RemoveTagsFromMeal": {
+             	$args=["meal_id"];
+                $izvrsi="delete FROM `Stavka_tag` WHERE stavka_id=_meal_id_";
+                return Formatiraj($args, $izvrsi);
+                break;
+            }//case	
 
 
         default: return null;   

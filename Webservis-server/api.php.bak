@@ -1,0 +1,94 @@
+<?php
+
+
+
+include 'conn.php';
+
+	if($_SERVER['REQUEST_METHOD'] == "GET"){
+
+		
+
+		if(isset($_GET['metoda'])){
+			
+			$sql=QueryBuilder();
+			if($sql!=null){
+
+				$rez=$conn->query($sql);
+				$vrati = [];
+				if($rez -> num_rows > 0){
+				while ($red = $rez->fetch_assoc())
+				{
+					$vrati[] = $red;
+				}
+				
+				echo json_encode($vrati);
+				}
+
+
+			}
+			
+		}
+	}
+	else echo "ŠTA RADIŠ TU";
+
+	function QueryBuilder(){
+		$temp="";
+		if(strcmp($_GET['metoda'],"select")==0){
+			$temp='Select * from '.$_GET["tablica"];
+			$arr=$_GET;
+			unset($arr['tablica']);
+			unset($arr['metoda']);
+			
+			if(sizeof($arr)>0){
+				$temp.=' where ';
+				while(sizeof($arr)>1){
+					$temp.=array_key_last($arr).' = "'.array_pop($arr).'" and ';
+				}
+			}
+
+			if(sizeof($arr)==1){
+				$temp.=array_key_last($arr).' = "'. array_pop($arr) .'";';
+			}
+			
+			return $temp;
+		}
+
+		if(strcmp($_GET['metoda'],"insert")==0){
+			$temp='INSERT INTO '.$_GET["tablica"]. ' (';
+			$arr=$_GET;
+			unset($arr['tablica']);
+			unset($arr['metoda']);
+			
+			$key=[];
+			$val=[];
+
+			while(!empty($arr)){
+				array_push($key, array_key_last($arr));
+				array_push($val, array_pop($arr));
+			}
+			if(empty($key) || empty($val)) return null;
+			while(sizeof($key)>1){
+				$temp.=' `'. array_pop($key) . '`,';
+			}
+			if(sizeof($key)==1){
+				$temp.=' `'. array_pop($key) . '`)';
+			}
+			$temp.= ' VALUES (';
+			while(sizeof($val)>1){
+				$temp.=' "'. array_pop($val) . '",';
+			}
+			if(sizeof($val)==1){
+				$temp.=' "'. array_pop($val) . '");';
+			}
+			echo $temp;
+			return $temp;
+	
+		}
+		
+		return null;
+		
+}
+
+
+
+?>
