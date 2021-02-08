@@ -34,34 +34,6 @@
 
 
         </com.budiyev.android.codescanner.CodeScannerView>
-        <LinearLayout
-            android:id="@+id/qrButtons"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:gravity="center"
-            >
-            <Button
-                android:id="@+id/btnManualEntry"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Ručni unos koda"
-                android:background="@drawable/ic_button_style_primary"
-                android:layout_marginTop="5dp"
-                />
-            <Button
-                android:layout_marginTop="5dp"
-                android:id="@+id/btnCallMap"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Karta"
-                android:background="@drawable/ic_button_style_primary"
-                android:layout_marginBottom="5dp"
-                />
 
-        </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

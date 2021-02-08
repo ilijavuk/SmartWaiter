@@ -127,6 +127,7 @@ class GuestActivity : AppCompatActivity(), HashCodeListener{
                 navController.setGraph(navController.graph, bundle)
 
                  */
+                HashHandler(hash.toString().removePrefix("https://smartwaiter.app/app.php?")).hadnleHash(::ucitanStol)
 
             } else {
                 // Other NFC Tags
@@ -147,7 +148,7 @@ class GuestActivity : AppCompatActivity(), HashCodeListener{
 
     override fun onCodeObtained(code: String) {
 
-        var stol=HashHandler(code).hadnleHash(::ucitanStol)
+        HashHandler(code).hadnleHash(::ucitanStol)
 
 
 
