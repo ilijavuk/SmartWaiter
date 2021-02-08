@@ -162,7 +162,11 @@ class QrFragment : Fragment(R.layout.fragment_qrscanner) {
                     Log.d("REEEEEEEEEEEEE", response.value.toString())
 
                     lifecycleScope.launch {
+
                         userPreferences.saveTableId(response.value[0].id_stol)
+                    }
+                    lifecycleScope.launch {
+
                         viewModel.saveActiveRestaurant(response.value[0].lokal_id)
                     }
 
