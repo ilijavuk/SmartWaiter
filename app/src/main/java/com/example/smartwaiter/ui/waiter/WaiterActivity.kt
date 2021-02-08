@@ -19,10 +19,12 @@ import com.example.database.UserPreferences
 import com.example.smartwaiter.R
 import com.example.smartwaiter.ui.auth.MainActivity
 import com.example.smartwaiter.util.startNewActivity
+import com.google.firebase.iid.FirebaseInstanceId
 import kotlinx.android.synthetic.main.activity_restoran.*
 import kotlinx.android.synthetic.main.activity_waiter.*
 import kotlinx.android.synthetic.main.fragment_table_order.*
 import kotlinx.coroutines.launch
+import java.io.IOException
 
 class WaiterActivity : AppCompatActivity() {
 
@@ -49,6 +51,14 @@ class WaiterActivity : AppCompatActivity() {
 
         if(item.itemId == R.id.waiter_logout)
         {
+            Thread {
+                try {
+                    FirebaseInstanceId.getInstance().deleteInstanceId();
+                    FirebaseInstanceId.getInstance().getInstanceId();
+                } catch (e: IOException) {
+                    e.printStackTrace()
+                }
+            }.start()
             lifecycleScope.launch {
                 preferences.clear()
             }
