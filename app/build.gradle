@@ -71,6 +71,7 @@ dependencies {
     implementation project (':webservice')
     implementation project (':database')
     implementation project (':ManualEntry')
+    implementation project (':qrModul')
 
     // Navigation Component dependencies
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"

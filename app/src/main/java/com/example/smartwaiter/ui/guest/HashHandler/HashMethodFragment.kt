@@ -5,7 +5,7 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.smartwaiter.R
-import com.example.smartwaiter.ui.guest.qr.QrFragmentDirections
+
 import kotlinx.android.synthetic.main.fragment_hash_method.*
 
 

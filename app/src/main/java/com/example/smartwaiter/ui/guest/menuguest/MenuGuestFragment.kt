@@ -21,7 +21,7 @@ import com.example.smartwaiter.ui.guest.menuguest.MenuGuestModelFactory
 import com.example.smartwaiter.ui.guest.menuguest.MenuGuestViewModel
 import com.example.smartwaiter.ui.guest.order.OrderDialogFragment
 import com.example.smartwaiter.ui.guest.order.OrderViewModel
-import com.example.smartwaiter.ui.guest.qr.QrFragmentArgs
+
 import com.example.smartwaiter.util.handleApiError
 import com.example.smartwaiter.util.visible
 import hr.foi.air.webservice.model.Meal

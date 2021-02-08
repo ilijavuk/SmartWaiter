@@ -24,7 +24,7 @@ import com.example.database.db.SMDatabase
 import com.example.smartwaiter.R
 import com.example.smartwaiter.ui.auth.MainActivity
 import com.example.smartwaiter.ui.guest.HashHandler.HashHandler
-import com.example.smartwaiter.ui.guest.qr.QrFragmentDirections
+
 import com.example.smartwaiter.util.startNewActivity
 import com.example.smartwaiter.util.visible
 import hr.foi.air.webservice.model.Stol

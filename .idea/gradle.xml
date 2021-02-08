@@ -14,6 +14,7 @@
             <option value="$PROJECT_DIR$/ManualEntry" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/database" />
+            <option value="$PROJECT_DIR$/qrModul" />
             <option value="$PROJECT_DIR$/webservice" />
           </set>
         </option>
