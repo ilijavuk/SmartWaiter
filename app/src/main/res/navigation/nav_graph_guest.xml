@@ -106,8 +106,8 @@
     <fragment
         android:id="@+id/hashHandlerFragment"
         android:name="com.example.smartwaiter.ui.guest.HashHandler.HashMethodFragment"
-        android:label="fragment_hash_handler"
-        tools:layout="@layout/fragment_hash_method" >
+        android:label="Welcome"
+        tools:layout="@layout/fragment_hash_method">
         <action
             android:id="@+id/action_hashHandlerFragment_to_mapFragment"
             app:destination="@id/mapFragment" />

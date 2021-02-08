@@ -1,46 +1,89 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".ui.guest.HashHandler.HashMethodFragment">
 
-    <LinearLayout
-        android:id="@+id/qrButtons"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:gravity="center"
-        >
-        <Button
-            android:id="@+id/btnQrScan"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Skeniranje Qr koda"
-            android:background="@drawable/ic_button_style_primary"
-            android:layout_marginTop="5dp"
-            />
-        <Button
-            android:id="@+id/btnEnterManualy2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Ručni unos koda"
-            android:background="@drawable/ic_button_style_primary"
-            android:layout_marginTop="5dp"
-            />
-        <Button
-            android:layout_marginTop="5dp"
-            android:id="@+id/btnCallMap"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Karta"
-            android:background="@drawable/ic_button_style_primary"
-            android:layout_marginBottom="5dp"
-            />
+    <Button
+        android:id="@+id/btnQrScan"
+        android:layout_width="200dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/ic_button_style_primary"
+        android:text="scan qr code"
+        app:layout_constraintEnd_toEndOf="@+id/textView3"
+        app:layout_constraintStart_toStartOf="@+id/textView3"
+        app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
-    </LinearLayout>
-</FrameLayout>
+    <Button
+        android:id="@+id/btnEnterManualy2"
+        android:layout_width="200dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/ic_button_style_primary"
+        android:text="manually enter code"
+        app:layout_constraintEnd_toEndOf="@+id/btnQrScan"
+        app:layout_constraintStart_toStartOf="@+id/btnQrScan"
+        app:layout_constraintTop_toBottomOf="@+id/btnQrScan" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnCallMap"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        app:iconGravity="textStart"
+        app:iconPadding="0dp"
+        android:background="@drawable/ic_button_style_primary"
+        app:icon="@drawable/ic_map"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:gravity="center"
+        android:text="Hold your phone next to the SmartWaiter card on your table to start"
+        android:textColor="@color/darker"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/imageView"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/imageView"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="250dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/sken"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="Or select an alternative method"
+        app:layout_constraintEnd_toEndOf="@+id/imageView"
+        app:layout_constraintStart_toStartOf="@+id/imageView"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:textColor="@color/darkGray"
+        android:text="Locate a supported place near you"
+        app:layout_constraintBottom_toBottomOf="@+id/btnCallMap"
+        app:layout_constraintEnd_toStartOf="@+id/btnCallMap"
+        app:layout_constraintTop_toTopOf="@+id/btnCallMap" />
+</androidx.constraintlayout.widget.ConstraintLayout>
