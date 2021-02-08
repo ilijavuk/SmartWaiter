@@ -40,19 +40,12 @@ class PaymentFragment : Fragment(R.layout.fragment_payment) {
         super.onViewCreated(view, savedInstanceState)
         userPreferences = UserPreferences(requireContext())
 
-        userPreferences.totalCost.asLiveData().observe(viewLifecycleOwner, {
-            it?.let {
-                textViewPrice.text = "Price: " + String.format("%.2f",it.toDouble()) + " HRK"
-                userCost = String.format("%.2f",it.toDouble()).replace(".","")
-                Log.d("cost",userCost)
-            }
-        })
-
 
         buttonPayOrder.enable(false)
         userPreferences.customerID.asLiveData().observe(viewLifecycleOwner, {
             it?.let {
                 customer = it
+                Log.d("cost",it)
                 CustomerSession.initCustomerSession(requireContext(), PaymentEphemeralKeyProvider(it))
                 paymentSession = PaymentSession(this, paymentSessionConfig())
                 paymentSession?.init(createPaymentSessionListener())
@@ -65,6 +58,14 @@ class PaymentFragment : Fragment(R.layout.fragment_payment) {
                     confirmPayment(selectedPaymentMethod.id!!)
                 }
 
+            }
+        })
+
+        userPreferences.totalCost.asLiveData().observe(viewLifecycleOwner, {
+            it?.let {
+                textViewPrice.text = "Price: " + String.format("%.2f",it.toDouble()) + " HRK"
+                userCost = String.format("%.2f",it.toDouble()).replace(".","")
+                Log.d("cost",userCost)
             }
         })
 

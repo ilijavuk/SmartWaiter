@@ -56,8 +56,8 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                         viewModel.saveAuthToken(response.value[0].id_korisnik)
                         when (response.value[0].tip_korisnika_id) {
                             "1" -> {
+                                Log.d("danas","da")
                                 viewModel.createCustomer()
-                                requireActivity().startNewActivity(GuestActivity::class.java)
                             }
                             "2" -> {
                                 requireActivity().startNewActivity(WaiterActivity::class.java)
@@ -86,6 +86,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                     Log.d("customer", "Uspjeh: " + it.value.customerID)
                     lifecycleScope.launch {
                         viewModel.saveCustomerID(it.value.customerID)
+                        requireActivity().startNewActivity(GuestActivity::class.java)
                     }
                 }
                 is Resource.Loading -> {}
