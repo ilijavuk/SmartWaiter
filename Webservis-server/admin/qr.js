@@ -31,7 +31,26 @@ function DohvatiStolovePoRestoranu(){
         data[i].hash="<a href=# onclick=PrikaziQr('"+data[i].hash+"')>"+data[i].hash+"</a>";
       }
     }
+
     CreateTableFromJSON(data, "stolovi");
+    $("#ocjena").empty();
+    DohvatiOcjenu($('#restorani').val());
+  })
+}
+
+function DohvatiOcjenu(id){
+  var path="./admin.php?stvar=DohvatiOcjenu&id="+id;
+  console.log(path);
+  $.ajax({
+    method: "POST",
+    dataType: 'json',
+    url: path,
+  }).done(function(data){
+
+      
+      $("#ocjena").html("<h3> Ocjena restorana: "+data[0].ocjena);
+      console.log(data);
+      console.log(data.length);
   })
 }
 

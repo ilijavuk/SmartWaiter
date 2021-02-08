@@ -11,7 +11,13 @@ if(isset($_GET['stvar'])){
         case 'StoloviPoRestoranu': StoloviPoRestoranu(); break;
         case 'DodajStol': DodajStol(); break;
         case 'ObrisiStol': ObrisiStol(); break;
+        case 'DohvatiOcjenu': DohvatiOcjenu(); break;
     }
+}
+
+function DohvatiOcjenu(){
+    $sql="SELECT AVG(ocjena) as ocjena from Ocjena where lokal_id = ".$_GET['id'];
+    VratiJson($sql);
 }
 
 function StoloviPoRestoranu(){
