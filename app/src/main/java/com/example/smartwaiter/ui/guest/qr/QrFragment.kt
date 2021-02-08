@@ -163,15 +163,11 @@ class QrFragment : Fragment(R.layout.fragment_qrscanner) {
 
                     lifecycleScope.launch {
 
-                        userPreferences.saveTableId(response.value[0].id_stol)
-                    }
-                    lifecycleScope.launch {
-
                         viewModel.saveActiveRestaurant(response.value[0].lokal_id)
                     }
 
                     val action =
-                        QrFragmentDirections.actionQrFragmentToMenuGuestFragment()
+                        QrFragmentDirections.actionQrFragmentToMenuGuestFragment(response.value[0].id_stol)
                     findNavController().navigate(action)
 
                 }

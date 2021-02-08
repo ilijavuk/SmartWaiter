@@ -21,6 +21,7 @@ import com.example.smartwaiter.ui.guest.menuguest.MenuGuestModelFactory
 import com.example.smartwaiter.ui.guest.menuguest.MenuGuestViewModel
 import com.example.smartwaiter.ui.guest.order.OrderDialogFragment
 import com.example.smartwaiter.ui.guest.order.OrderViewModel
+import com.example.smartwaiter.ui.guest.qr.QrFragmentArgs
 import com.example.smartwaiter.util.handleApiError
 import com.example.smartwaiter.util.visible
 import hr.foi.air.webservice.model.Meal
@@ -30,7 +31,7 @@ import kotlinx.android.synthetic.main.fragment_meni_guest.*
 import kotlinx.coroutines.launch
 
 class MenuGuestFragment : Fragment(R.layout.fragment_meni_guest) {
-
+    private val args: MenuGuestFragmentArgs by navArgs()
     private lateinit var lokal: String
     private lateinit var stol: String
     private lateinit var viewModel: MenuGuestViewModel
@@ -56,6 +57,12 @@ class MenuGuestFragment : Fragment(R.layout.fragment_meni_guest) {
                 Log.d("MYTAG", lokal)
             }
         })
+        if(args.tableID!=null) {
+            lifecycleScope.launch {
+
+                userPreferences.saveTableId(args.tableID!!)
+            }
+        }
 
 
         floatingActionButtonBasket.setOnClickListener {
