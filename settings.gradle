@@ -1,0 +1,5 @@
+include ':ManualEntry'
+include ':webservice'
+include ':database'
+include ':app'
+rootProject.name = "SmartWaiter"

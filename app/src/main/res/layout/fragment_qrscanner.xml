@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.guest.qr.QrFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <com.budiyev.android.codescanner.CodeScannerView
+            android:id="@+id/scanner_view"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+
+            app:autoFocusButtonColor="@android:color/white"
+            app:autoFocusButtonVisible="true"
+            app:flashButtonColor="@android:color/white"
+            app:flashButtonVisible="true"
+            app:frameAspectRatioHeight="1"
+            app:frameAspectRatioWidth="1"
+            app:frameColor="@android:color/white"
+            app:frameCornersRadius="0dp"
+            app:frameCornersSize="50dp"
+            app:frameSize="0.75"
+            app:frameThickness="2dp"
+            app:layout_constraintBottom_toTopOf="@+id/qrButtons"
+            app:layout_constraintTop_toTopOf="parent"
+            app:maskColor="#77000000"
+            tools:layout_editor_absoluteX="-16dp">
+
+
+        </com.budiyev.android.codescanner.CodeScannerView>
+        <LinearLayout
+            android:id="@+id/qrButtons"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:gravity="center"
+            >
+            <Button
+                android:id="@+id/btnManualEntry"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ručni unos koda"
+                android:background="@drawable/ic_button_style_primary"
+                android:layout_marginTop="5dp"
+                />
+            <Button
+                android:layout_marginTop="5dp"
+                android:id="@+id/btnCallMap"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Karta"
+                android:background="@drawable/ic_button_style_primary"
+                android:layout_marginBottom="5dp"
+                />
+
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>

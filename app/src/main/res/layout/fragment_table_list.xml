@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#e0e0e0"
+    tools:context=".ui.waiter.tablelist.TableListFragment">
+
+    <TextView
+        android:id="@+id/id_text_filter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="40dp"
+        android:paddingTop="20dp"
+        android:text="FILTERS"
+        app:layout_constraintTop_toBottomOf="@+id/appBarWaiter"
+        android:textSize="18dp"/>
+
+    <RadioGroup
+        android:id="@+id/radio_group_table"
+        android:layout_margin="10dp"
+        app:layout_constraintTop_toBottomOf="@+id/id_text_filter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="FILTERS"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <RadioButton
+            android:id="@+id/checkbox_1"
+            android:layout_width="80dp"
+            android:layout_height="35dp"
+            android:background="@drawable/radio_flat_selector"
+            android:textColor="@drawable/radio_flat_text_selector"
+            android:button="@android:color/transparent"
+            android:text="PENDDING"
+            android:gravity="center"
+            android:layout_marginEnd="10dp"
+            android:checked="true"/>
+
+        <RadioButton
+            android:id="@+id/checkbox_2"
+            android:layout_width="80dp"
+            android:layout_height="35dp"
+            android:background="@drawable/radio_flat_selector_served"
+            android:textColor="@drawable/radio_flat_text_selector_served"
+            android:button="@android:color/transparent"
+            android:text="SERVED"
+            android:gravity="center"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"/>
+
+        <RadioButton
+            android:id="@+id/checkbox_3"
+            android:layout_width="80dp"
+            android:layout_height="35dp"
+            android:background="@drawable/radio_flat_selector_free"
+            android:textColor="@drawable/radio_flat_text_selector_free"
+            android:button="@android:color/transparent"
+            android:text="FREE"
+            android:gravity="center"
+            android:layout_marginStart="10dp"/>
+
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/id_text_tables"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="40dp"
+        android:paddingTop="20dp"
+        android:text="TABLES"
+        app:layout_constraintTop_toBottomOf="@id/radio_group_table"
+        android:textSize="18dp"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+
+        android:id="@+id/table_grid_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/id_text_tables"
+        >
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

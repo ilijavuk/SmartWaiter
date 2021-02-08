@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph_guest"
+    app:startDestination="@id/qrFragment">
+
+    <fragment
+        android:id="@+id/restaurantProfilFragment"
+        android:name="com.example.smartwaiter.ui.restaurant.restaurant_profil.RestaurantProfilFragment"
+        android:label="Profil"
+        tools:layout="@layout/fragment_restaurant_profil" />
+    <fragment
+        android:id="@+id/menuDetailsFragment"
+        android:name="com.example.smartwaiter.ui.guest.order.MenuDetailsFragment"
+        android:label="Details"
+        tools:layout="@layout/fragment_menu_details" >
+        <argument
+            android:name="meal"
+            app:argType="hr.foi.air.webservice.model.Meal" />
+        <action
+            android:id="@+id/action_menuDetailsFragment_to_menuGuestFragment"
+            app:destination="@id/menuGuestFragment"
+            app:popUpTo="@id/menuGuestFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <dialog
+        android:id="@+id/menuGuestDialogFragment"
+        android:name="com.example.smartwaiter.ui.guest.order.OrderDialogFragment"
+        android:label="dialog_complete_order"
+        tools:layout="@layout/dialog_complete_order">
+        <action
+            android:id="@+id/action_menuGuestDialogFragment_to_waitMealFragment"
+            app:destination="@id/waitMealFragment" />
+        <argument android:name="lokal_id" />
+    </dialog>
+
+    <fragment
+        android:id="@+id/menuGuestFragment"
+        android:name="com.example.smartwaiter.ui.guest.menu_guest.MenuGuestFragment"
+        android:label="Today's Menu"
+        tools:layout="@layout/fragment_meni_guest" >
+        <action
+            android:id="@+id/action_menuGuestFragment_to_menuDetailsFragment"
+            app:destination="@id/menuDetailsFragment" />
+        <action
+            android:id="@+id/action_menuGuestFragment_to_menuGuestDialogFragment"
+            app:destination="@id/menuGuestDialogFragment" />
+        <argument
+            android:name="tableID"
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue="@null" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/qrFragment"
+        android:name="com.example.smartwaiter.ui.guest.qr.QrFragment"
+        android:label="fragment_qrscanner"
+        tools:layout="@layout/fragment_qrscanner" >
+        <action
+            android:id="@+id/action_qrFragment_to_menuGuestFragment"
+            app:destination="@id/menuGuestFragment"
+            app:popUpTo="@id/qrFragment"
+            app:popUpToInclusive="true" />
+        <argument
+            android:name="passedUrl"
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue="@null" />
+        <action
+            android:id="@+id/action_qrFragment_to_mapFragment"
+            app:destination="@id/mapFragment" />
+        <action
+            android:id="@+id/action_qrFragment_to_fragmentManualEntry3"
+            app:destination="@id/fragmentManualEntry3" />
+    </fragment>
+    <fragment
+        android:id="@+id/waitMealFragment"
+        android:name="com.example.smartwaiter.ui.guest.guestwaiting.WaitMealFragment"
+        android:label="fragment_waiting_meal"
+        tools:layout="@layout/fragment_waiting_meal" >
+        <action
+            android:id="@+id/action_waitMealFragment_to_paymentFragment"
+            app:destination="@id/paymentFragment" />
+        <action
+            android:id="@+id/action_waitMealFragment_to_menuGuestFragment"
+            app:destination="@id/menuGuestFragment" />
+        <action
+            android:id="@+id/action_waitMealFragment_to_rateRestaurant"
+            app:destination="@id/rateRestaurant" />
+        <argument android:name="lokal_id" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/paymentFragment"
+        android:name="com.example.smartwaiter.ui.guest.payments.PaymentFragment"
+        android:label="fragment_payment"
+        tools:layout="@layout/fragment_payment" >
+        <action
+            android:id="@+id/action_paymentFragment_to_rateRestaurant"
+            app:destination="@id/rateRestaurant" />
+        <argument android:name="lokal_id" />
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/mapFragment"
+        android:name="com.example.smartwaiter.ui.guest.map.MapFragment"
+        android:label="Supported venues" />
+    <fragment
+        android:id="@+id/fragmentManualEntry3"
+        android:name="hr.foi.air.manualentry.FragmentManualEntry"
+        android:label="Ručni unos koda"
+        tools:layout="@layout/fragment_manual_entry">
+        <action
+            android:id="@+id/action_fragmentManualEntry3_to_qrFragment"
+            app:destination="@id/qrFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/rateRestaurant"
+        android:name="com.example.smartwaiter.ui.guest.raterestaurant.RateRestaurant"
+        android:label="Rate this restaurant"
+        tools:layout="@layout/fragment_rate_restaurant">
+        <action
+            android:id="@+id/action_rateRestaurant_to_menuGuestFragment"
+            app:destination="@id/menuGuestFragment" />
+        <argument android:name="lokal_id" />
+    </fragment>
+
+</navigation>
