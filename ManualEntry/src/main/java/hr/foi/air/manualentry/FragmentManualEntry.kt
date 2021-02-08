@@ -14,36 +14,32 @@ import com.example.database.UserPreferences
 import kotlinx.android.synthetic.main.fragment_manual_entry.*
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.example.database.LoginCodeListener
+import com.example.database.LoginInterface
 import kotlinx.coroutines.launch
 
 
-class FragmentManualEntry : Fragment(R.layout.fragment_manual_entry) {
+class FragmentManualEntry : Fragment(R.layout.fragment_manual_entry), LoginInterface{
 
-    private lateinit var userPreferences: UserPreferences
-    private lateinit var viewModel: ManualEntryViewModel
+
+    private lateinit var ListenerCode: LoginCodeListener
+
+    override fun getFragment(listener: LoginCodeListener): FragmentManualEntry {
+        ListenerCode = listener
+        return this
+    }
+
 
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        userPreferences = UserPreferences(requireContext())
-        val repository = ManualRepository(userPreferences)
-        val viewModelFactory = ManualEntryModelFactory(repository)
-        viewModel = ViewModelProvider(this, viewModelFactory).get(ManualEntryViewModel::class.java)
-
-
         btnManualEntry.setOnClickListener {
             lifecycleScope.launch {
                 val upisano = textEnterTableCode.text.toString()
                 if(upisano.length==32) {
-                    viewModel.saveManualEntry(upisano)
 
-                    userPreferences.manualEntry.asLiveData().observe(viewLifecycleOwner, {
-                        it?.let {
-                            Log.d("test", it)
-                        }
-                        getActivity()?.onBackPressed()
-                    })
+                    ListenerCode.onCodeObtained(upisano)
                 }
                 else{
                     Toast.makeText(context, "Šifra stola treba biti duljine 32 znaka", Toast.LENGTH_SHORT).show()

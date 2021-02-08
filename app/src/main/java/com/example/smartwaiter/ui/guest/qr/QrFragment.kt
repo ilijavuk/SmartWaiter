@@ -16,6 +16,8 @@ import com.budiyev.android.codescanner.CodeScanner
 import com.budiyev.android.codescanner.CodeScannerView
 import com.budiyev.android.codescanner.DecodeCallback
 import com.budiyev.android.codescanner.ScanMode
+import com.example.database.LoginCodeListener
+import com.example.database.LoginInterface
 import com.example.database.UserPreferences
 import com.example.smartwaiter.R
 import com.example.smartwaiter.repository.StolRepostiory
@@ -30,7 +32,7 @@ import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_qrscanner.*
 import kotlinx.coroutines.launch
 
-class QrFragment : Fragment(R.layout.fragment_qrscanner) {
+class QrFragment : Fragment(R.layout.fragment_qrscanner), LoginInterface {
     private val args: QrFragmentArgs by navArgs()
     private lateinit var viewModel: QrViewModel
     private lateinit var repostiory: StolRepostiory
@@ -129,16 +131,6 @@ class QrFragment : Fragment(R.layout.fragment_qrscanner) {
             if(qrPermissionGranted.value==true) {
                 codeScanner.startPreview()
             }
-            var hashKeyManual = ""
-            userPreferences.manualEntry.asLiveData().observe(viewLifecycleOwner, {
-                it?.let {
-                    hashKeyManual = it
-                    if(hashKeyManual!=""){
-                        load(hashKeyManual)
-                    }
-                }
-            })
-
         }
 
 
@@ -183,6 +175,10 @@ class QrFragment : Fragment(R.layout.fragment_qrscanner) {
 
     fun decodeFromWeb(hash: String){
         viewModel.getTableByHash("Stol", "select", hash)
+    }
+
+    override fun getFragment(listener: LoginCodeListener): Fragment {
+        TODO("Not yet implemented")
     }
 
 }
