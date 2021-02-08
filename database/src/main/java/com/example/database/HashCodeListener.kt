@@ -1,6 +1,6 @@
 package com.example.database
 
-interface LoginCodeListener {
+interface HashCodeListener {
     fun onCodeObtained(code: String)
 
 

@@ -58,7 +58,8 @@
         android:id="@+id/qrFragment"
         android:name="com.example.smartwaiter.ui.guest.qr.QrFragment"
         android:label="fragment_qrscanner"
-        tools:layout="@layout/fragment_qrscanner" >
+        tools:layout="@layout/fragment_qrscanner"
+        app:startDestination="@id/action_qrFragment_to_fragmentManualEntry3">
         <action
             android:id="@+id/action_qrFragment_to_menuGuestFragment"
             app:destination="@id/menuGuestFragment"
@@ -129,5 +130,10 @@
             app:destination="@id/menuGuestFragment" />
         <argument android:name="lokal_id" />
     </fragment>
+    <fragment
+        android:id="@+id/hashHandlerFragment"
+        android:name="com.example.smartwaiter.ui.guest.HashHandler.HashMethodFragment"
+        android:label="fragment_hash_handler"
+        tools:layout="@layout/fragment_hash_handler" />
 
 </navigation>

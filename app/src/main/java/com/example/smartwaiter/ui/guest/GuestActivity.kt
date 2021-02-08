@@ -9,8 +9,7 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.core.view.get
-import androidx.fragment.app.FragmentTransaction
+import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
@@ -19,18 +18,21 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.onNavDestinationSelected
 import androidx.navigation.ui.setupActionBarWithNavController
+import com.example.database.HashCodeListener
 import com.example.database.UserPreferences
 import com.example.database.db.SMDatabase
 import com.example.smartwaiter.R
 import com.example.smartwaiter.ui.auth.MainActivity
-import com.example.smartwaiter.ui.guest.nfc.NfcFragment
+import com.example.smartwaiter.ui.guest.HashHandler.HashHandler
+import com.example.smartwaiter.ui.guest.qr.QrFragmentDirections
 import com.example.smartwaiter.util.startNewActivity
 import com.example.smartwaiter.util.visible
 import hr.foi.air.webservice.model.Stol
 import kotlinx.android.synthetic.main.activity_guest.*
 import kotlinx.coroutines.launch
 
-class GuestActivity : AppCompatActivity() {
+
+class GuestActivity : AppCompatActivity(), HashCodeListener{
 
 
     private lateinit var navController: NavController
@@ -118,10 +120,13 @@ class GuestActivity : AppCompatActivity() {
                 var hash=ndefRecord.toUri().toString()
                 Log.d("URI detected", hash)
                 //TODO: napravit nešto s NFC-om lol
+                /*
                 val bundle = Bundle()
                 bundle.putString("passedUrl", hash)
 
                 navController.setGraph(navController.graph, bundle)
+
+                 */
 
             } else {
                 // Other NFC Tags
@@ -129,6 +134,23 @@ class GuestActivity : AppCompatActivity() {
             }
             // ...
         }
+    }
+
+    fun ucitanStol (stol : Stol){
+        lifecycleScope.launch {
+            preferences.saveActiveRestaurant(stol.lokal_id)
+            preferences.saveTableId(stol.id_stol)
+
+       }
+       navController.navigate(R.id.menuGuestFragment)
+    }
+
+    override fun onCodeObtained(code: String) {
+
+        var stol=HashHandler(code).hadnleHash(::ucitanStol)
+
+
+
     }
 
 }

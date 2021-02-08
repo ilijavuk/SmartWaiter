@@ -15,24 +15,16 @@ import androidx.navigation.fragment.navArgs
 import com.budiyev.android.codescanner.CodeScanner
 import com.budiyev.android.codescanner.CodeScannerView
 import com.budiyev.android.codescanner.DecodeCallback
-import com.budiyev.android.codescanner.ScanMode
-import com.example.database.LoginCodeListener
-import com.example.database.LoginInterface
+import com.example.database.HashCodeListener
 import com.example.database.UserPreferences
 import com.example.smartwaiter.R
 import com.example.smartwaiter.repository.StolRepostiory
-import com.example.smartwaiter.ui.guest.qr.QrFragmentDirections
-import com.example.smartwaiter.ui.waiter.WaiterActivity
 import com.example.smartwaiter.util.handleApiError
-import com.example.smartwaiter.util.startNewActivity
-import com.example.smartwaiter.util.visible
-import com.google.common.primitives.UnsignedBytes.toInt
 import hr.foi.air.webservice.util.Resource
-import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_qrscanner.*
 import kotlinx.coroutines.launch
 
-class QrFragment : Fragment(R.layout.fragment_qrscanner), LoginInterface {
+class QrFragment : Fragment(R.layout.fragment_qrscanner), HashCodeListener {
     private val args: QrFragmentArgs by navArgs()
     private lateinit var viewModel: QrViewModel
     private lateinit var repostiory: StolRepostiory
@@ -78,6 +70,7 @@ class QrFragment : Fragment(R.layout.fragment_qrscanner), LoginInterface {
 
         }
         btnManualEntry.setOnClickListener {
+
             val action =
                 QrFragmentDirections.actionQrFragmentToFragmentManualEntry3()
             findNavController().navigate(action)
@@ -145,7 +138,7 @@ class QrFragment : Fragment(R.layout.fragment_qrscanner), LoginInterface {
         super.onPause()
     }
 
-    public fun load(hash : String){
+    fun load(hash : String){
 
         decodeFromWeb(hash)
         viewModel.myResponse.observe(viewLifecycleOwner) { response ->
@@ -157,7 +150,6 @@ class QrFragment : Fragment(R.layout.fragment_qrscanner), LoginInterface {
 
                         viewModel.saveActiveRestaurant(response.value[0].lokal_id)
                     }
-
                     val action =
                         QrFragmentDirections.actionQrFragmentToMenuGuestFragment(response.value[0].id_stol)
                     findNavController().navigate(action)
@@ -177,8 +169,10 @@ class QrFragment : Fragment(R.layout.fragment_qrscanner), LoginInterface {
         viewModel.getTableByHash("Stol", "select", hash)
     }
 
-    override fun getFragment(listener: LoginCodeListener): Fragment {
-        TODO("Not yet implemented")
+
+    override fun onCodeObtained(code: String) {
+        load(code)
     }
+
 
 }
