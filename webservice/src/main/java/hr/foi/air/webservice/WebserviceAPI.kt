@@ -152,6 +152,13 @@ interface WebserviceAPI {
         @Query("hash") hash: String
     ): List<Stol>
 
+    @GET("sw-api/api.php")
+    fun getTableHash(
+        @Query("tablica") table: String,
+        @Query("metoda") method: String,
+        @Query("hash") hash: String
+    ): Call<List<Stol>>
+
 
     @GET("sw-api/api.php")
     suspend fun getAllTags(

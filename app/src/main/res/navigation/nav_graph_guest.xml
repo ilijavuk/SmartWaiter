@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph_guest"
-    app:startDestination="@id/qrFragment">
+    app:startDestination="@id/hashHandlerFragment">
 
     <fragment
         android:id="@+id/restaurantProfilFragment"
@@ -55,28 +55,6 @@
     </fragment>
 
     <fragment
-        android:id="@+id/qrFragment"
-        android:name="com.example.smartwaiter.ui.guest.qr.QrFragment"
-        android:label="fragment_qrscanner"
-        tools:layout="@layout/fragment_qrscanner" >
-        <action
-            android:id="@+id/action_qrFragment_to_menuGuestFragment"
-            app:destination="@id/menuGuestFragment"
-            app:popUpTo="@id/qrFragment"
-            app:popUpToInclusive="true" />
-        <argument
-            android:name="passedUrl"
-            app:argType="string"
-            app:nullable="true"
-            android:defaultValue="@null" />
-        <action
-            android:id="@+id/action_qrFragment_to_mapFragment"
-            app:destination="@id/mapFragment" />
-        <action
-            android:id="@+id/action_qrFragment_to_fragmentManualEntry3"
-            app:destination="@id/fragmentManualEntry3" />
-    </fragment>
-    <fragment
         android:id="@+id/waitMealFragment"
         android:name="com.example.smartwaiter.ui.guest.guestwaiting.WaitMealFragment"
         android:label="fragment_waiting_meal"
@@ -113,11 +91,7 @@
         android:id="@+id/fragmentManualEntry3"
         android:name="hr.foi.air.manualentry.FragmentManualEntry"
         android:label="Ručni unos koda"
-        tools:layout="@layout/fragment_manual_entry">
-        <action
-            android:id="@+id/action_fragmentManualEntry3_to_qrFragment"
-            app:destination="@id/qrFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_manual_entry"/>
 
     <fragment
         android:id="@+id/rateRestaurant"
@@ -129,5 +103,24 @@
             app:destination="@id/menuGuestFragment" />
         <argument android:name="lokal_id" />
     </fragment>
+    <fragment
+        android:id="@+id/hashHandlerFragment"
+        android:name="com.example.smartwaiter.ui.guest.HashHandler.HashMethodFragment"
+        android:label="Welcome"
+        tools:layout="@layout/fragment_hash_method">
+        <action
+            android:id="@+id/action_hashHandlerFragment_to_mapFragment"
+            app:destination="@id/mapFragment" />
+        <action
+            android:id="@+id/action_hashHandlerFragment_to_fragmentManualEntry3"
+            app:destination="@id/fragmentManualEntry3" />
+        <action
+            android:id="@+id/action_hashHandlerFragment_to_qrFragment"
+            app:destination="@id/qrFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/qrFragment"
+        android:name="com.example.qrmodul.QrFragment"
+        android:label="QrFragment" />
 
 </navigation>
